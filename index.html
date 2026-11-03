@@ -1,0 +1,1203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Maasverse</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A spoiler-safe fan companion to Sarah J. Maas's connected multiverse: Throne of Glass, A Court of Thorns and Roses and Crescent City. Books, characters, worlds, timeline, recaps, family trees and crossover connections, including the newest and upcoming books.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<style>
+/* Layout: sticky command bar (title + global search + tabs) over a single content column; cards in auto-fill grids.
+   On phones the tabs become an icon bar fixed to the bottom.
+   Theme: The Maasverse. Moonstone parchment by day, a starlit Velaris night after dark. Three world hues:
+   Erilea ember gold, Prythian starlight violet, Midgard rift teal, meeting in a silver-violet "gate" accent. */
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f1eff6; --surface:#fbfaff; --sunk:#e5e2ef; --fg:#1b1830; --muted:#5b5774; --line:#d4d0e2;
+  --accent:#4a3a98; --accent-ink:#ffffff; --bronze:#9a5a1a; --gold:#9a7420;
+  --good:#2f7a4c; --grey:#8a6513; --bad:#a3322b; --theory:#a8336a;
+  --fam:#9a7420; --love:#b8436b; --friend:#2f7a4c; --foe:#a3322b; --bond:#4a3a98; --ally:#5d6fb3;
+  --display:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --body:"Alegreya Sans", "Gill Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"Cinzel", "Trajan Pro", Georgia, serif;
+  --r:8px; --stars:none;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e0d1c; --surface:#17162c; --sunk:#221f3b; --fg:#ece8f7; --muted:#a6a1c2; --line:#302d50;
+  --accent:#c9b8ff; --accent-ink:#0e0d1c; --bronze:#e9b46a; --gold:#e3c27a;
+  --good:#7cc596; --grey:#e3b552; --bad:#f07c74; --theory:#f08fbf;
+  --fam:#e3c27a; --love:#f08fb2; --friend:#7cc596; --foe:#f07c74; --bond:#c9b8ff; --ally:#a8b8e8;
+  --stars:radial-gradient(1px 1px at 12% 22%,#fff8 50%,transparent 51%),radial-gradient(1px 1px at 68% 38%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 84% 12%,#fff9 50%,transparent 51%),radial-gradient(1px 1px at 33% 72%,#fff5 50%,transparent 51%),radial-gradient(1px 1px at 92% 64%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 47% 8%,#fff7 50%,transparent 51%),radial-gradient(1px 1px at 22% 55%,#fff6 50%,transparent 51%),radial-gradient(1px 1px at 58% 82%,#fff5 50%,transparent 51%);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e0d1c; --surface:#17162c; --sunk:#221f3b; --fg:#ece8f7; --muted:#a6a1c2; --line:#302d50;
+  --accent:#c9b8ff; --accent-ink:#0e0d1c; --bronze:#e9b46a; --gold:#e3c27a;
+  --good:#7cc596; --grey:#e3b552; --bad:#f07c74; --theory:#f08fbf;
+  --fam:#e3c27a; --love:#f08fb2; --friend:#7cc596; --foe:#f07c74; --bond:#c9b8ff; --ally:#a8b8e8;
+  --stars:radial-gradient(1px 1px at 12% 22%,#fff8 50%,transparent 51%),radial-gradient(1px 1px at 68% 38%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 84% 12%,#fff9 50%,transparent 51%),radial-gradient(1px 1px at 33% 72%,#fff5 50%,transparent 51%),radial-gradient(1px 1px at 92% 64%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 47% 8%,#fff7 50%,transparent 51%),radial-gradient(1px 1px at 22% 55%,#fff6 50%,transparent 51%),radial-gradient(1px 1px at 58% 82%,#fff5 50%,transparent 51%);
+  color-scheme:dark}
+/* ---- codex-specific additions ---- */
+.trope{margin:4px 0 0;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--bronze)}
+.town h3{font-size:1.4rem}
+ul.lm{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:5px;font-size:.95rem}
+ul.lm li{padding-left:14px;position:relative}
+ul.lm li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--wc,var(--gold))}
+.spd .opt-h{margin:14px 0 4px;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bronze)}
+.spd .opt-h:first-child{margin-top:0}
+.rc-chips{display:grid;gap:8px;margin-bottom:16px}
+.rc-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rc-s{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-width:170px}
+.xover{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.xover .era h3{font-size:1.1rem}
+header.bar .brand h1{font-weight:600;letter-spacing:.04em}
+.brand h1 .pre{font-style:italic;color:var(--muted);font-size:.8em;font-weight:500}
+.brand h1 .thorn{font-style:italic}
+h2,h3{font-weight:600}
+header.bar{border-bottom:3px double var(--line)}
+@media (max-width:700px){.rc-s{min-width:100%}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16.5px;line-height:1.5}
+img{max-width:100%}
+[hidden]{display:none!important}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--stars),var(--surface);border-bottom:1px solid var(--line)}
+.bar .wrap{padding-block:12px 0;display:grid;gap:10px}
+.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.brand h1{font-family:var(--display);font-size:clamp(1.5rem,3.8vw,2rem);margin:0;line-height:1.1}
+.brand h1 .thorn{color:var(--accent)}
+.brand small{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.gsearch{position:relative}
+.gsearch input{width:100%;font:inherit;padding:10px 12px 10px 36px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);color:var(--fg)}
+.gsearch svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--muted)}
+.gres{position:absolute;left:0;right:0;top:calc(100% + 4px);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);max-height:60vh;overflow:auto;box-shadow:0 10px 30px rgba(0,0,0,.2);z-index:40}
+.gres button{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;padding:9px 12px;border:0;background:none;color:var(--fg);font:inherit;cursor:pointer;border-bottom:1px solid var(--line)}
+.gres button:hover,.gres button:focus-visible{background:var(--sunk);outline:none}
+.gres .k{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--bronze);min-width:78px}
+.gres .s{color:var(--muted);font-size:.86rem}
+nav.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{font:inherit;font-weight:500;border:0;background:none;color:var(--muted);padding:10px 12px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+main .wrap{padding-block:22px 60px}
+h2{font-family:var(--display);font-size:1.9rem;margin:0 0 4px;letter-spacing:.01em;text-wrap:balance;line-height:1.15}
+h3{font-family:var(--display);font-size:1.3rem;margin:0;letter-spacing:.01em;text-wrap:balance;line-height:1.2}
+.lede{color:var(--muted);margin:0 0 18px;max-width:68ch}
+.eyebrow{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze);margin:0}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.controls input[type=search],.controls select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--fg);min-width:0}
+.controls input[type=search]{flex:1 1 220px}
+.chip{font:inherit;font-size:.92rem;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--fg);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.chip .swatch{border-color:transparent}
+.chip:focus-visible,.card:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.count{font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;align-items:start}
+.grid.wide{grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
+.group-h{display:flex;align-items:baseline;gap:10px;margin:26px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.group-h:first-child{margin-top:0}
+.group-h span{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0;scroll-margin-top:180px;transition:box-shadow .3s}
+.card.flash{box-shadow:0 0 0 3px var(--accent)}
+.card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:8px}
+.card .aka{color:var(--muted);font-size:.9rem;font-style:italic}
+dl.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:10px 0 0;font-size:.95rem}
+dl.kv dt{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:4px}
+dl.kv dd{margin:0;min-width:0}
+.pill{display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.p-good{color:var(--good)} .p-grey{color:var(--grey)} .p-bad{color:var(--bad)}
+.p-dead{color:var(--muted)} .p-mark{color:var(--gold)} .p-theory{color:var(--theory)} .p-acc{color:var(--accent)}
+.pills{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.death{margin-top:10px;padding:8px 10px;background:var(--sunk);border-radius:var(--r);font-size:.93rem}
+.agenda{margin-top:10px;font-size:.95rem}
+.agenda b,.lbl{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;display:block}
+a.lnk,button.lnk{color:var(--accent);background:none;border:0;padding:0;font:inherit;cursor:pointer;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1px solid var(--line)}
+.books{font-family:var(--mono);font-size:.64rem;letter-spacing:.04em;color:var(--muted);margin-top:10px}
+.links{margin-top:10px;font-size:.92rem}
+.note{font-size:.93rem;color:var(--muted);border:1px dashed var(--line);border-radius:var(--r);padding:10px 12px;margin:0 0 18px;max-width:80ch}
+.note b{color:var(--fg)}
+/* book guide */
+.order{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:0 0 22px;padding:0;list-style:none}
+.order li{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;font-size:.9rem;position:relative}
+.order li b{display:block;font-family:var(--display);font-weight:600;font-size:1.05rem;line-height:1.2}
+.order li .n{font-family:var(--mono);font-size:.6rem;color:var(--bronze);letter-spacing:.08em;text-transform:uppercase}
+.order li.soon{border-style:dashed;opacity:.85}
+.order li.dim{opacity:.35}
+.bookcard{display:grid;grid-template-columns:64px 1fr;gap:14px}
+.spine{border-radius:4px;min-height:110px;display:flex;align-items:flex-end;justify-content:center;padding:12px 0;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;color:#fff;line-height:1;box-shadow:inset -6px 0 0 rgba(0,0,0,.2),inset 0 0 0 1px rgba(255,255,255,.08)}
+.spine span{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
+.bk-plot{margin:8px 0 0;font-size:.97rem}
+.bk-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-top:12px}
+.buybtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;box-sizing:border-box;font:inherit;font-weight:500;font-size:.92rem;line-height:1.2;cursor:pointer;border:1px solid var(--accent);text-decoration:none;color:var(--accent-ink);background:var(--accent);border-radius:var(--r);padding:8px 14px;min-height:40px}
+.buybtn:hover{filter:brightness(1.1)}
+.buybtn svg{width:16px;height:16px}
+.buybtn.ghost{background:none;color:var(--accent);border-color:var(--line)}
+.castlist{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:.94rem;margin-top:4px}
+.newsgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:0 0 22px}
+.news{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;font-size:.93rem;display:grid;gap:4px;align-content:start}
+.news b{font-family:var(--display);font-size:1.12rem;font-weight:600;line-height:1.2}
+.news .when{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bronze)}
+.news .big{font-family:var(--mono);font-size:1.8rem;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+/* world */
+.sec-h{margin:34px 0 10px}
+.sec-h:first-child{margin-top:0}
+.era{border-left:3px solid var(--accent);padding:6px 0 6px 12px;font-size:.95rem;scroll-margin-top:180px}
+.era h3{font-size:1.1rem}
+.era .when{font-family:var(--mono);font-size:.64rem;color:var(--bronze);letter-spacing:.08em;text-transform:uppercase}
+.era.flash{background:var(--sunk)}
+ol.tl{list-style:none;margin:0;padding:0;position:relative}
+ol.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+ol.tl li{position:relative;padding:0 0 16px 30px;scroll-margin-top:180px}
+ol.tl li::before{content:"";position:absolute;left:1px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:2px solid var(--wc,var(--accent))}
+ol.tl li.bk::before{background:var(--wc,var(--accent))}
+ol.tl li.flash{background:var(--sunk);border-radius:var(--r)}
+ol.tl .when{font-family:var(--mono);font-size:.64rem;color:var(--bronze);letter-spacing:.08em;text-transform:uppercase}
+ol.tl b{display:block;font-weight:700}
+ol.tl p{margin:2px 0 0;color:var(--muted);font-size:.95rem;max-width:72ch}
+.orbs{background:var(--stars),var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px;overflow-x:auto;margin-bottom:16px}
+.orbs svg{display:block;width:100%;min-width:480px;height:auto}
+/* recaps */
+.recap{max-width:820px}
+.recap h3{font-size:1.5rem}
+.recap h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bronze);margin:18px 0 6px;font-weight:500}
+.recap ul{margin:0;padding-left:20px;display:grid;gap:5px}
+.recap p{margin:0 0 8px}
+.remember{margin-top:16px;padding:12px 14px;border:1px solid var(--accent);border-radius:var(--r);background:var(--sunk)}
+.remember h4{margin-top:0;color:var(--accent)}
+/* graph views */
+.split{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+@media (max-width:820px){.split{grid-template-columns:1fr}}
+.stage{background:var(--stars),var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:auto;min-width:0;max-height:78vh}
+.stage svg{display:block}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;position:sticky;top:190px}
+.panel ul{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:6px;font-size:.95rem}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.87rem;color:var(--muted);margin-bottom:12px}
+.legend i{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:5px;border-radius:2px}
+svg text{font-family:var(--body);fill:var(--fg)}
+.node{cursor:pointer}
+.node rect,.node circle{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.node.focus rect,.node.focus circle{stroke:var(--accent);stroke-width:3}
+.node.near rect,.node.near circle{stroke:var(--bronze);stroke-width:2}
+.node.dim,.edge.dim{opacity:.13}
+.node.dead text{fill:var(--muted)}
+.node:focus-visible rect{stroke:var(--accent);stroke-width:3}
+.edge{fill:none;stroke-width:1.8;transition:opacity .2s}
+.empty{color:var(--muted);padding:30px 0;text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+button,select,input,.node{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.tabicon,.ts,.sheet-close{display:none}
+/* ---- Spoiler shield ---- */
+.spbtn{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:.87rem;font-weight:500;color:var(--fg);background:var(--sunk);border:1px solid var(--line);border-radius:999px;padding:6px 12px;min-height:36px;cursor:pointer;align-self:center}
+.spbtn:hover{border-color:var(--accent)}
+.spbtn svg{width:17px;height:17px;flex-shrink:0}
+.sp-hidden{filter:blur(6px);cursor:pointer;user-select:none;-webkit-user-select:none;transition:filter .2s}
+.sp-hidden *{pointer-events:none}
+.sp-strip{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:.9rem;color:var(--muted);border:1px dashed var(--line);border-radius:var(--r);padding:9px 12px;background:var(--surface)}
+.sp-strip b{color:var(--fg);font-weight:500}
+.sp-note{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:12px;padding:12px 14px;border:1px solid var(--line);border-left:3px solid var(--bad);border-radius:var(--r);background:var(--surface);font-size:.95rem}
+.sp-note .chip{min-height:40px}
+main .wrap.sp-wrap{padding-bottom:0}
+main .wrap.sp-wrap + .wrap{padding-top:14px}
+dialog.spd{border:1px solid var(--line);border-radius:12px;padding:0;max-width:520px;width:calc(100% - 32px);max-height:calc(100dvh - 32px);overflow:auto;background:var(--surface);color:var(--fg);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+dialog.spd::backdrop{background:rgba(10,8,22,.65)}
+.spd .in{padding:22px 22px 18px}
+.spd h2{margin:6px 0 8px}
+.spd p{margin:0 0 16px;color:var(--muted);font-size:.95rem}
+.spd .opts{display:grid;gap:7px}
+.spd .opts button{text-align:left;font:inherit;cursor:pointer;background:var(--bg);color:var(--fg);border:1.5px solid var(--line);border-radius:var(--r);padding:8px 14px}
+.spd .opts button:hover{border-color:var(--accent)}
+.spd .opts button.cur{border-color:var(--wc,var(--accent));background:var(--sunk);box-shadow:inset 4px 0 0 var(--wc,var(--accent))}
+.spd .opts b{display:block;font-weight:700}
+.spd .opts span{display:block;font-size:.84rem;color:var(--muted)}
+.spd .fine{margin:12px 0 0;font-size:.82rem}
+.spd .acts{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;margin-top:16px;position:sticky;bottom:-18px;background:var(--surface);padding:10px 0}
+/* ---- The Reader's Atlas extras ---- */
+.atlas{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 11px;align-self:center}
+.atlas:hover{color:var(--fg);border-color:var(--accent)}
+.atlas svg{width:16px;height:15px;flex-shrink:0}
+.atlas path{fill:var(--gold)}
+.atlas .moon-book{fill:var(--surface)}
+footer.site{border-top:1px solid var(--line);background:var(--stars),var(--surface);margin-top:10px}
+footer.site .wrap{padding-block:26px 34px;display:grid;gap:14px}
+footer.site h2{font-size:1.5rem}
+.foot-actions{display:flex;flex-wrap:wrap;gap:10px}
+.socials{display:flex;flex-wrap:wrap;gap:10px}
+.kofi,.home,.social{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:var(--r);font-weight:500;text-decoration:none}
+.kofi{background:var(--accent);color:var(--accent-ink)}
+.kofi:hover{filter:brightness(1.1)}
+.home,.social{border:1px solid var(--line);color:var(--fg)}
+.home:hover,.social:hover{border-color:var(--accent)}
+.kofi svg,.home svg,.social svg{width:18px;height:18px;flex-shrink:0}
+.fine{margin:0;color:var(--muted);font-size:.88rem;max-width:80ch}
+.fine a{color:var(--accent)}
+/* ---- back to top ---- */
+.totop{position:fixed;z-index:24;right:max(20px,calc(env(safe-area-inset-right,0px) + 16px));bottom:calc(24px + env(safe-area-inset-bottom,0px));
+  display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:.87rem;font-weight:500;padding:10px 14px;min-height:44px;border-radius:999px;
+  border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.totop:hover{filter:brightness(1.1)}
+.totop svg{width:18px;height:18px}
+/* ---- phone ---- */
+@media (max-width:700px){
+  .brand small{display:none}
+  .brand h1{font-size:1.35rem}
+  .bar .wrap{padding-block:10px;gap:8px}
+  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--surface);border-top:1px solid var(--line);
+    padding:4px max(2px,env(safe-area-inset-right,0px)) calc(4px + env(safe-area-inset-bottom,0px)) max(2px,env(safe-area-inset-left,0px));gap:0;overflow:visible}
+  nav.tabs button{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;min-height:52px;font-size:.64rem;border-bottom:0}
+  nav.tabs button[aria-selected="true"]{color:var(--accent)}
+  .tabicon{display:block;width:22px;height:22px}
+  .tl-l{display:none} .ts{display:block}
+  main .wrap{padding-block:16px 24px}
+  .card,.era,ol.tl li{scroll-margin-top:130px}
+  .grid,.grid.wide{grid-template-columns:1fr}
+  h2{font-size:1.55rem}
+  .chip{min-height:40px}
+  .controls select{flex:1 1 auto;min-height:40px}
+  .count{width:100%;margin-left:0}
+  .bookcard{grid-template-columns:44px 1fr;gap:12px}
+  .spine{min-height:90px;font-size:.66rem}
+  .panel{position:fixed;left:0;right:0;bottom:calc(62px + env(safe-area-inset-bottom,0px));z-index:22;max-height:42vh;overflow:auto;
+    border-radius:14px 14px 0 0;border-bottom:0;box-shadow:0 -8px 28px rgba(0,0,0,.25);
+    padding:14px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+  .panel.idle{display:none}
+  .sheet-close{display:block;position:absolute;top:10px;right:max(12px,env(safe-area-inset-right,0px));font:inherit;font-size:.87rem;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--sunk);color:var(--fg)}
+  .legend{gap:8px 12px;font-size:.82rem}
+  .spbtn span{display:none}.spbtn{padding:6px 9px}
+  .atlas span{display:none}.atlas{padding:5px 8px}
+  .totop{bottom:calc(74px + env(safe-area-inset-bottom,0px));right:max(14px,calc(env(safe-area-inset-right,0px) + 10px));padding:10px 12px}
+  .totop span{display:none}
+  footer.site .wrap{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="brand"><h1><span class="pre">The</span> Maas<span class="thorn">verse</span></h1><small>Unofficial · 3 worlds · 17 books + 3 coming</small><a class="atlas" href="https://readersatlas.com" aria-label="The Reader's Atlas: more character guides"><svg viewBox="0 0 140 130" aria-hidden="true"><path d="M28 60 A46 46 0 1 0 112 60 A38 38 0 1 1 28 60 Z"/><path class="moon-book" d="M36 74 C48 68 60 69 70 76 C80 69 92 68 104 74 L104 100 C92 94 80 95 70 102 C60 95 48 94 36 100 Z"/><path d="M70 4 L75 15 L86 20 L75 25 L70 36 L65 25 L54 20 L65 15 Z"/></svg><span>The Reader's Atlas</span></a><button class="spbtn" id="sp-open" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/></svg><span>Spoilers</span></button></div>
+    <div class="gsearch">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="gq" type="search" placeholder="Search everything: characters, places, events, lore…" autocomplete="off" aria-label="Search everything">
+      <div class="gres" id="gres" hidden></div>
+    </div>
+    <nav class="tabs" role="tablist" id="tabs"></nav>
+  </div>
+</header>
+
+<button class="totop" id="totop" type="button" aria-label="Back to top" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg><span>Back to top</span></button>
+<main><div class="wrap sp-wrap"><div class="sp-strip" id="sp-strip"></div></div><div class="wrap" id="view"></div></main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Erilea · Prythian · Midgard</p>
+      <h2>Read the books</h2>
+      <p class="fine" style="margin-top:4px">17 books across three series, in reading order, each with a link to buy, plus the three still to come.</p>
+    </div>
+    <div><button type="button" class="buybtn ghost" id="readbooks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>Go to the Book Guide</button></div>
+    <div class="foot-actions">
+      <a class="kofi" href="https://ko-fi.com/readersatlas" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 4v1.5M11.5 3v2.5"/></svg>Buy me a coffee</a>
+      <div class="socials"><a class="social" href="https://www.instagram.com/readers.atlas" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>@readers.atlas</a>
+      <a class="social" href="https://www.tiktok.com/@readers.atlas" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.8 2.3 4.6 5 5"/></svg>TikTok</a></div>
+      <a class="home" href="https://readersatlas.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>More guides at The Reader's Atlas</a>
+    </div>
+    <p class="fine">Fan-made guide, not affiliated with Sarah J. Maas or Bloomsbury Publishing. All characters and worlds belong to their creators. Crossover "theories" are fan readings, not confirmed canon.</p>
+    <p class="fine">Some book links may be affiliate links, which means I may earn a small commission at no extra cost to you.</p>
+    <p class="fine">Part of <a href="https://readersatlas.com">The Reader's Atlas</a> · <a href="https://www.instagram.com/readers.atlas" target="_blank" rel="noopener">@readers.atlas</a> on Instagram · <a href="https://www.tiktok.com/@readers.atlas" target="_blank" rel="noopener">@readers.atlas</a> on TikTok · <a href="https://ko-fi.com/readersatlas" target="_blank" rel="noopener">Ko-fi</a></p>
+  </div>
+<dialog class="spd" id="spd" aria-labelledby="spd-t">
+  <div class="in">
+    <p class="eyebrow">Spoiler warning</p>
+    <h2 id="spd-t">How far have you read?</h2>
+    <p>The Maasverse is three series, and plenty of readers only know one. Pick where you are in each, and I'll blur anything from later books. Crossover facts stay hidden until you've finished every book they touch. Tap a blurred item to peek, or change this any time with the eye button at the top.</p>
+    <div class="opts" id="spd-opts"></div>
+    <div class="acts"><button type="button" class="buybtn ghost" id="sp-all">I don't mind spoilers</button><button type="button" class="buybtn" id="sp-done">Done</button></div>
+    <p class="fine">Your choice is remembered on this device.</p>
+  </div>
+</dialog>
+</footer>
+
+<script>
+/* ============================================================
+   DATA
+   Book codes, in recommended reading order (publication order):
+   TOG Throne of Glass · COM Crown of Midnight · AB The Assassin's Blade · HOF Heir of Fire
+   ACOTAR · QOS Queen of Shadows · ACOMAF · EOS Empire of Storms · ACOWAR · TOD Tower of Dawn
+   ACOFAS · KOA Kingdom of Ash · HOEAB House of Earth and Blood · ACOSF · HOSAB House of Sky and Breath
+   HOFAS House of Flame and Shadow · ACOSH A Court of Splintered Harmony
+   Gates: "ACOMAF" = hidden until you've finished ACOMAF. "HOFAS+ACOSF" = finished both.
+   ============================================================ */
+const SERIES={
+ tog:{name:"Throne of Glass",world:"Erilea",col:"#b8732e",short:"ToG"},
+ acotar:{name:"A Court of Thorns and Roses",world:"Prythian",col:"#6b52b5",short:"ACOTAR"},
+ cc:{name:"Crescent City",world:"Midgard",col:"#16857a",short:"Crescent City"},
+ x:{name:"Crossover",world:"Between worlds",col:"#8a7fb0",short:"Crossover"}
+};
+const SERCOL=Object.fromEntries(Object.entries(SERIES).map(([k,v])=>[k,v.col]));
+const WORLDNAME=k=>SERIES[k]?.world||"Between worlds";
+
+const BOOKLIST=[
+ {c:"TOG",s:"tog",n:1,title:"Throne of Glass",abbr:"ToG",year:2012,col:"#8a5a2b",
+  trope:"Assassin · deadly tournament · love triangle",
+  plot:"Eighteen-year-old Celaena Sardothien, Adarlan's most notorious assassin, has spent a year in the salt mines of Endovier. Crown Prince Dorian offers her freedom if she can win a contest to become the King's Champion. Then the other competitors start turning up dead.",
+  cast:["celaena","chaol","dorian","nehemia","elena"]},
+ {c:"COM",s:"tog",n:2,title:"Crown of Midnight",abbr:"CoM",year:2013,col:"#5a3a6e",
+  trope:"Secret identity · rebellion · slow-burn",
+  plot:"Now the King's Champion, Celaena carries out the king's kills, or quietly fakes them. A rebellion, a library full of secrets and a friend with dangerous knowledge pull her toward the truth about why magic vanished.",
+  cast:["celaena","chaol","dorian","nehemia","elena"]},
+ {c:"AB",s:"tog",n:3,title:"The Assassin's Blade",abbr:"AB",year:2014,col:"#7a3030",
+  trope:"Prequel novellas · first love · betrayal",
+  plot:"Five novellas from the years before Endovier: pirate lords, a desert of silent assassins, a young healer, and the rival assassin Celaena can't stop thinking about.",
+  note:"Publication order puts it here. Many readers save it for just before Queen of Shadows, where it hits hardest. Either works.",
+  cast:["celaena","sam","arobynn","yrene","lysandra"]},
+ {c:"HOF",s:"tog",n:4,title:"Heir of Fire",abbr:"HoF",year:2014,col:"#b4552a",
+  trope:"Found family · mentor · witches and wyverns",
+  plot:"Sent across the sea to Wendlyn, a broken heroine must face her past and her power under a ruthless Fae warrior. In the north, a witch heir is training to ride wyverns for a war no one has explained to her.",
+  cast:["celaena","rowan","manon","chaol","dorian","aedion","maeve"]},
+ {c:"ACOTAR",s:"acotar",n:1,title:"A Court of Thorns and Roses",abbr:"ACOTAR",year:2015,col:"#9a3b4f",
+  trope:"Beauty and the Beast · faerie bargain · curse",
+  plot:"Nineteen-year-old huntress Feyre kills a wolf in the snowy woods to feed her family. A beast-like creature arrives to claim payment and drags her across the wall into Prythian, the land of the faeries.",
+  cast:["feyre","tamlin","lucien","rhys","amarantha","nesta","elain"]},
+ {c:"QOS",s:"tog",n:5,title:"Queen of Shadows",abbr:"QoS",year:2015,col:"#2f2a3e",
+  trope:"Revenge · heist energy · queen era",
+  plot:"A queen returns to Rifthold to settle old debts and free the people she loves. Old enemies, a dangerous courtesan and a witch with her own agenda all have parts to play.",
+  cast:["celaena","rowan","aedion","lysandra","dorian","chaol","manon","elide","arobynn"]},
+ {c:"ACOMAF",s:"acotar",n:2,title:"A Court of Mist and Fury",abbr:"ACOMAF",year:2016,col:"#3e3478",
+  trope:"Found family · mates · the bargain",
+  plot:"Feyre survived, but she isn't the same. Haunted and stifled, she's pulled into the Night Court by the bargain she made with its High Lord, and into a much bigger fight than the one she thought she'd won.",
+  cast:["feyre","rhys","cassian","azriel","mor","amren","tamlin","nesta","elain"]},
+ {c:"EOS",s:"tog",n:6,title:"Empire of Storms",abbr:"EoS",year:2016,col:"#2b5470",
+  trope:"War · alliances · huge cast",
+  plot:"War comes to Erilea. Kingdoms fracture, allies are tested, and armies must be gathered across the sea before the darkness rising in the south can spread.",
+  cast:["celaena","rowan","aedion","lysandra","dorian","manon","elide","lorcan"]},
+ {c:"ACOWAR",s:"acotar",n:3,title:"A Court of Wings and Ruin",abbr:"ACOWAR",year:2017,col:"#6a2a3a",
+  trope:"War · spy behind enemy lines · High Lords unite",
+  plot:"With war against Hybern coming, Feyre plays a dangerous game deep inside the Spring Court, while Prythian's High Lords struggle to stand together.",
+  cast:["feyre","rhys","tamlin","lucien","nesta","elain","cassian","azriel","amren","mor","hybern"]},
+ {c:"TOD",s:"tog",n:7,title:"Tower of Dawn",abbr:"ToD",year:2017,col:"#2f7a7a",
+  trope:"Healing · slow-burn · new continent",
+  plot:"Chaol Westfall travels to the southern continent to be healed at the Torre Cesme, and to win an empire's army for the war at home.",
+  note:"Runs at the same time as Empire of Storms. Some readers read the two side by side.",
+  cast:["chaol","yrene"]},
+ {c:"ACOFAS",s:"acotar",n:4,title:"A Court of Frost and Starlight",abbr:"ACOFAS",year:2018,col:"#4f6a98",
+  trope:"Novella · Solstice · cosy aftermath",
+  plot:"A short, wintry bridge book. The Night Court rebuilds after the war and celebrates Winter Solstice, while some wounds stay open.",
+  cast:["feyre","rhys","nesta","cassian","azriel","mor","elain"]},
+ {c:"KOA",s:"tog",n:8,title:"Kingdom of Ash",abbr:"KoA",year:2018,col:"#4a4a4a",
+  trope:"Finale · every thread converges · crossover",
+  plot:"The Throne of Glass finale. Every army, every kingdom and every character from seven books converge on one last war for Erilea.",
+  cast:["celaena","rowan","aedion","lysandra","dorian","manon","chaol","yrene","elide","lorcan","maeve","erawan"]},
+ {c:"HOEAB",s:"cc",n:1,title:"House of Earth and Blood",abbr:"HoEaB",year:2020,col:"#a13e3e",
+  trope:"Murder mystery · urban fantasy · grumpy angel",
+  plot:"Half-Fae, half-human Bryce Quinlan works at an antiquities gallery in Lunathion, a modern city of magic. When the demon that slaughtered her best friend seems to strike again, she's forced to hunt it with Hunt Athalar, a fallen angel enslaved to the city's Archangel.",
+  cast:["bryce","hunt","danika","ruhn","lehabah","jesiba","micah","ithan","autumnking"]},
+ {c:"ACOSF",s:"acotar",n:5,title:"A Court of Silver Flames",abbr:"ACOSF",year:2021,col:"#7a7f8f",
+  trope:"Enemies to lovers · training · healing",
+  plot:"Nesta Archeron is drowning after the war. Sent to live in the House of Wind and train with Cassian, she has to face what she's become.",
+  note:"Older readers. More explicit than the earlier ACOTAR books.",
+  cast:["nesta","cassian","gwyn","emerie","feyre","rhys","azriel","elain","eris"]},
+ {c:"HOSAB",s:"cc",n:2,title:"House of Sky and Breath",abbr:"HoSaB",year:2022,col:"#2f5e8a",
+  trope:"Rebellion · fake engagement · found family",
+  plot:"Bryce and Hunt want a quiet life. Instead the rebellion against the Asteri, the star-gods who rule Midgard, comes looking for them.",
+  cast:["bryce","hunt","ruhn","lidia","tharion","ithan","rigelus","aidas"]},
+ {c:"HOFAS",s:"cc",n:3,title:"House of Flame and Shadow",abbr:"HoFaS",year:2024,col:"#3b2b4f",
+  trope:"Crossover · rescue · end of an empire",
+  plot:"The third Crescent City book, and the one where the Maasverse becomes undeniable.",
+  plotG:"HOSAB",plot2:"Bryce is stranded in another world while Hunt and Ruhn face the Asteri's dungeons. Getting home is only the start.",
+  note:"Strongly recommended before A Court of Splintered Harmony.",
+  cast:["bryce","hunt","ruhn","lidia","ithan","tharion","rigelus","azriel","nesta","rhys"]},
+ {c:"ACOSH",s:"acotar",n:6,title:"A Court of Splintered Harmony",abbr:"ACOSH",year:2026,col:"#5b3f8f",fresh:true,
+  trope:"The Valkyrie Cycle, Movement I · multi-POV",
+  plot:"Koschei the Deathless, long bound to a mountain lake, is stirring on the continent, and powerful allies are gathering to take back the human lands. Still recovering from the Hybern war and split by betrayals, Prythian's courts must find their way back to each other.",
+  note:"Out 27 October 2026. Read House of Flame and Shadow first.",
+  cast:["azriel","nesta","feyre","rhys","lucien","elain","gwyn","mor","cassian","koschei"]}
+];
+const UPCOMING=[
+ {c:"ACOFM",s:"acotar",title:"A Court of Forgotten Melody",sub:"The Valkyrie Cycle, Movements II & III",date:"12 January 2027",iso:"2027-01-12",g:"ACOSH",note:"ACOTAR 7 continues straight on from Splintered Harmony. Maas describes books 6 to 8 as one huge story told in four movements. Read Throne of Glass and Crescent City before this one if you haven't.",buy:true},
+ {c:"ACO8",s:"acotar",title:"ACOTAR 8",sub:"The Valkyrie Cycle, Movement IV",date:"TBA",note:"The final movement of the Valkyrie Cycle. No title, cover or date yet."},
+ {c:"CC4",s:"cc",title:"Crescent City 4",sub:"Untitled",date:"TBA",note:"Confirmed, but no title, cover or date. Maas has reportedly said it won't centre on Bryce and Hunt and will cross over with the ACOTAR world. \"House of Many Waters\" is a fan guess."}
+];
+const BK=Object.fromEntries(BOOKLIST.map(b=>[b.c,b]));
+const BIDX=Object.fromEntries(BOOKLIST.map((b,i)=>[b.c,i]));
+const NSER={tog:8,acotar:6,cc:3};
+
+/* Characters
+   w = world · role: lead | sup | bad · b = first appearance
+   loveG / twG / stG / dead = the book(s) that must be finished before that detail shows */
+const CHARS=[
+ /* ---- Erilea ---- */
+ {id:"celaena",name:"Celaena Sardothien",w:"tog",role:"lead",b:"TOG",aka:"Adarlan's Assassin",
+  job:"Assassin, then King's Champion",
+  feat:"Brilliant, vain and wounded. Raised from childhood by the King of Assassins, she loves books, sweets, music and pretty clothes as fiercely as she fights.",
+  love:"Rowan Whitethorn",loveG:"EOS",
+  twist:"Her true name is Aelin Ashryver Galathynius, lost heir to the throne of Terrasen, with wildfire magic in her blood.",twG:"COM",
+  story:"She forges a new lock to seal the Wyrdgates at great personal cost, survives, and is crowned Queen of Terrasen with Rowan beside her.",stG:"KOA",conn:"Queen of Terrasen"},
+ {id:"chaol",name:"Chaol Westfall",w:"tog",role:"lead",b:"TOG",aka:"Captain of the Royal Guard",
+  job:"Captain of the Guard, later Hand of the King",
+  feat:"Honourable and rule-bound, forever torn between duty to the crown and the people he loves.",
+  love:"Yrene Towers",loveG:"TOD",
+  twist:"He's badly hurt in the fall of the glass castle and loses the use of his legs.",twG:"QOS",
+  story:"In Antica, the healer Yrene restores him. They fall in love and marry.",stG:"TOD",conn:"Dorian's best friend"},
+ {id:"dorian",name:"Dorian Havilliard",w:"tog",role:"lead",b:"TOG",aka:"Crown Prince of Adarlan",
+  job:"Crown prince, later King of Adarlan",
+  feat:"Charming, bookish and underestimated, with raw ice magic in a kingdom where magic is outlawed.",
+  love:"Manon Blackbeak",loveG:"KOA",
+  twist:"After the execution of Sorscha, the woman he loves, his father enslaves him with a Valg collar.",twG:"HOF",
+  story:"Freed by Aelin, he becomes king, and later steals into Morath with Manon to take a Wyrdkey.",stG:"KOA",conn:"Chaol's best friend"},
+ {id:"nehemia",name:"Nehemia Ytger",w:"tog",role:"sup",b:"TOG",aka:"Light of Eyllwe",
+  job:"Princess of Eyllwe",feat:"Regal and clever, secretly working against the King of Adarlan.",
+  twist:"She is murdered, and it turns out she arranged her own death to force Celaena into action.",twG:"COM",dead:"COM",conn:"Celaena's best friend"},
+ {id:"elena",name:"Elena Havilliard",w:"tog",role:"sup",b:"TOG",aka:"The ghost in the tomb",
+  job:"First Queen of Adarlan, long dead",feat:"A ghost who sets Celaena tasks and hands her the amulet called the Eye of Elena.",
+  twist:"The legend of Elena and Gavin isn't the whole truth.",twG:"KOA",dead:"",conn:"Celaena's guide"},
+ {id:"arobynn",name:"Arobynn Hamel",w:"tog",role:"bad",b:"TOG",aka:"King of Assassins",
+  job:"Head of the Assassins' Guild in Rifthold",feat:"Silver-tongued and possessive, he raised Celaena as a weapon.",
+  twist:"He sold out Celaena and Sam, which is how she ended up in Endovier.",twG:"AB",
+  story:"Lysandra kills him.",stG:"QOS",dead:"QOS",conn:"Celaena's master"},
+ {id:"sam",name:"Sam Cortland",w:"tog",role:"sup",b:"AB",aka:"Rival assassin",
+  job:"Assassin in Arobynn's guild",feat:"Kind under the bravado, raised alongside Celaena.",
+  love:"Celaena",loveG:"AB",twist:"He is tortured to death by Rourke Farran.",twG:"AB",dead:"AB",conn:"Celaena's first love"},
+ {id:"yrene",name:"Yrene Towers",w:"tog",role:"lead",b:"AB",aka:"Healer of the Torre",
+  job:"Barmaid, then healer of the Torre Cesme",feat:"Determined and gentle, with an extraordinary gift for healing.",
+  love:"Chaol Westfall",loveG:"TOD",twist:"Years ago a young assassin left her money and a note telling her to go to the Torre Cesme.",twG:"AB",
+  story:"She heals Chaol, marries him and brings the Torre's healers to war.",stG:"TOD",conn:"Chaol's wife"},
+ {id:"rowan",name:"Rowan Whitethorn",w:"tog",role:"lead",b:"HOF",aka:"Prince of Doranelle",
+  job:"Fae warrior prince bound to Queen Maeve by blood oath",feat:"Silver-haired, tattooed, centuries old and grieving. He can shift into a hawk.",
+  love:"Aelin",loveG:"EOS",twist:"He and Aelin are carranam, and then mates.",twG:"EOS",
+  story:"King-consort of Terrasen.",stG:"KOA",conn:"Aelin's mate"},
+ {id:"manon",name:"Manon Blackbeak",w:"tog",role:"lead",b:"HOF",aka:"Blackbeak Heir",
+  job:"Wing Leader of the Ironteeth host",feat:"Cold, ruthless and dutiful, until her wyvern Abraxos and her coven, the Thirteen, start to change her.",
+  love:"Dorian Havilliard",loveG:"KOA",twist:"She is half Crochan, the witch line the Ironteeth hate.",twG:"EOS",
+  story:"She unites the Ironteeth and the Crochans as Queen of the Witches.",stG:"KOA",conn:"Dorian's love"},
+ {id:"aedion",name:"Aedion Ashryver",w:"tog",role:"sup",b:"HOF",aka:"Wolf of the North",
+  job:"General of the Bane legion",feat:"Golden, cocky and fiercely loyal to the cousin he thought was dead.",
+  love:"Lysandra",loveG:"KOA",twist:"He has been secretly working for Terrasen all along.",twG:"QOS",
+  story:"His father is Gavriel, one of Maeve's cadre.",stG:"EOS",conn:"Aelin's cousin"},
+ {id:"lysandra",name:"Lysandra",w:"tog",role:"sup",b:"AB",aka:"Courtesan of Rifthold",
+  job:"Courtesan, later Lady of Caraverre",feat:"Glamorous and sharp, with a past that mirrors Celaena's.",
+  love:"Aedion",loveG:"KOA",twist:"She is a shapeshifter.",twG:"QOS",
+  story:"She kills Arobynn and becomes one of Aelin's closest friends.",stG:"QOS",conn:"Aelin's friend"},
+ {id:"elide",name:"Elide Lochan",w:"tog",role:"sup",b:"QOS",aka:"Lady of Perranth",
+  job:"Servant in the Ironteeth camp",feat:"Lamed by chains, underestimated, and the cleverest survivor in any room.",
+  love:"Lorcan Salvaterre",loveG:"EOS",story:"She reclaims Perranth.",stG:"KOA",conn:"Lorcan's love"},
+ {id:"lorcan",name:"Lorcan Salvaterre",w:"tog",role:"sup",b:"HOF",aka:"Maeve's commander",
+  job:"Leader of Maeve's cadre of warriors",feat:"The oldest and most dangerous of Maeve's warriors, utterly devoted to her.",
+  love:"Elide Lochan",loveG:"EOS",conn:"Rowan's cadre brother"},
+ {id:"maeve",name:"Maeve",w:"tog",role:"bad",b:"HOF",aka:"Queen of the Fae",
+  job:"Fae Queen of Doranelle",feat:"Ancient, patient and controlling, always watched by her owls.",
+  twist:"She isn't Fae at all. She is a Valg queen wearing a stolen body.",twG:"KOA",conn:"Aelin's 'aunt'"},
+ {id:"erawan",name:"Erawan",w:"tog",role:"bad",b:"QOS",aka:"The Dark King",
+  job:"King of the Valg",feat:"The last Valg king on Erilea, building an army at Morath.",
+  twist:"He's been hiding in plain sight as Duke Perrington.",twG:"EOS",conn:"The enemy"},
+
+ /* ---- Prythian ---- */
+ {id:"feyre",name:"Feyre Archeron",w:"acotar",role:"lead",b:"ACOTAR",aka:"The huntress",
+  job:"Huntress, painter, later High Lady of the Night Court",
+  feat:"Stubborn, practical and fiercely protective of her family. An artist who stopped painting to survive.",
+  love:"Tamlin, then Rhysand",loveG:"ACOMAF",
+  twist:"She dies Under the Mountain and is resurrected as High Fae, with a spark of power from each High Lord.",twG:"ACOTAR",
+  story:"Rhysand's mate and High Lady of the Night Court. Later, mother of Nyx.",stG:"ACOSF",conn:"High Lady of the Night Court"},
+ {id:"rhys",name:"Rhysand",w:"acotar",role:"lead",b:"ACOTAR",aka:"High Lord of the Night Court",
+  job:"High Lord of the Night Court",feat:"Violet-eyed, wry and theatrical. The most powerful High Lord in Prythian's history.",
+  love:"Feyre",loveG:"ACOMAF",twist:"He played the villain Under the Mountain to protect Velaris, and Feyre is his mate.",twG:"ACOMAF",
+  story:"He dies in the war with Hybern and is brought back.",stG:"ACOWAR",conn:"Feyre's mate"},
+ {id:"tamlin",name:"Tamlin",w:"acotar",role:"sup",b:"ACOTAR",aka:"High Lord of the Spring Court",
+  job:"High Lord of the Spring Court",feat:"Golden and guarded, cursed to wear a mask, with a beast inside him.",
+  love:"Feyre",loveG:"ACOTAR",twist:"His fear for Feyre turns into control, and she leaves him.",twG:"ACOMAF",
+  story:"Feyre wrecks his court from within, yet he gives the spark that helps bring Rhys back.",stG:"ACOWAR",conn:"Lucien's friend"},
+ {id:"lucien",name:"Lucien Vanserra",w:"acotar",role:"sup",b:"ACOTAR",aka:"Tamlin's emissary",
+  job:"Emissary of the Spring Court",feat:"Red-haired and scarred, with a metal eye and a sharp tongue.",
+  love:"Elain, his mate",loveG:"ACOMAF",twist:"His real father is Helion, High Lord of the Day Court.",twG:"ACOWAR",
+  story:"He returns to the Autumn Court as Tamlin's second, and discovers Elain with Azriel.",stG:"ACOSH",conn:"Elain's mate"},
+ {id:"nesta",name:"Nesta Archeron",w:"acotar",role:"lead",b:"ACOTAR",aka:"The eldest sister",
+  job:"Valkyrie of the Night Court",feat:"Proud, cold and sharp-tongued, with a buried, ferocious loyalty to her sisters.",
+  love:"Cassian",loveG:"ACOSF",twist:"Thrown into the Cauldron and Made High Fae, she took a piece of its power.",twG:"ACOMAF",
+  story:"She kills the King of Hybern, trains the Valkyries and accepts Cassian as her mate. Later she gives Bryce the Mask, and pays for it.",stG:"ACOSF+HOFAS",conn:"Cassian's mate"},
+ {id:"elain",name:"Elain Archeron",w:"acotar",role:"sup",b:"ACOTAR",aka:"The middle sister",
+  job:"Gardener and Seer",feat:"Gentle and beloved, with more steel than anyone gives her credit for.",
+  love:"Lucien is her mate",loveG:"ACOMAF",twist:"Made High Fae with Nesta, she becomes a Seer.",twG:"ACOWAR",
+  story:"She begins a secret affair with Azriel, then leaves for Vallahan with Mor.",stG:"ACOSH",conn:"Feyre's sister"},
+ {id:"cassian",name:"Cassian",w:"acotar",role:"lead",b:"ACOMAF",aka:"Lord of Bloodshed",
+  job:"General of the Night Court armies",feat:"Illyrian bastard turned general. Warm, loud and stubborn.",
+  love:"Nesta",loveG:"ACOSF",twist:"Nesta is his mate.",twG:"ACOSF",conn:"Rhys's brother-in-arms"},
+ {id:"azriel",name:"Azriel",w:"acotar",role:"lead",b:"ACOMAF",aka:"Shadowsinger",
+  job:"Spymaster of the Night Court",feat:"Quiet and watchful, with scarred hands, shadows at his shoulders and the dagger Truth-Teller.",
+  love:"Elain",loveG:"ACOSH",twist:"Bryce Quinlan takes Truth-Teller from him.",twG:"HOFAS",
+  story:"His childhood is finally shown, and he begins a secret affair with Elain.",stG:"ACOSH",conn:"Rhys's brother-in-arms"},
+ {id:"mor",name:"Mor",w:"acotar",role:"sup",b:"ACOMAF",aka:"The Morrigan",
+  job:"Third of the Night Court",feat:"Golden, bright and fierce. Rhys's cousin, who escaped the Court of Nightmares.",
+  twist:"She loves females, a truth she's hidden for centuries.",twG:"ACOWAR",conn:"Rhys's cousin"},
+ {id:"amren",name:"Amren",w:"acotar",role:"sup",b:"ACOMAF",aka:"Rhys's Second",
+  job:"Second of the Night Court",feat:"Small, silver-eyed and terrifying. Loves jewellery, puzzles and blood.",
+  twist:"She's an ancient being from another world, trapped in a Fae body.",twG:"ACOWAR",
+  story:"After the war she chooses to stay, in a High Fae body.",stG:"ACOWAR",conn:"Rhys's Second"},
+ {id:"amarantha",name:"Amarantha",w:"acotar",role:"bad",b:"ACOTAR",aka:"The tyrant Under the Mountain",
+  job:"Hybern commander who seized Prythian",feat:"Cruel and theatrical. She holds all seven courts under her curse.",
+  twist:"Feyre breaks the curse, and Amarantha is killed.",twG:"ACOTAR",dead:"ACOTAR",conn:"Feyre's tormentor"},
+ {id:"eris",name:"Eris Vanserra",w:"acotar",role:"sup",b:"ACOMAF",aka:"Heir of Autumn",
+  job:"Heir to the Autumn Court",feat:"Cold, calculating and hard to read.",
+  twist:"He secretly wants his father gone, and bargains with the Night Court.",twG:"ACOSF",conn:"Lucien's brother"},
+ {id:"beron",name:"Beron Vanserra",w:"acotar",role:"bad",b:"ACOWAR",aka:"High Lord of Autumn",
+  job:"High Lord of the Autumn Court",feat:"Brutal, proud and cruel to his family.",
+  twist:"Lucien isn't his son.",twG:"ACOWAR",conn:"Eris's father"},
+ {id:"helion",name:"Helion",w:"acotar",role:"sup",b:"ACOWAR",aka:"Spell-Cleaver",
+  job:"High Lord of the Day Court",feat:"Golden, charming and brilliant.",
+  twist:"He is Lucien's real father.",twG:"ACOWAR",conn:"Lucien's father"},
+ {id:"gwyn",name:"Gwyn Berdara",w:"acotar",role:"sup",b:"ACOSF",aka:"Priestess of the Library",
+  job:"Priestess, then Valkyrie",feat:"Bright, bookish and brave, healing from a terrible past.",
+  story:"She becomes a viewpoint character, and her bond with Azriel grows.",stG:"ACOSH",conn:"Nesta's Valkyrie sister"},
+ {id:"emerie",name:"Emerie",w:"acotar",role:"sup",b:"ACOSF",aka:"Valkyrie",
+  job:"Illyrian shop owner and Valkyrie",feat:"An Illyrian female whose wings were clipped. Steady, wry and tough.",conn:"Nesta's Valkyrie sister"},
+ {id:"hybern",name:"The King of Hybern",w:"acotar",role:"bad",b:"ACOMAF",aka:"King of Hybern",
+  job:"Fae king of the island of Hybern",feat:"Ancient and ruthless, set on bringing down the wall.",
+  twist:"Nesta kills him.",twG:"ACOWAR",dead:"ACOWAR",conn:"The enemy"},
+ {id:"vassa",name:"Vassa",w:"acotar",role:"sup",b:"ACOWAR",aka:"The lost queen",
+  job:"Human queen",feat:"Bold and laughing, cursed to be a firebird by day.",conn:"Lucien's friend"},
+ {id:"koschei",name:"Koschei",w:"acotar",role:"bad",b:"ACOWAR",aka:"The Deathless",
+  job:"Death-lord bound to a lake on the continent",feat:"Ancient and patient. He holds Vassa under a curse.",
+  twist:"He works through the human queen Briallyn to reach beyond his lake.",twG:"ACOSF",
+  story:"He is stirring, and rival powers hunt the box said to hold his death.",stG:"ACOSH",conn:"Vassa's captor"},
+
+ /* ---- Midgard ---- */
+ {id:"bryce",name:"Bryce Quinlan",w:"cc",role:"lead",b:"HOEAB",aka:"B",
+  job:"Assistant at an antiquities gallery in Lunathion",feat:"Half-Fae, half-human, loud, funny and hiding her grief under a party-girl act.",
+  love:"Hunt Athalar",loveG:"HOEAB",twist:"She is Starborn, and the Autumn King is her father.",twG:"HOEAB",
+  story:"Hunt is her mate. She falls into Prythian, comes home with Truth-Teller and the Mask, and takes on the Asteri.",stG:"HOFAS",conn:"Hunt's mate"},
+ {id:"hunt",name:"Hunt Athalar",w:"cc",role:"lead",b:"HOEAB",aka:"Umbra Mortis",
+  job:"Enslaved angel, assassin for the Archangels",feat:"A fallen rebel general with a slave's halo tattooed across his brow.",
+  love:"Bryce Quinlan",loveG:"HOEAB",twist:"Bryce is his mate.",twG:"HOSAB",
+  story:"His father is Apollion, Prince of the Pit.",stG:"HOFAS",conn:"Bryce's mate"},
+ {id:"danika",name:"Danika Fendyr",w:"cc",role:"sup",b:"HOEAB",aka:"Alpha of the Pack of Devils",
+  job:"Wolf, heir to the Prime",feat:"Bryce's wild, brilliant best friend, murdered before the story begins.",
+  twist:"She was killed because she uncovered Micah's secrets.",twG:"HOEAB",dead:"",conn:"Bryce's best friend"},
+ {id:"ruhn",name:"Ruhn Danaan",w:"cc",role:"lead",b:"HOEAB",aka:"Crown Prince of the Fae",
+  job:"Crown Prince of the Valbaran Fae",feat:"Tattooed, pierced and nothing like his father. Starborn, and bearer of the Starsword when we meet him.",
+  love:"Lidia Cervos",loveG:"HOSAB",twist:"He is Bryce's half-brother.",twG:"HOEAB",
+  story:"His secret rebel contact, 'Day', is Lidia.",stG:"HOSAB",conn:"Bryce's brother"},
+ {id:"lidia",name:"Lidia Cervos",w:"cc",role:"sup",b:"HOEAB",aka:"The Hind",
+  job:"Interrogator for the Asteri",feat:"Gold-eyed deer shifter, feared across Pangera.",
+  love:"Ruhn Danaan",loveG:"HOSAB",twist:"She's a double agent for the rebellion, and Ruhn's 'Day'.",twG:"HOSAB",conn:"Ruhn's love"},
+ {id:"ithan",name:"Ithan Holstrom",w:"cc",role:"sup",b:"HOEAB",aka:"Pack of Devils",
+  job:"Wolf and sunball star",feat:"Danika's pack-brother, grieving his brother Connor.",
+  twist:"He breaks with Sabine and his pack.",twG:"HOSAB",conn:"Bryce's friend"},
+ {id:"tharion",name:"Tharion Ketos",w:"cc",role:"sup",b:"HOEAB",aka:"Captain of Intelligence",
+  job:"Mer agent of the River Queen",feat:"Charming, reckless and always in trouble.",conn:"Bryce's friend"},
+ {id:"micah",name:"Micah Domitus",w:"cc",role:"bad",b:"HOEAB",aka:"Archangel Governor",
+  job:"Governor of Valbara",feat:"Beautiful, cold and Hunt's owner.",
+  twist:"He killed Danika, and Bryce kills him.",twG:"HOEAB",dead:"HOEAB",conn:"Hunt's owner"},
+ {id:"autumnking",name:"The Autumn King",w:"cc",role:"bad",b:"HOEAB",aka:"Fae King of Valbara",
+  job:"King of the Valbaran Fae",feat:"Ruthless, controlling and fiery.",
+  twist:"He is Bryce's father.",twG:"HOEAB",conn:"Ruhn's father"},
+ {id:"lehabah",name:"Lehabah",w:"cc",role:"sup",b:"HOEAB",aka:"Lele",
+  job:"Fire sprite of the gallery library",feat:"Tiny, dramatic and devoted to Bryce.",
+  twist:"She dies protecting Bryce.",twG:"HOEAB",dead:"HOEAB",conn:"Bryce's friend"},
+ {id:"jesiba",name:"Jesiba Roga",w:"cc",role:"sup",b:"HOEAB",aka:"Sorceress",
+  job:"Owner of Griffin Antiquities",feat:"Dangerous and secretive. Bryce's boss.",conn:"Bryce's boss"},
+ {id:"sabine",name:"Sabine Fendyr",w:"cc",role:"bad",b:"HOEAB",aka:"Prime Apparent",
+  job:"Heir to the wolves of Valbara",feat:"Cold and ambitious. Danika's mother.",conn:"Danika's mother"},
+ {id:"aidas",name:"Aidas",w:"cc",role:"sup",b:"HOEAB",aka:"Prince of the Chasm",
+  job:"Prince of Hel",feat:"Golden-eyed demon prince with an agenda of his own.",
+  twist:"He loved Theia, the Starborn queen.",twG:"HOSAB",conn:"Uneasy ally"},
+ {id:"apollion",name:"Apollion",w:"cc",role:"sup",b:"HOSAB",aka:"Prince of the Pit",
+  job:"Prince of Hel",feat:"The oldest and darkest of Hel's princes.",
+  twist:"He is Hunt's father.",twG:"HOFAS",conn:"Hunt's father"},
+ {id:"rigelus",name:"Rigelus",w:"cc",role:"bad",b:"HOSAB",aka:"Bright Hand of the Asteri",
+  job:"Leader of the Asteri",feat:"An ancient star-god wearing a teenage body.",
+  twist:"The Asteri once ruled Prythian, where they were called the Daglan.",twG:"HOFAS",conn:"The enemy"},
+ {id:"theia",name:"Theia",w:"cc",role:"sup",b:"HOSAB",aka:"The Starborn queen",
+  job:"Ancient Fae queen",feat:"The queen the Starborn line descends from.",
+  twist:"She and her people came to Midgard from Prythian.",twG:"HOFAS",dead:"",conn:"Bryce's ancestor"}
+];
+
+/* Pronunciation: common readings, not official guidance */
+const PRON={celaena:"seh-LAY-nuh (Aelin: AY-lin)",chaol:"KAY-ol",dorian:"DOR-ee-un",nehemia:"neh-HEM-ee-uh",arobynn:"AIR-oh-bin",yrene:"eye-REEN",manon:"MAN-on",aedion:"AY-dee-on",lysandra:"lih-SAN-druh",elide:"eh-LEE-day",lorcan:"LOR-kun",maeve:"MAYV",erawan:"AIR-uh-wahn",
+ feyre:"FAY-ruh",rhys:"REE-sand (Rhys: REES)",tamlin:"TAM-lin",lucien:"LOO-see-en",nesta:"NES-tuh",elain:"eh-LANE",cassian:"KASS-ee-un",azriel:"AZ-ree-el",mor:"MORE",amren:"AM-ren",amarantha:"am-uh-RAN-thuh",eris:"AIR-iss",helion:"HEE-lee-on",gwyn:"GWIN",koschei:"KOSH-ay",
+ bryce:"BRISE",hunt:"HUNT ATH-uh-lar",danika:"DAN-ih-kuh",ruhn:"ROON",lidia:"LID-ee-uh SER-vos",ithan:"EYE-thun",tharion:"THAIR-ee-on",lehabah:"leh-HAH-bah",jesiba:"jeh-SEE-buh",aidas:"AY-dus",rigelus:"RYE-jel-us",theia:"THAY-uh"};
+
+/* Connections: [a, b, type, label, gate] */
+const EDGES=[
+ ["celaena","chaol","love","first love","COM"],["celaena","dorian","love","brief romance","TOG"],["celaena","sam","love","first love, lost","AB"],["celaena","rowan","love","mates, married","EOS"],
+ ["celaena","arobynn","foe","master turned betrayer","AB"],["celaena","nehemia","friend","best friends","TOG"],["celaena","aedion","fam","cousins","QOS"],["celaena","maeve","fam","her 'aunt'","HOF"],
+ ["celaena","lysandra","friend","rivals, then friends","QOS"],["celaena","elena","ally","guided by her ghost","TOG"],["celaena","yrene","ally","sent her to the Torre","AB"],["celaena","manon","ally","enemies to allies","EOS"],
+ ["chaol","dorian","friend","best friends","TOG"],["chaol","yrene","love","married","TOD"],["dorian","manon","love","lovers","KOA"],["rowan","maeve","ally","bound by blood oath","HOF"],
+ ["rowan","lorcan","friend","cadre brothers","HOF"],["lorcan","elide","love","partners","EOS"],["manon","elide","ally","her protector","QOS"],["aedion","lysandra","love","partners","KOA"],
+ ["arobynn","sam","foe","had him killed","AB"],["celaena","erawan","foe","the war","EOS"],["maeve","erawan","foe","rival Valg","KOA"],["lorcan","maeve","ally","sworn to her","HOF"],
+ ["feyre","rhys","love","mates","ACOMAF"],["feyre","tamlin","love","former love","ACOTAR"],["feyre","nesta","fam","sisters","ACOTAR"],["feyre","elain","fam","sisters","ACOTAR"],["nesta","elain","fam","sisters","ACOTAR"],
+ ["nesta","cassian","love","mates","ACOSF"],["elain","lucien","love","mates","ACOMAF"],["elain","azriel","love","secret affair","ACOSH"],["tamlin","lucien","friend","friend and emissary","ACOTAR"],
+ ["rhys","cassian","friend","brothers by choice","ACOMAF"],["rhys","azriel","friend","brothers by choice","ACOMAF"],["cassian","azriel","friend","brothers by choice","ACOMAF"],["rhys","mor","fam","cousins","ACOMAF"],
+ ["rhys","amren","ally","his Second","ACOMAF"],["rhys","amarantha","foe","enslaved by her","ACOTAR"],["feyre","amarantha","foe","her tormentor","ACOTAR"],["lucien","eris","fam","brothers","ACOMAF"],
+ ["lucien","beron","fam","raised as his son","ACOWAR"],["lucien","helion","fam","true father","ACOWAR"],["eris","beron","fam","father","ACOWAR"],["mor","eris","foe","abandoned her","ACOMAF"],
+ ["nesta","gwyn","friend","Valkyrie sisters","ACOSF"],["nesta","emerie","friend","Valkyrie sisters","ACOSF"],["gwyn","azriel","friend","close bond","ACOSF"],["lucien","vassa","ally","her protector","ACOWAR"],
+ ["vassa","koschei","foe","cursed by him","ACOWAR"],["nesta","hybern","foe","killed him","ACOWAR"],["feyre","hybern","foe","enemy","ACOMAF"],["lucien","azriel","foe","Elain","ACOSH"],
+ ["bryce","hunt","love","mates","HOEAB"],["bryce","danika","friend","best friends","HOEAB"],["bryce","ruhn","fam","half-siblings","HOEAB"],["bryce","autumnking","fam","father","HOEAB"],["ruhn","autumnking","fam","father","HOEAB"],
+ ["ruhn","lidia","love","partners","HOSAB"],["danika","sabine","fam","mother","HOEAB"],["danika","ithan","friend","pack","HOEAB"],["bryce","lehabah","friend","friends","HOEAB"],["bryce","jesiba","ally","her boss","HOEAB"],
+ ["hunt","micah","foe","owned him","HOEAB"],["micah","danika","foe","killed her","HOEAB"],["bryce","tharion","friend","friends","HOSAB"],["bryce","ithan","friend","friends","HOEAB"],["hunt","apollion","fam","father","HOFAS"],
+ ["aidas","theia","love","loved her","HOSAB"],["bryce","theia","fam","descendant","HOFAS"],["rigelus","bryce","foe","enemy","HOSAB"],["bryce","aidas","ally","uneasy allies","HOEAB"],
+ ["bryce","azriel","foe","took Truth-Teller","HOFAS"],["bryce","nesta","ally","gave her the Mask","HOFAS"],["bryce","rhys","ally","uneasy alliance","HOFAS"],["bryce","cassian","foe","captor","HOFAS"],
+ ["celaena","rhys","ally","glimpse between worlds","KOA+ACOMAF"]
+];
+
+/* Family trees. FAMX = people without full character entries */
+const FAMILIES=[
+ {name:"The Archerons",gens:[["archeronfather","archeronmother"],["cassian","nesta","elain","feyre","rhys"],["nyx"]],
+  links:[["archeronfather","nesta"],["archeronfather","elain"],["archeronfather","feyre"],["archeronmother","nesta"],["archeronmother","elain"],["archeronmother","feyre"],["feyre","nyx"],["rhys","nyx"]],
+  spouse:[["archeronfather","archeronmother"],["nesta","cassian"],["feyre","rhys"]],sib:[]},
+ {name:"The Night Court",gens:[["rhysfather","rhysmother"],["rhys","rhyssister","mor"]],
+  links:[["rhysfather","rhys"],["rhysmother","rhys"],["rhysfather","rhyssister"],["rhysmother","rhyssister"]],spouse:[["rhysfather","rhysmother"]],sib:[]},
+ {name:"The Vanserras of Autumn",gens:[["beron","autumnlady","helion"],["eris","lucien"]],
+  links:[["beron","eris"],["autumnlady","eris"],["autumnlady","lucien"],["helion","lucien"]],spouse:[["beron","autumnlady"]],sib:[]},
+ {name:"Galathynius & Ashryver",gens:[["rhoe","evalin"],["aedion","celaena","rowan"]],
+  links:[["rhoe","celaena"],["evalin","celaena"]],spouse:[["rhoe","evalin"],["celaena","rowan"]],sib:[]},
+ {name:"The Havilliards",gens:[["kingadarlan","georgina"],["dorian","hollin","manon"]],
+  links:[["kingadarlan","dorian"],["georgina","dorian"],["kingadarlan","hollin"],["georgina","hollin"]],spouse:[["kingadarlan","georgina"]],sib:[]},
+ {name:"Midgard's Fae royals",gens:[["autumnking","ember","randall"],["lidia","ruhn","bryce","hunt"]],
+  links:[["autumnking","ruhn"],["autumnking","bryce"],["ember","bryce"]],spouse:[["ember","randall"],["bryce","hunt"],["ruhn","lidia"]],sib:[]},
+ {name:"The Fendyrs",gens:[["sabine"],["danika"]],links:[["sabine","danika"]],spouse:[],sib:[]}
+];
+/* Bonds between trees, shown in the side panel only */
+const CROSS=[["celaena","aedion","ally",["Cousin","Cousin"]],["mor","rhys","ally",["Cousin","Cousin"]],["hunt","apollion","fam",["Son","Father"]],["dorian","manon","love",["Partner","Partner"]],["lucien","elain","love",["Mate","Mate"]]];
+const FAMX={
+ archeronfather:{name:"Mr. Archeron",note:"A ruined merchant",dead:true},
+ archeronmother:{name:"Mrs. Archeron",note:"Died when they were young",dead:true},
+ nyx:{name:"Nyx",note:"Feyre & Rhys's son"},
+ rhysfather:{name:"Rhys's father",note:"Former High Lord",dead:true},
+ rhysmother:{name:"Rhys's mother",note:"Illyrian",dead:true},
+ rhyssister:{name:"Rhys's sister",note:"Killed young",dead:true},
+ autumnlady:{name:"Lady of Autumn",note:"Lucien's mother"},
+ rhoe:{name:"Rhoe Galathynius",note:"Aelin's father",dead:true},
+ evalin:{name:"Evalin Ashryver",note:"Aelin's mother",dead:true},
+ kingadarlan:{name:"King of Adarlan",note:"Dorian's father"},
+ georgina:{name:"Queen Georgina",note:"Dorian's mother"},
+ hollin:{name:"Hollin",note:"Dorian's little brother"},
+ ember:{name:"Ember Quinlan",note:"Bryce's mother"},
+ randall:{name:"Randall Silago",note:"Bryce's stepfather"}
+};
+
+/* The three worlds */
+const WORLDS=[
+ {id:"world-tog",s:"tog",b:"TOG",name:"Erilea",hub:"Throne of Glass",
+  d:"A high-fantasy continent where magic vanished ten years ago, under the iron rule of the Kingdom of Adarlan. The Fae live across the sea in Wendlyn, the witch clans in the west, and an empire of healers and horselords lies to the south.",
+  places:[["Rifthold","Adarlan's capital and home of the glass castle.","TOG"],["Endovier","The salt mines and death camp where Celaena is held.","TOG"],["Terrasen & Orynth","The fallen northern kingdom of the Galathynius line.","TOG"],["Wendlyn & Doranelle","Across the sea. Doranelle is the Fae city ruled by Maeve.","HOF"],["Mistward","The fortress where Rowan trains Celaena.","HOF"],["Morath","Duke Perrington's fortress, where the witches gather.","HOF"],["Eyllwe","The southern kingdom of Princess Nehemia.","TOG"],["Antica & the Torre Cesme","Capital of the southern continent, home of the great healers.","TOD"],["The Ferian Gap & White Fangs","Mountains where the Ironteeth train their wyverns.","HOF"]],
+  kv:[["Magic","Elemental gifts, Wyrdmarks, witch power",""],["Doorways","Wyrdgates, opened by the three Wyrdkeys","COM"],["Big bad","The Valg","HOF"]]},
+ {id:"world-acotar",s:"acotar",b:"ACOTAR",name:"Prythian",hub:"A Court of Thorns and Roses",
+  d:"A faerie land of seven courts, sealed off from the human lands to the south by a wall. Beyond Prythian lies the island of Hybern and the wider continent of Fae and human kingdoms.",
+  places:[["The Spring Court","Tamlin's court of eternal spring.","ACOTAR"],["Under the Mountain","Amarantha's prison-court beneath the mountain.","ACOTAR"],["The Wall","The barrier between Prythian and the human lands.","ACOTAR"],["The Night Court","Rhysand's court, home of the Court of Nightmares.","ACOTAR"],["Velaris","The hidden City of Starlight.","ACOMAF"],["The Illyrian Mountains","Home of the winged Illyrian war-camps.","ACOMAF"],["The Prison","An island fortress for the oldest, deadliest beings.","ACOMAF"],["The other five courts","Autumn, Summer, Winter, Day and Dawn.","ACOMAF"],["Hybern","The island kingdom across the sea.","ACOMAF"],["The Continent","Vallahan, Montesere, Rask and the neutral ground of Storr.","ACOSF"]],
+  kv:[["Magic","High Fae powers, mating bonds, the Cauldron",""],["Doorways","Rifts between worlds, the Dread Trove","ACOSF"],["Big bad","Amarantha, then Hybern, then Koschei","ACOTAR"]]},
+ {id:"world-cc",s:"cc",b:"HOEAB",name:"Midgard",hub:"Crescent City",
+  d:"A modern world of phones, cars and nightclubs, where angels, Fae, shifters, mer, witches and humans all live under the rule of the Asteri, the star-gods in the Eternal City.",
+  places:[["Lunathion","Crescent City itself: the Old Square, Five Roses, the Meat Market and Moonwood.","HOEAB"],["Griffin Antiquities","Jesiba's gallery, where Bryce works.","HOEAB"],["The Comitium","Valbara's seat of government, home of the 33rd Legion.","HOEAB"],["Valbara","The territory Lunathion sits in.","HOEAB"],["Pangera","The war-torn continent home to the Eternal City.","HOSAB"],["The Eternal City","Seat of the Asteri.","HOSAB"],["Avallen","The misty isle of the Fae.","HOSAB"],["Hel","A neighbouring world, reached through the Northern Rift.","HOEAB"]],
+  kv:[["Magic","Firstlight, the Drop, Starborn light",""],["Doorways","The Northern Rift, the Gates, the Horn","HOEAB"],["Big bad","The Asteri","HOEAB"]]}
+];
+
+/* Timeline: [world, when, title, detail, gate, isBook] */
+const TIMELINE=[
+ ["acotar","About 500 years before","The War, and the wall","Humans and Fae fight a great war. The Treaty splits Prythian from the human lands with a wall.",""],
+ ["acotar","About 50 years before","Amarantha takes Prythian","She curses the courts and rules from Under the Mountain.",""],
+ ["cc","15,000 years before","The Asteri arrive in Midgard","They come through the Northern Rift with the Fae and others in tow.",""],
+ ["tog","10 years before","Terrasen falls and magic vanishes","The Galathynius royals are murdered, and a child is pulled from a river and taken in by Arobynn Hamel.","COM"],
+ ["tog","2 years before","Sam dies; Celaena is sent to Endovier","Betrayed by Arobynn.","AB"],
+ ["tog","2012","Throne of Glass","The King's Champion contest.","TOG",1],
+ ["tog","2013","Crown of Midnight","Nehemia's death and a secret identity.","COM",1],
+ ["tog","2014","The Assassin's Blade","Prequel novellas.","AB",1],
+ ["tog","2014","Heir of Fire","Wendlyn and the witches.","HOF",1],
+ ["acotar","2015","A Court of Thorns and Roses","Feyre crosses the wall.","ACOTAR",1],
+ ["tog","2015","Queen of Shadows","Rifthold reckoning.","QOS",1],
+ ["tog","Queen of Shadows","Magic returns to Erilea","Aelin destroys the clock tower that suppressed it.","QOS"],
+ ["acotar","2016","A Court of Mist and Fury","The Night Court.","ACOMAF",1],
+ ["tog","2016","Empire of Storms","War comes to Erilea.","EOS",1],
+ ["acotar","2017","A Court of Wings and Ruin","War with Hybern.","ACOWAR",1],
+ ["tog","2017","Tower of Dawn","Alongside Empire of Storms.","TOD",1],
+ ["acotar","2018","A Court of Frost and Starlight","Solstice after the war.","ACOFAS",1],
+ ["tog","2018","Kingdom of Ash","The Throne of Glass finale.","KOA",1],
+ ["x","Kingdom of Ash","Aelin crosses between worlds","She glimpses other worlds, including a brief encounter with two Prythian figures. Rhys and Feyre already seem mated, so fans place it after ACOWAR in Prythian's time.","KOA"],
+ ["tog","Kingdom of Ash","The Wyrdgates are sealed","Aelin forges the lock.","KOA"],
+ ["cc","2 years before House of Earth and Blood","Danika and the Pack of Devils are murdered","The killing that opens the series.",""],
+ ["cc","2020","House of Earth and Blood","Bryce hunts a killer.","HOEAB",1],
+ ["acotar","2021","A Court of Silver Flames","Nesta and the Valkyries. Nyx is born.","ACOSF",1],
+ ["cc","2022","House of Sky and Breath","The rebellion.","HOSAB",1],
+ ["x","End of House of Sky and Breath","Bryce leaves Midgard","She lands in Prythian.","HOSAB"],
+ ["cc","2024","House of Flame and Shadow","Bryce in Prythian, then home.","HOFAS",1],
+ ["x","After A Court of Silver Flames","Bryce in the Night Court","She leaves with Truth-Teller and the Mask.","HOFAS+ACOSF"],
+ ["acotar","27 October 2026","A Court of Splintered Harmony","The Valkyrie Cycle begins about a month after House of Flame and Shadow.","ACOSH",1],
+ ["acotar","12 January 2027","A Court of Forgotten Melody","Movements II and III.","",1],
+ ["acotar","TBA","ACOTAR 8","Movement IV.","",1],
+ ["cc","TBA","Crescent City 4","Reportedly crosses over with ACOTAR.","",1]
+];
+
+/* ============ RECAPS (my own summaries) ============ */
+const RECAPS={
+ TOG:{start:"Celaena Sardothien, 18, is a year into a death sentence in the salt mines of Endovier. Crown Prince Dorian Havilliard offers a deal: be his champion in a contest to become the King of Adarlan's Champion. Win, serve the king for four years, then go free.",
+  events:["She competes under the alias Lillian Gordaina, trained by the Captain of the Guard, Chaol Westfall.","She befriends Nehemia, the princess of conquered Eyllwe, who knows Wyrdmarks, an ancient form of magic.","Champions start dying, torn apart by a creature summoned with Wyrdmarks.","The ghost of Elena, Adarlan's first queen, gives Celaena the Eye of Elena amulet and tells her an evil in the castle must be stopped.","Celaena and Dorian grow close. Chaol is quietly falling for her too.","She discovers her rival Cain is behind the creature."],
+  end:"Drugged before the final duel, Celaena still beats Cain, with Nehemia's hidden protection. She wins and becomes the King's Champion.",
+  remember:["Celaena is the King's Champion, forced to kill for the king who destroyed her life.","Wyrdmarks are real, and Nehemia knows more than she says.","Dorian and Chaol both care about her."]},
+ COM:{start:"Celaena is the King's Champion, sent to kill his enemies. Secretly she fakes their deaths and smuggles them out of the city.",
+  events:["She and Chaol finally get together.","A rebel group and the courtesan Archer Finn draw her into a plot against the king.","She learns of the Wyrdkeys and Wyrdgates, and that the king has used them to suppress magic.","Nehemia is murdered. Celaena blames Chaol for not warning her.","She discovers Nehemia arranged her own death to push Celaena into fighting back, and hunts down those responsible.","Dorian's magic awakens."],
+  end:"To get her safely out of the country, Chaol arranges for her to be sent to Wendlyn to assassinate its royals. As she leaves, he learns who she really is: Aelin Ashryver Galathynius, heir of Terrasen.",
+  remember:["Celaena is Aelin, with Fae blood and fire magic.","The king holds Wyrdkeys and is hiding something monstrous.","Dorian has magic, which is outlawed."]},
+ AB:{start:"Five novellas set before Throne of Glass, while teenage Celaena is the pride of Arobynn Hamel's Assassins' Guild.",
+  events:["The Pirate Lord: she wrecks a slaving deal at Skull's Bay with fellow assassin Sam Cortland.","The Healer: she leaves money and a note for a young barmaid, Yrene Towers, telling her to train at the Torre Cesme.","The Desert: she trains with the Silent Assassins of the Red Desert and is betrayed by a new friend.","The Underworld: she and Sam fall in love, and plan to leave Arobynn.","The Empire: the plan goes wrong."],
+  end:"Arobynn betrays them. Sam is tortured to death by the crime lord Rourke Farran, and Celaena is captured and sent to Endovier.",
+  remember:["Arobynn is the reason Celaena was in Endovier.","Sam was her first love.","Yrene and Lysandra both come back later."]},
+ HOF:{start:"Aelin is in Wendlyn, drinking and hiding from who she is. Her aunt, Queen Maeve of the Fae, sends Rowan Whitethorn to train her at the fortress of Mistward.",
+  events:["Rowan and Aelin loathe each other, then become friends, then something closer.","She finally faces her memories of Terrasen and the night her family died.","In the north, Manon Blackbeak, heir of the Ironteeth witches, wins her wyvern, Abraxos, and trains a witch army for Duke Perrington.","In Rifthold, Chaol works with the rebels and the general Aedion Ashryver, Aelin's cousin.","Dorian falls for the healer Sorscha. The king executes her.","Valg-possessed forces attack Mistward."],
+  end:"Aelin claims her power and burns the Valg out. She reclaims her name and heads back to Adarlan. Dorian is enslaved by a Valg prince through a black collar.",
+  remember:["Aelin knows who she is and is coming back.","The Valg are demons from another world, and the king is using them.","Manon is a witch heir working for the enemy, but she's questioning it."]},
+ ACOTAR:{start:"Feyre Archeron, 19, keeps her poor family alive by hunting in the woods near the wall. She kills a huge wolf, which turns out to be a faerie.",
+  events:["A beast comes to claim payment and takes her across the wall to the Spring Court. He is Tamlin, High Lord of Spring, and he and his emissary Lucien are cursed to wear masks.","Feyre falls in love with Tamlin, and meets the menacing Rhysand, High Lord of the Night Court.","Tamlin sends her home to keep her safe from the danger that's coming.","She returns to find him taken Under the Mountain by Amarantha, who holds all of Prythian under her curse.","Feyre bargains: complete three trials or solve a riddle and the curse breaks. Rhysand saves her life in exchange for one week a month with him.","She solves the riddle. The answer is love."],
+  end:"Amarantha kills her. The seven High Lords each give a spark of power and resurrect her as High Fae. Amarantha dies, the curse breaks, and Feyre goes home with Tamlin, still bound to Rhysand by their bargain.",
+  remember:["Feyre is High Fae now, and deeply traumatised.","She owes Rhysand one week a month, marked by a tattoo.","Her sisters, Nesta and Elain, are still human."]},
+ QOS:{start:"Aelin returns to Rifthold, determined to free Aedion, save Dorian and destroy the king.",
+  events:["She works with her old master Arobynn while planning his downfall.","The courtesan Lysandra becomes an ally, and turns out to be a shapeshifter.","Rowan joins her. Aedion is rescued from execution.","Manon defies her grandmother and protects a lamed servant girl, Elide Lochan.","Aelin frees Dorian from the Valg prince.","Lysandra kills Arobynn."],
+  end:"Aelin destroys the clock tower that suppressed magic, and magic returns to Erilea. The glass castle shatters. Dorian is king, Chaol is badly hurt, and the true enemy is waiting at Morath.",
+  remember:["Magic is back.","Aelin, Rowan, Aedion and Lysandra head for Terrasen. Dorian rules Adarlan.","Elide is travelling north with something Aelin needs."]},
+ ACOMAF:{start:"Feyre is back at the Spring Court, engaged to Tamlin, and falling apart. She can't eat or sleep, and Tamlin's protectiveness becomes a cage.",
+  events:["On her wedding day, Rhysand calls in their bargain and takes her to the Night Court.","She meets his Inner Circle, Cassian, Azriel, Mor and Amren, and discovers the hidden city of Velaris.","Feyre learns she holds a little of each High Lord's power, and starts to train.","Rhys and his friends hunt the Book of Breathings to stop the King of Hybern from using the Cauldron to destroy the wall.","Feyre learns Rhys protected Velaris by playing a villain Under the Mountain, and that she's his mate.","She becomes High Lady of the Night Court."],
+  end:"Hybern springs a trap. Nesta and Elain are thrown into the Cauldron and Made High Fae, and Lucien claims Elain as his mate. To protect everyone, Feyre pretends Rhys had manipulated her and goes back to the Spring Court as a spy.",
+  remember:["Feyre and Rhys are mates. She's High Lady of the Night Court.","Nesta and Elain are High Fae now, and changed.","Hybern is coming."]},
+ EOS:{start:"Aelin reaches Terrasen, but its lords don't trust her. War is on the way.",
+  events:["She sails to gather allies, from the pirate lord Rolfe to Ansel of Briarcliff.","Elide travels with Lorcan, one of Maeve's warriors, and they fall for each other.","Manon learns she is half Crochan, and turns against the Ironteeth.","Aelin and Rowan finally become lovers, then mates, and secretly marry.","Aedion learns his father is Gavriel, one of Maeve's cadre.","Duke Perrington is revealed to be Erawan, the Valg king."],
+  end:"Maeve's fleet arrives. Aelin hands herself over to save her friends and is locked in an iron coffin. Her friends scatter to raise armies and to find her.",
+  remember:["Aelin is Maeve's captive.","Rowan is searching for her.","Manon, Dorian and the witches are now allies."]},
+ ACOWAR:{start:"Feyre is back in the Spring Court, pretending to be Tamlin's loyal partner while quietly breaking his court apart.",
+  events:["She escapes with Lucien, who learns he is the son of Helion, High Lord of Day.","Prythian's High Lords meet to unite against Hybern.","Amren's true form is unleashed, and Mor tells Feyre she loves females.","Feyre recruits ancient, dangerous allies, including the Bone Carver, the Weaver and Bryaxis.","Feyre's father arrives with a human army. The battle is brutal, and Rhys dies.","The High Lords, Tamlin among them, give their power, and Feyre brings Rhys back."],
+  end:"Nesta kills the King of Hybern. Prythian survives, though Feyre's father does not. Amren stays, in a High Fae body.",
+  remember:["Hybern is beaten, but the wall is gone.","Nesta is not okay.","Lucien is now helping the human queen Vassa."]},
+ TOD:{start:"Chaol, unable to walk, sails to Antica with Nesryn Faliq to seek healing and an army from the khagan.",
+  events:["Yrene Towers, now a healer of the Torre Cesme, is assigned to heal him.","His injury carries a Valg darkness. Healing it means facing his guilt.","Nesryn befriends Prince Sartaq and his ruk riders.","Something Valg is hunting in the Torre.","Chaol and Yrene fall for each other."],
+  end:"Chaol walks again and marries Yrene. The khaganate sails to war with them.",
+  remember:["Chaol and Yrene are married.","The southern armies are coming."]},
+ ACOFAS:{start:"Winter Solstice in Velaris, a few months after the war.",
+  events:["Feyre and Rhys plan gifts while the city rebuilds.","Feyre opens a painting studio and helps others heal through art.","Nesta drinks and pushes everyone away. Cassian refuses to give up on her.","Elain is still grieving her old life."],
+  end:"The Inner Circle celebrates and looks to the future, including a child. Nesta's story is set up for the next book.",
+  remember:["Nesta is struggling badly.","Feyre and Rhys hope for a child."]},
+ KOA:{start:"Aelin has been held for months in an iron coffin, tortured by Maeve's servant Cairn.",
+  events:["Rowan and his cadre track her down.","Manon unites the Crochans and Ironteeth, at terrible cost to the Thirteen.","Dorian and Manon break into Morath for a Wyrdkey.","Chaol and Yrene arrive with the southern armies.","Maeve's true nature is revealed.","Aelin passes between worlds, with a brief Prythian cameo."],
+  end:"Aelin forges a new lock with her own power and seals the Wyrdgates. Erawan and Maeve are defeated. Aelin is crowned Queen of Terrasen with Rowan, and every pairing gets a home.",
+  remember:["The Throne of Glass series is complete.","Look out for two Prythian faces during Aelin's journey between worlds."]},
+ HOEAB:{start:"Two years ago, Bryce Quinlan's best friend Danika and the Pack of Devils were slaughtered. Now Bryce, half-Fae and half-human, works at Jesiba's antiquities gallery in Lunathion.",
+  events:["New murders look exactly like Danika's. The Archangel Micah orders Bryce and Hunt Athalar, his enslaved assassin, to investigate.","They hunt for the stolen Horn of Luna, a powerful relic.","Bryce's half-brother Ruhn helps her.","Bryce learns Danika kept many secrets, including links to a drug called synth.","Hunt and Bryce fall for each other."],
+  end:"Micah is the killer. He wanted the Horn. Bryce kills him, makes the Drop, and uses its light through the city's Gate to save Lunathion as Hel breaks through. Lehabah dies protecting her.",
+  remember:["Bryce is Starborn and the Autumn King's daughter.","Bryce and Hunt are together.","The Horn is tattooed on her back."]},
+ ACOSF:{start:"Nesta Archeron is drinking, sleeping around and spending the Night Court's money. Feyre and Rhys send her to live in the House of Wind and train with Cassian.",
+  events:["She works in the Library and meets Gwyn, a priestess, and Emerie, an Illyrian.","The three train together and revive the ancient Valkyries.","Nesta and Cassian's slow burn finally ignites.","The Dread Trove is hunted: the Mask, the Harp and the Crown.","Queen Briallyn and Koschei the Deathless scheme to use the Trove.","Feyre's pregnancy turns dangerous."],
+  end:"Nesta risks everything to save Feyre and the baby, Nyx. She and Cassian accept their mating bond, and the Valkyries rise.",
+  remember:["Nesta and Cassian are mates.","Nyx is born.","Koschei is a looming threat."]},
+ HOSAB:{start:"Bryce and Hunt are trying for a quiet life. The rebellion against the Asteri, Ophion, has other plans.",
+  events:["Tharion and the mer bring Bryce into a hunt for a missing rebel.","Bryce is forced into a fake engagement with Prince Cormac of Avallen.","Ruhn exchanges secret messages with a rebel he knows only as Day.","Bryce learns the Asteri feed on firstlight, the power taken from souls.","Bryce and Hunt become mates.","Lidia Cervos, the Hind, is revealed as Day."],
+  end:"The Asteri capture Hunt and Ruhn. Bryce uses the Horn and her light to open a way out, and falls into another world.",
+  remember:["Bryce has left Midgard.","Hunt and Ruhn are prisoners.","Lidia is on their side."]},
+ HOFAS:{start:"Bryce is in Prythian. Hunt and Ruhn are in the Asteri's dungeons.",
+  events:["Bryce is captured by the Night Court and questioned by Azriel, Cassian and Rhysand.","She learns the Asteri once ruled Prythian as the Daglan, and that the Starborn Fae came from Prythian.","Bryce takes Truth-Teller from Azriel. Nesta gives her the Mask.","Back in Midgard, Hunt and Ruhn escape with Lidia's help.","Hunt learns his father is Apollion, Prince of the Pit."],
+  end:"Bryce returns to Midgard and helps bring down the Asteri.",
+  remember:["The Night Court is split over the Mask.","Bryce and Hunt are free.","This ending sets up A Court of Splintered Harmony."]},
+ ACOSH:{start:"About a month after House of Flame and Shadow, the Night Court is fractured, and Koschei the Deathless is stirring on the continent.",
+  events:["Azriel's childhood is shown at last.","Feyre, Rhys and Mor meet the continent's leaders at Storr, and are refused a treaty.","Nesta is isolated and fighting with Cassian.","Azriel and Elain begin a secret affair. Rhys forbids it.","Lucien returns to the Autumn Court as Tamlin's second.","Bryaxis attacks Nyx's naming ceremony."],
+  end:"Lucien discovers Elain and Azriel. Nesta enters the Prison. Elain leaves for Vallahan with Mor. Movement I of the Valkyrie Cycle ends on a cliffhanger.",
+  remember:["The story continues in A Court of Forgotten Melody on 12 January 2027.","Koschei's box, said to hold his death, is the prize everyone is hunting."]}
+};
+
+/* How the worlds connect (Connections tab). st: conf | ann | theory */
+const XOVER=[
+ {a:"tog",b:"acotar",st:"conf",g:"KOA",t:"A Prythian cameo in Kingdom of Ash",d:"During Aelin's journey between worlds, she briefly crosses paths with a winged, dark-haired male and a female, widely identified as Rhysand and Feyre. They're never named."},
+ {a:"cc",b:"acotar",st:"conf",g:"HOSAB",t:"Bryce falls into Prythian",d:"The last pages of House of Sky and Breath send Bryce out of Midgard and into Prythian."},
+ {a:"cc",b:"acotar",st:"conf",g:"HOFAS+ACOSF",t:"Bryce meets the Night Court",d:"In House of Flame and Shadow, Bryce is held and questioned by Rhys's Inner Circle. Her visit happens after A Court of Silver Flames."},
+ {a:"cc",b:"acotar",st:"conf",g:"HOFAS",t:"The Asteri are the Daglan",d:"Midgard's star-gods and Prythian's ancient tyrants, the Daglan, are the same kind of being."},
+ {a:"cc",b:"acotar",st:"conf",g:"HOFAS",t:"The Starborn came from Prythian",d:"Theia and Midgard's Starborn Fae originally came from Prythian."},
+ {a:"cc",b:"acotar",st:"conf",g:"HOFAS+ACOMAF",t:"Truth-Teller and the Starsword",d:"Azriel's dagger and the Starsword share a prophecy about knife and sword reunited. Bryce takes Truth-Teller home."},
+ {a:"cc",b:"acotar",st:"conf",g:"HOFAS+ACOSF",t:"The Mask leaves Prythian",d:"Nesta gives Bryce the Mask, one of the Dread Trove from A Court of Silver Flames."},
+ {a:"acotar",b:"cc",st:"conf",g:"ACOSH+HOFAS",t:"The fallout in Splintered Harmony",d:"ACOSH opens about a month after House of Flame and Shadow, with the Inner Circle split over Nesta's gift of the Mask."},
+ {a:"cc",b:"acotar",st:"ann",g:"",t:"Crescent City 4 will cross over",d:"Maas has reportedly said the next Crescent City book will connect with the ACOTAR world."},
+ {a:"acotar",b:"x",st:"ann",g:"",t:"The Valkyrie Cycle is one story",d:"Maas has said ACOTAR 6, 7 and 8 are one story told in four movements. Readers are advised to finish Throne of Glass and Crescent City before book 7."},
+ {a:"tog",b:"cc",st:"theory",g:"EOS+HOEAB",t:"The Valg and the Asteri",d:"Both are otherworldly conquerors who come through gates or rifts. Fans suspect a link."},
+ {a:"tog",b:"cc",st:"theory",g:"KOA",t:"A city like Lunathion",d:"Among the worlds Aelin glimpses is a strange city some readers think sounds like Crescent City."},
+ {a:"acotar",b:"cc",st:"theory",g:"ACOWAR+HOEAB",t:"Amren's homeworld",d:"Amren came from another world. Midgard, Hel and the Valg's world have all been proposed."},
+ {a:"acotar",b:"cc",st:"theory",g:"ACOTAR+HOEAB",t:"Two Autumn royal lines",d:"Midgard's Autumn King and Prythian's Autumn Court share fire, red hair and cruelty. Fans read a family link."}
+];
+const STLBL={conf:["Confirmed","good"],ann:["Announced","grey"],theory:["Theory","theory"]};
+
+/* ============ HELPERS ============ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const C=Object.fromEntries(CHARS.map(c=>[c.id,c]));
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ============ SPOILER SHIELD ============
+   Progress is per series: P.tog = number of Throne of Glass books finished (0-8), and so on.
+   Items from a book you haven't started are blurred. Twists stay blurred until their book is finished.
+   Crossover gates ("HOFAS+ACOSF") need every listed book finished. */
+let P=store.get("maasSpoiler",null);
+const firstVisit=P===null;
+if(!P||typeof P!=="object")P={tog:0,acotar:0,cc:0};
+const SPK=new Set();
+const ALL=()=>P.tog>=NSER.tog&&P.acotar>=NSER.acotar&&P.cc>=NSER.cc;
+const fin=c=>{const b=BK[c];return !b||(P[b.s]||0)>=b.n};
+const started=c=>{const b=BK[c];return !b||(P[b.s]||0)>=b.n-1};
+const gateOK=g=>!g||String(g).split("+").every(fin);
+const hideG=g=>!ALL()&&!gateOK(g);
+const hideStart=c=>!ALL()&&!started(c);
+const gateLab=g=>String(g||"").split("+").filter(Boolean).map(c=>BK[c]?.abbr||c).join(" + ");
+function sp(hide,key,html,tag){if(!hide||SPK.has(key))return html;tag=tag||"span";return `<${tag} class="sp-hidden" data-spk="${key}" title="Spoiler: tap to reveal">${html}</${tag}>`}
+
+const nm=id=>C[id]?.name||FAMX[id]?.name||id;
+const SHORTN={celaena:"Celaena",autumnking:"Autumn King",hybern:"Hybern"};
+const short=id=>SHORTN[id]||nm(id).replace(/^The /,"").split(" ")[0];
+const sw=s=>`<span class="swatch" style="background:${SERCOL[s]||SERCOL.x}"></span>`;
+const ROLE={lead:["Main character","good"],sup:["Supporting","grey"],bad:["Antagonist","bad"]};
+const alignPill=a=>`<span class="pill p-${ROLE[a][1]}">${ROLE[a][0]}</span>`;
+function charLink(id){return C[id]?`<button class="lnk" data-go="char:${id}">${esc(nm(id))}</button>`:esc(nm(id))}
+const WOPTS=[["all","All worlds"],["tog","Erilea"],["acotar","Prythian"],["cc","Midgard"]];
+const wChips=(cur,attr,extra)=>[...WOPTS,...(extra||[])].map(([k,l])=>`<button class="chip" data-${attr}="${k}" aria-pressed="${cur===k}">${k!=="all"?sw(k):""}${esc(l)}</button>`).join("");
+
+/* spoiler dialog: one block of choices per series */
+function spOpts(){let h="";
+ ["tog","acotar","cc"].forEach(s=>{const S=SERIES[s],bs=BOOKLIST.filter(b=>b.s===s);
+  h+=`<p class="opt-h">${sw(s)}${esc(S.name)} · ${esc(S.world)}</p>`;
+  bs.forEach((b,i)=>{h+=`<button type="button" style="--wc:${S.col}" data-ser="${s}" data-lv="${i}"><b>${i===0?"New to this series, or reading ":"Reading "}${esc(b.title)}</b><span>${i===0?"Hide everything from "+esc(S.name):"Finished "+esc(bs[i-1].title)}</span></button>`});
+  h+=`<button type="button" style="--wc:${S.col}" data-ser="${s}" data-lv="${bs.length}"><b>Finished ${esc(bs[bs.length-1].title)}</b><span>Show all of ${esc(S.name)}</span></button>`});
+ $("#spd-opts").innerHTML=h;markOpts()}
+function markOpts(){document.querySelectorAll("#spd-opts [data-ser]").forEach(b=>b.classList.toggle("cur",+b.dataset.lv===(P[b.dataset.ser]||0)))}
+const pLab=s=>{const bs=BOOKLIST.filter(b=>b.s===s),v=P[s]||0;return v>=bs.length?"all read":v===0?"not started":"reading "+bs[v].abbr};
+function spStrip(){$("#sp-strip").innerHTML=ALL()?`<span>Spoilers: <b>Showing everything</b></span><button class="lnk" data-open-sp>Change</button>`:`<span>Spoilers: <b>ToG ${pLab("tog")}</b> · <b>ACOTAR ${pLab("acotar")}</b> · <b>Crescent City ${pLab("cc")}</b>. Blurred items come from books you haven't finished. Tap one to peek.</span><button class="lnk" data-open-sp>Change</button>`}
+document.addEventListener("click",e=>{const el=e.target.closest(".sp-hidden");if(!el)return;e.preventDefault();e.stopPropagation();
+ const k=el.dataset.spk;SPK.add(k);el.classList.remove("sp-hidden");el.querySelectorAll(".sp-hidden").forEach(c=>{SPK.add(c.dataset.spk);c.classList.remove("sp-hidden")});
+ document.querySelectorAll(`[data-sp-for="${k}"]`).forEach(n=>n.remove())},true);
+document.addEventListener("click",e=>{const r=e.target.closest("[data-reveal]");if(!r)return;const t=document.querySelector(`[data-spk="${r.dataset.reveal}"]`);if(t)t.click()});
+const spd=document.getElementById("spd");
+function openSp(){markOpts();if(typeof spd.showModal==="function")spd.showModal();else spd.setAttribute("open","")}
+function closeSp(){if(spd.open){typeof spd.close==="function"?spd.close():spd.removeAttribute("open")}}
+function applySp(){store.set("maasSpoiler",P);SPK.clear();spStrip();show(current)}
+document.addEventListener("click",e=>{if(e.target.closest("#sp-open,[data-open-sp]"))openSp()});
+document.getElementById("spd-opts").addEventListener("click",e=>{const b=e.target.closest("[data-ser]");if(!b)return;P[b.dataset.ser]=+b.dataset.lv;markOpts();applySp()});
+document.getElementById("sp-all").addEventListener("click",()=>{P={...NSER};markOpts();applySp();closeSp()});
+document.getElementById("sp-done").addEventListener("click",()=>{applySp();closeSp()});
+spd.addEventListener("close",()=>store.set("maasSpoiler",P));
+
+/* ============ AFFILIATE SETTINGS ============
+   Paste your Amazon Associates tracking ID between the quotes (e.g. "readersatlas-22").
+   Every "Buy the book" link updates automatically. Leave blank until approved. */
+const AMAZON_TAG="";
+const affUrl=title=>"https://www.amazon.com.au/s?k="+encodeURIComponent("Sarah J. Maas "+title)+(AMAZON_TAG?"&tag="+encodeURIComponent(AMAZON_TAG):"");
+const affRel="noopener"+(AMAZON_TAG?" sponsored":"");
+const CART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>';
+document.getElementById("readbooks").addEventListener("click",()=>{show("books");gq.blur()});
+
+/* ============ TABS ============ */
+const TABS=[["books","Book Guide"],["characters","Characters"],["world","Worlds & Timeline"],["recaps","Recaps"],["family","Family Tree"],["map","Connections"]];
+const TSHORT={books:"Books",characters:"Cast",world:"Worlds",recaps:"Recaps",family:"Family",map:"Connect"};
+let current=store.get("maasTab","books");
+if(location.hash&&TABS.some(t=>t[0]===location.hash.slice(1)))current=location.hash.slice(1);
+if(!TABS.some(t=>t[0]===current))current="books";
+const TICON={
+ books:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
+ characters:'<path d="M5 8l2.5 2.5L12 5l4.5 5.5L19 8l-1.5 7h-11z"/><circle cx="12" cy="18.5" r="2"/>',
+ world:'<circle cx="8" cy="9" r="5"/><circle cx="16" cy="9" r="5"/><circle cx="12" cy="16" r="5"/>',
+ recaps:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>',
+ family:'<circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5V12M5 16.5V12h14v4.5"/>',
+ map:'<path d="M12 2l1.8 4.6L18.5 8l-4.7 1.4L12 14l-1.8-4.6L5.5 8l4.7-1.4z"/><path d="M5 20l3-4M19 20l-3-4M12 22v-5"/>'};
+function renderTabs(){$("#tabs").innerHTML=TABS.map(([k,l])=>`<button role="tab" aria-selected="${k===current}" data-tab="${k}" aria-label="${l}"><svg class="tabicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${TICON[k]}</svg><span class="tl-l">${l}</span><span class="ts">${TSHORT[k]}</span></button>`).join("")}
+let lastW=innerWidth;
+addEventListener("resize",()=>{clearTimeout(window._rz);window._rz=setTimeout(()=>{if(Math.abs(innerWidth-lastW)<40)return;lastW=innerWidth;if(current==="family")renderFamily();if(current==="map")renderMap()},250)});
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(b)show(b.dataset.tab)});
+function show(t,after){current=t;store.set("maasTab",t);renderTabs();({books:renderBooks,characters:renderChars,world:renderWorld,recaps:renderRecaps,family:renderFamily,map:renderMap})[t]();window.scrollTo({top:0});if(after)requestAnimationFrame(after)}
+function flash(el){if(!el)return;el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),2200)}
+
+document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(!b)return;go(b.dataset.go)});
+function go(ref){const i=ref.indexOf(":"),k=ref.slice(0,i),id=ref.slice(i+1);
+ if(k==="char"){Object.assign(charState,{q:"",role:"all",w:"all",bk:"all"});show("characters",()=>flash(document.getElementById("c-"+id)))}
+ else if(k==="book"){bookSer="all";show("books",()=>flash(document.getElementById("b-"+id)))}
+ else if(k==="world"){worldW="all";show("world",()=>flash(document.getElementById(id)))}
+ else if(k==="recap"){recapBook=id;recapW="all";show("recaps")}
+ else if(k==="fam"){famFocus=id;show("family")}
+ else if(k==="map"){mapFocus=id;mapState.w="all";show("map")}
+ else if(k==="xo"){mapState.w="all";mapState.st="all";show("map",()=>flash(document.getElementById(id)))}}
+
+/* ============ BOOK GUIDE ============ */
+const ord=n=>n+(n%100>=11&&n%100<=13?"th":({1:"st",2:"nd",3:"rd"}[n%10]||"th"));
+let bookSer=store.get("maasBookSer","all");
+function renderBooks(){
+ const v=$("#view");store.set("maasBookSer",bookSer);
+ const inSer=s=>bookSer==="all"||bookSer===s;
+ const order=BOOKLIST.map((b,i)=>`<li class="${inSer(b.s)?"":"dim"}" style="border-top:3px solid ${SERCOL[b.s]}"><span class="n">Read ${ord(i+1)} · ${esc(SERIES[b.s].short)} ${b.n}</span><b>${esc(b.title)}</b>${b.year}</li>`)
+  .concat(UPCOMING.map(u=>`<li class="soon ${inSer(u.s)?"":"dim"}" style="border-top:3px solid ${SERCOL[u.s]}"><span class="n">Coming · ${esc(SERIES[u.s].short)}</span><b>${esc(u.title)}</b>${esc(u.date)}</li>`));
+ const days=Math.ceil((new Date(UPCOMING[0].iso+"T00:00:00")-new Date())/864e5);
+ const news=`<div class="newsgrid">
+  <div class="news"><span class="when">Out now · 27 Oct 2026</span><b>A Court of Splintered Harmony</b><span>ACOTAR 6 opens the Valkyrie Cycle, Movement I.</span></div>
+  <div class="news"><span class="when">Next · 12 Jan 2027</span>${days>0?`<span class="big">${days} days</span>`:""}<b>A Court of Forgotten Melody</b><span>ACOTAR 7, Movements II and III.</span></div>
+  <div class="news"><span class="when">Coming · TBA</span><b>ACOTAR 8 and Crescent City 4</b><span>The final movement, and a Crescent City book that reportedly crosses into Prythian.</span></div></div>`;
+ const groups=["tog","acotar","cc"].filter(inSer);
+ const serChips=[["all","All three series"],["tog","Throne of Glass"],["acotar","ACOTAR"],["cc","Crescent City"]].map(([k,l])=>`<button class="chip" data-bs="${k}" aria-pressed="${bookSer===k}">${k!=="all"?sw(k):""}${esc(l)}</button>`).join("");
+ v.innerHTML=`<p class="eyebrow">Start here</p><h2>Book Guide</h2>
+ <p class="lede">Three series in three worlds that turn out to share one multiverse. Each series stands on its own, but reading in publication order, interleaved like this, lands every crossover the way Maas wrote it. Premises only here; full plots live in Recaps.</p>
+ ${news}
+ <p class="note"><b>Only read ACOTAR?</b> You're fine to keep going, but read all three Crescent City books before A Court of Splintered Harmony, and Throne of Glass before A Court of Forgotten Melody.</p>
+ <div class="controls" role="group" aria-label="Filter by series">${serChips}</div>
+ <ol class="order">${order.join("")}</ol>
+ ${groups.map(s=>`<div class="group-h"><h3>${sw(s)}${esc(SERIES[s].name)}</h3><span>${esc(SERIES[s].world)}</span></div>
+ <div class="grid wide">${BOOKLIST.filter(b=>b.s===s).map(b=>{const key="bk-"+b.c,i=BIDX[b.c];
+  const prem=b.plot2?`<p class="bk-plot">${esc(b.plot)}</p>${sp(hideG(b.plotG),key+"-p2",`<p class="bk-plot">${esc(b.plot2)}</p>`,"div")}`:`<p class="bk-plot">${esc(b.plot)}</p>`;
+  const body=`<p class="eyebrow">Read ${ord(i+1)} · ${esc(SERIES[b.s].short)} ${b.n} · ${b.year}${b.fresh?' · <span class="pill p-good">New</span>':""}</p><h3>${esc(b.title)}</h3><p class="trope">${esc(b.trope)}</p>${prem}${b.note?`<p class="bk-plot" style="color:var(--muted);font-style:italic">${esc(b.note)}</p>`:""}<span class="lbl" style="margin-top:10px">Main characters</span><div class="castlist">${b.cast.map(id=>sp(hideStart(C[id]?.b),key+"-c-"+id,charLink(id))).join("")}</div>`;
+  return `<article class="card" id="b-${b.c}"><div class="bookcard"><div class="spine" style="background:${b.col}"><span>${esc(b.abbr)}</span></div><div>${body}
+  <div class="bk-actions"><a class="buybtn" href="${affUrl(b.title)}" target="_blank" rel="${affRel}">${CART}Buy the book</a><button class="buybtn ghost" data-go="recap:${b.c}">Recap</button></div></div></div></article>`}).join("")}
+  ${UPCOMING.filter(u=>u.s===s).map(u=>`<article class="card" id="b-${u.c}" style="border-style:dashed"><div class="bookcard"><div class="spine" style="background:#7a7890"><span>${esc(u.c==="ACOFM"?"ACOFM":u.title)}</span></div><div><p class="eyebrow">Coming · ${esc(u.date)}</p><h3>${esc(u.title)}</h3><p class="trope">${esc(u.sub)}</p>${sp(hideG(u.g),"bk-"+u.c,`<p class="bk-plot">${esc(u.note)}</p>`,"div")}${u.buy?`<div class="bk-actions"><a class="buybtn" href="${affUrl(u.title)}" target="_blank" rel="${affRel}">${CART}Pre-order</a></div>`:""}</div></div></article>`).join("")}</div>`).join("")}`;
+ v.querySelectorAll("[data-bs]").forEach(b=>b.addEventListener("click",()=>{bookSer=b.dataset.bs;renderBooks()}));
+}
+
+/* ============ CHARACTERS ============ */
+const charState=Object.assign({q:"",w:"all",role:"all",bk:"all"},store.get("maasChars",{}));
+const APPEARS={};
+const addAp=(id,b)=>{if(C[id]&&BK[b])(APPEARS[id]??=new Set).add(b)};
+BOOKLIST.forEach(b=>b.cast.forEach(id=>addAp(id,b.c)));
+CHARS.forEach(c=>addAp(c.id,c.b));
+EDGES.forEach(([a,b,,,g])=>String(g).split("+").forEach(x=>{addAp(a,x);addAp(b,x)}));
+const bookOpts=w=>["tog","acotar","cc"].filter(s=>w==="all"||w===s).map(s=>`<optgroup label="${esc(SERIES[s].name)}">${BOOKLIST.filter(b=>b.s===s).map(b=>`<option value="${b.c}">${esc(b.title)}</option>`).join("")}</optgroup>`).join("");
+function charCard(c){
+ const key="c-"+c.id;
+ const inner=`<div class="card-top"><div><h3>${esc(c.name)}</h3><div class="aka">${esc(c.aka)}</div></div><div class="pills">${alignPill(c.role)}${c.dead!==undefined?sp(hideG(c.dead),key+"-dd",'<span class="pill p-dead">Deceased</span>'):""}</div></div>
+ <dl class="kv">${PRON[c.id]?`<dt>Say it</dt><dd style="font-style:italic">${esc(PRON[c.id])}</dd>`:""}
+ <dt>World</dt><dd>${sw(c.w)}<button class="lnk" data-go="world:world-${c.w}">${esc(WORLDNAME(c.w))}</button> · ${esc(SERIES[c.w].name)}</dd>
+ <dt>Role</dt><dd>${esc(c.job)}</dd>
+ <dt>About</dt><dd>${esc(c.feat)}</dd>
+ ${c.love?`<dt>Love interest</dt><dd>${sp(hideG(c.loveG),key+"-lv",esc(c.love))}</dd>`:""}</dl>
+ ${c.twist?`<div class="death"><b class="lbl">Big reveal · ${esc(gateLab(c.twG))}</b>${sp(hideG(c.twG),key+"-tw",esc(c.twist))}</div>`:""}
+ ${c.story?`<div class="agenda"><b>Later on · ${esc(gateLab(c.stG))}</b>${sp(hideG(c.stG),key+"-st",esc(c.story))}</div>`:""}
+ <div class="links">${FAMILIES.some(fm=>fm.gens.flat().includes(c.id))?`<button class="lnk" data-go="fam:${c.id}">Family tree</button> · `:""}${EDGES.some(e=>e[0]===c.id||e[1]===c.id)?`<button class="lnk" data-go="map:${c.id}">Connections</button>`:""}</div>
+ <div class="books">First appears: ${esc(BK[c.b].title)}</div>`;
+ return `<article class="card" id="${key}" style="border-top:3px solid ${SERCOL[c.w]}">${hideStart(c.b)?sp(true,key,inner,"div"):inner}</article>`}
+function renderChars(){
+ const v=$("#view");
+ v.innerHTML=`<p class="eyebrow">Who's who across three worlds</p><h2>Characters</h2>
+ <p class="lede">Everyone who matters, with how to say their name, what they do and who they love. Pronunciations are common fan readings, not official ones.</p>
+ <div class="controls" role="group" aria-label="Filter by world">${wChips(charState.w,"cw")}</div>
+ <div class="controls"><input type="search" id="cq" placeholder="Search names, roles, partners…" value="${esc(charState.q)}" aria-label="Search characters">
+ <select id="cb" aria-label="Filter by book"></select>
+ ${["all","lead","sup","bad"].map(a=>`<button class="chip" data-al="${a}" aria-pressed="${charState.role===a}">${{all:"All",lead:"Main",sup:"Supporting",bad:"Antagonists"}[a]}</button>`).join("")}<span class="count" id="ccount"></span></div><div id="clist"></div>`;
+ const fillBooks=()=>{if(charState.bk!=="all"&&charState.w!=="all"&&BK[charState.bk]?.s!==charState.w)charState.bk="all";$("#cb").innerHTML=`<option value="all">${charState.w==="all"?"All books":"All "+esc(SERIES[charState.w].name)+" books"}</option>`+bookOpts(charState.w);$("#cb").value=charState.bk};
+ fillBooks();
+ const draw=()=>{store.set("maasChars",{w:charState.w,bk:charState.bk});
+  const q=charState.q.trim().toLowerCase();
+  const list=CHARS.filter(c=>(charState.w==="all"||c.w===charState.w||(charState.bk!=="all"&&APPEARS[c.id]?.has(charState.bk)))&&(charState.bk==="all"||APPEARS[c.id]?.has(charState.bk))&&(charState.role==="all"||c.role===charState.role)&&(!q||[c.name,c.aka,c.job,c.feat,hideG(c.loveG)?"":c.love,WORLDNAME(c.w)].join(" ").toLowerCase().includes(q)));
+  $("#ccount").textContent=`${list.length} of ${CHARS.length}`;
+  if(!list.length){$("#clist").innerHTML=`<p class="empty">No one matches that.</p>`;return}
+  $("#clist").innerHTML=["tog","acotar","cc"].map(k=>{const xs=list.filter(c=>c.w===k);return xs.length?`<div class="group-h"><h3>${sw(k)}${esc(SERIES[k].world)} <span style="font-family:var(--body);font-size:.95rem;color:var(--muted)">· ${esc(SERIES[k].name)}</span></h3><span>${xs.length}</span></div><div class="grid">${xs.map(charCard).join("")}</div>`:""}).join("")};
+ draw();
+ $("#cq").addEventListener("input",e=>{charState.q=e.target.value;draw()});
+ $("#cb").addEventListener("change",e=>{charState.bk=e.target.value;draw()});
+ v.querySelectorAll("[data-cw]").forEach(b=>b.addEventListener("click",()=>{charState.w=b.dataset.cw;v.querySelectorAll("[data-cw]").forEach(x=>x.setAttribute("aria-pressed",x===b));fillBooks();draw()}));
+ v.querySelectorAll("[data-al]").forEach(b=>b.addEventListener("click",()=>{charState.role=b.dataset.al;v.querySelectorAll("[data-al]").forEach(x=>x.setAttribute("aria-pressed",x===b));draw()}));
+}
+
+/* ============ WORLDS & TIMELINE ============ */
+let worldW=store.get("maasWorldW","all");
+function orbs(){
+ const N={tog:{x:130,y:110,l:"ERILEA"},acotar:{x:470,y:110,l:"PRYTHIAN"},cc:{x:300,y:290,l:"MIDGARD"}};
+ const pair=(a,b)=>XOVER.filter(x=>(x.a===a&&x.b===b)||(x.a===b&&x.b===a));
+ const edge=(a,b,lx,ly)=>{const A=N[a],B=N[b],xs=pair(a,b),cf=xs.filter(x=>x.st!=="theory"),th=xs.filter(x=>x.st==="theory");
+  const seen=cf.filter(x=>!hideG(x.g)).length,seenT=th.filter(x=>!hideG(x.g)).length;
+  const line=cf.length?`<line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}" stroke="var(--accent)" stroke-width="${2+Math.min(seen,6)}" stroke-opacity="${seen?.85:.25}" stroke-linecap="round"/>`:`<line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}" stroke="var(--theory)" stroke-width="2" stroke-dasharray="6 7" stroke-opacity="${seenT?.9:.35}"/>`;
+  return line+`<text x="${lx}" y="${ly}" text-anchor="middle" style="font-size:13px;fill:var(--muted)">${cf.length?`${seen} of ${cf.length} confirmed`:""}${cf.length&&th.length?" · ":""}${th.length?`${seenT} of ${th.length} theor${th.length>1?"ies":"y"}`:""}</text>`};
+ return `<div class="orbs"><svg viewBox="0 0 600 370" role="img" aria-label="How Erilea, Prythian and Midgard connect">${edge("tog","acotar",300,96)}${edge("acotar","cc",452,212)}${edge("tog","cc",148,212)}
+  ${Object.entries(N).map(([k,n])=>`<g role="button" tabindex="0" data-go="world:world-${k}" style="cursor:pointer"><circle cx="${n.x}" cy="${n.y}" r="50" style="fill:var(--surface);stroke:${SERCOL[k]};stroke-width:3"/><text x="${n.x}" y="${n.y-2}" text-anchor="middle" style="font-family:var(--mono);font-size:14px;letter-spacing:2px;fill:${SERCOL[k]}">${n.l}</text><text x="${n.x}" y="${n.y+16}" text-anchor="middle" style="font-size:11px;fill:var(--muted)">${esc(SERIES[k].short)}</text></g>`).join("")}
+  <text x="300" y="360" text-anchor="middle" style="font-size:12px;fill:var(--muted)">Lines thicken as you unlock more confirmed crossovers. Tap a world.</text></svg></div>`}
+function renderWorld(){
+ const v=$("#view");store.set("maasWorldW",worldW);
+ const inW=w=>worldW==="all"||worldW===w;
+ const worlds=WORLDS.filter(t=>worldW==="all"||worldW===t.s).map(t=>{
+  const lm=t.places.map(([n,d,b],i)=>`<li>${sp(hideStart(b),t.id+"-p"+i,`<b>${esc(n)}</b> <span style="color:var(--muted)">${esc(d)}</span>`)}</li>`).join("");
+  const kv=t.kv.map(([k,val,g],i)=>`<dt>${esc(k)}</dt><dd>${sp(hideG(g),t.id+"-kv"+i,esc(val))}</dd>`).join("");
+  const series=BOOKLIST.filter(b=>b.s===t.s).map(b=>`<button class="lnk" data-go="book:${b.c}">${esc(b.abbr)}</button>`).join(" · ");
+  return `<article class="card town" id="${t.id}" style="border-top:4px solid ${SERCOL[t.s]};--wc:${SERCOL[t.s]}"><p class="eyebrow">${esc(t.hub)}</p><h3>${esc(t.name)}</h3>
+  <p style="margin:8px 0 0;font-size:.97rem">${esc(t.d)}</p><dl class="kv">${kv}</dl><span class="lbl" style="margin-top:12px">Places to know</span><ul class="lm">${lm}</ul><div class="books">Books: ${series}</div></article>`}).join("");
+ const tl=TIMELINE.map((x,i)=>[x,i]).filter(([x])=>inW(x[0])).map(([[w,when,t,d,g,isB],i])=>{const hid=isB?(g&&BK[g]?hideStart(g):false):hideG(g);return`<li id="tl-${i}" class="${isB?"bk":""}" style="--wc:${SERCOL[w]}"><div class="when">${sw(w)}${esc(when)}</div>${sp(hid,"tl-"+i,`<b>${esc(t)}</b><p>${esc(d)}</p>`,"div")}</li>`}).join("");
+ v.innerHTML=`<p class="eyebrow">Where and when</p><h2>Worlds &amp; Timeline</h2>
+ <p class="lede">The three worlds, what's in each, how they link up, and one timeline that braids all three series together, including the crossover moments.</p>
+ <div class="controls" role="group" aria-label="Filter by world">${wChips(worldW,"ww",[["x","Crossovers"]])}</div>
+ ${worldW==="all"||worldW==="x"?orbs():""}
+ ${worlds?`<h3 class="sec-h">${worldW==="all"?"The three worlds":"The world"}</h3><div class="grid wide">${worlds}</div>`:""}
+ <h3 class="sec-h">Timeline</h3>
+ <p class="note">Filled dots are books, in reading order. The three worlds run on separate clocks, so cross-world placement is approximate.</p>
+ <ol class="tl">${tl}</ol>`;
+ v.querySelectorAll("[data-ww]").forEach(b=>b.addEventListener("click",()=>{worldW=b.dataset.ww;renderWorld()}));
+}
+
+/* ============ RECAPS ============ */
+let recapBook=store.get("maasRecap","TOG"),recapW="all";
+function renderRecaps(){
+ const v=$("#view");if(!RECAPS[recapBook])recapBook="TOG";store.set("maasRecap",recapBook);
+ const b=BK[recapBook],r=RECAPS[b.c],idx=BIDX[b.c],key="rc-"+b.c;
+ const body=`<p class="eyebrow">${esc(SERIES[b.s].name)} ${b.n} · ${esc(SERIES[b.s].world)} · ${b.year}</p><h3>${esc(b.title)}</h3>
+  <h4>Where it starts</h4><p>${esc(r.start)}</p>
+  <h4>What happens</h4><ul>${r.events.map(e=>`<li>${esc(e)}</li>`).join("")}</ul>
+  <h4>How it ends</h4><p>${esc(r.end)}</p>
+  <div class="remember"><h4>Remember this going into the next book</h4><ul>${r.remember.map(e=>`<li>${esc(e)}</li>`).join("")}</ul></div>`;
+ const hid=hideG(b.c);
+ const rows=["tog","acotar","cc"].filter(s=>recapW==="all"||recapW===s).map(s=>`<div class="rc-row"><span class="rc-s">${sw(s)}${esc(SERIES[s].world)} · ${esc(SERIES[s].short)}</span>${BOOKLIST.filter(x=>x.s===s).map(x=>`<button class="chip" data-rb="${x.c}" aria-pressed="${x.c===b.c}">${esc(x.abbr)}</button>`).join("")}</div>`).join("");
+ v.innerHTML=`<p class="eyebrow">Previously, in the Maasverse…</p><h2>Book Recaps</h2>
+ <p class="lede">Full-spoiler summaries for when the next release is a year away and you've forgotten everything. Pick the book you just finished.</p>
+ <div class="controls" role="group" aria-label="Filter by world">${wChips(recapW,"rw")}</div>
+ <div class="rc-chips">${rows}</div>
+ ${hid&&!SPK.has(key)?`<div class="sp-note" data-sp-for="${key}"><span>This recap spoils <b>all of ${esc(b.title)}</b>, which you haven't finished.</span><button class="chip" type="button" data-reveal="${key}">Show it anyway</button></div>`:""}
+ <article class="card recap" style="border-top:4px solid ${SERCOL[b.s]}">${sp(hid,key,body,"div")}</article>
+ <p class="links">${idx>0?`<button class="lnk" data-rb="${BOOKLIST[idx-1].c}">← ${esc(BOOKLIST[idx-1].title)}</button>`:""}${idx<BOOKLIST.length-1?` &nbsp; <button class="lnk" data-rb="${BOOKLIST[idx+1].c}">${esc(BOOKLIST[idx+1].title)} →</button>`:""} · <a class="lnk" href="${affUrl(b.title)}" target="_blank" rel="${affRel}">Buy ${esc(b.title)}</a></p>`;
+ v.querySelectorAll("[data-rb]").forEach(x=>x.addEventListener("click",()=>{recapBook=x.dataset.rb;if(recapW!=="all"&&BK[recapBook].s!==recapW)recapW="all";renderRecaps();window.scrollTo({top:0})}));
+ v.querySelectorAll("[data-rw]").forEach(x=>x.addEventListener("click",()=>{recapW=x.dataset.rw;if(recapW!=="all"&&BK[recapBook].s!==recapW)recapBook=BOOKLIST.find(y=>y.s===recapW).c;renderRecaps()}));
+}
+
+/* ============ FAMILY TREE ============ */
+let famFocus=null;
+function coverStage(key,what){if(ALL()||SPK.has(key))return;const s=document.querySelector("#view .split");if(!s)return;s.classList.add("sp-hidden");s.dataset.spk=key;
+ s.insertAdjacentHTML("beforebegin",`<div class="sp-note" data-sp-for="${key}"><span>This ${what} draws on <b>every book in all three series</b>, so it will spoil who ends up with whom.</span><button class="chip" type="button" data-reveal="${key}">Show it anyway</button></div>`)}
+function famInfo(id){const c=C[id];if(c)return{name:c.name,sub:c.aka,dead:c.dead!==undefined,role:c.role};const x=FAMX[id];return{name:x?.name||id,sub:x?.note||"",dead:!!x?.dead}}
+function renderFamily(){
+ const v=$("#view");
+ v.innerHTML=`<p class="eyebrow">Bloodlines &amp; bonds</p><h2>Family Tree</h2>
+ <p class="lede">Tap anyone to focus their family: relatives light up and everyone else fades. Ties that cross trees, like cousins and mates, show in the panel.</p>
+ <div class="controls"><select id="fpick" aria-label="Jump to a family"><option value="">Jump to a family…</option>${FAMILIES.map((f,i)=>`<option value="${i}">${esc(f.name)}</option>`).join("")}</select></div>
+ <div class="legend"><span><i style="background:var(--fam)"></i>Parent / child</span><span><i style="background:var(--love)"></i>Mate, partner or spouse</span><span><i style="background:var(--ally);opacity:.8"></i>Siblings</span></div>
+ <div class="split"><div class="stage" id="fstage"></div><aside class="panel" id="fpanel"></aside></div>`;
+ const cw=$("#fstage").clientWidth||760,narrow=cw<700;
+ const colGap=narrow?118:150,boxW=narrow?110:136,boxH=46;
+ const maxGen=Math.max(...FAMILIES.flatMap(f=>f.gens.map(g=>g.length)));
+ const W=Math.max(narrow?cw:760,maxGen*colGap+32);
+ const nameFit=id=>{const n=famInfo(id).name.replace(/ \(.*\)/,"");return n.length*7.2>boxW-8?n.split(" ")[0]:n};
+ const subMax=Math.floor(boxW/6.1);
+ let y=20,parts=[],nodes={},edges=[],famY=[];
+ FAMILIES.forEach((f,fi)=>{famY[fi]=y;
+  parts.push(`<text x="16" y="${y+14}" style="font-family:var(--display);font-size:18px;font-weight:600;fill:var(--bronze)">${esc(f.name)}</text>`);y+=30;
+  f.gens.forEach(gen=>{const total=gen.length*colGap;const x0=Math.max(16,(W-total)/2);
+   gen.forEach((id,i)=>{nodes[id]={x:x0+i*colGap+(colGap-boxW)/2,y,fam:f.name}});y+=boxH+40});
+  (f.links||[]).forEach(l=>edges.push([...l,"fam"]));(f.spouse||[]).forEach(l=>edges.push([...l,"love"]));
+  (f.sib||[]).forEach(l=>edges.push([...l,"ally"]));y+=10});
+ CROSS.forEach(e=>edges.push(e));
+ const H=y;
+ const adj={};edges.forEach(([a,b])=>{(adj[a]??=new Set).add(b);(adj[b]??=new Set).add(a)});
+ const parents={};edges.filter(e=>e[2]==="fam"&&!e[3]).forEach(([p,c])=>(parents[c]??=[]).push(p));
+ Object.keys(parents).forEach(c=>Object.keys(parents).forEach(d=>{if(c!==d&&parents[c].some(p=>parents[d].includes(p)))adj[c].add(d)}));
+ const path=(a,b,t,x)=>{const A=nodes[a],B=nodes[b];if(!A||!B||x||A.fam!==B.fam)return"";
+  const ax=A.x+boxW/2,bx=B.x+boxW/2;
+  if(t==="fam")return`M${ax},${A.y+boxH} C${ax},${A.y+boxH+22} ${bx},${B.y-22} ${bx},${B.y}`;
+  const [L,R]=A.x<B.x?[A,B]:[B,A];
+  if(Math.abs(L.y-R.y)<2&&R.x-L.x>colGap+1)return`M${L.x+boxW/2},${L.y} C${L.x+boxW/2},${L.y-22} ${R.x+boxW/2},${R.y-22} ${R.x+boxW/2},${R.y}`;
+  return`M${L.x+boxW},${L.y+boxH/2} L${R.x},${R.y+boxH/2}`};
+ const edgeSvg=edges.map(([a,b,t,x])=>{const d=path(a,b,t,x);return d?`<path class="edge" data-a="${a}" data-b="${b}" d="${d}" stroke="var(--${t})" ${t!=="fam"?'stroke-dasharray="5 4"':""}/>`:""}).join("");
+ const nodeSvg=Object.entries(nodes).map(([id,n])=>{const i=famInfo(id),c=C[id];return`<g class="node ${i.dead?"dead":""}" data-id="${id}" tabindex="0" role="button" aria-label="${esc(i.name)}" transform="translate(${n.x},${n.y})"><rect width="${boxW}" height="${boxH}" rx="5" ${c?`style="stroke:${SERCOL[c.w]}"`:""}/><text x="${boxW/2}" y="19" text-anchor="middle" style="font-weight:700;font-size:13px">${esc(nameFit(id))}</text><text x="${boxW/2}" y="35" text-anchor="middle" style="font-size:11px;fill:var(--muted)">${esc(((i.dead?"† ":"")+i.sub).slice(0,subMax))}</text></g>`}).join("");
+ $("#fstage").innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Family trees">${parts.join("")}${edgeSvg}${nodeSvg}</svg>`;
+ const panel=$("#fpanel");
+ const label=(id,o,t,x,a)=>Array.isArray(x)?(a===id?x[0]:x[1]):x||(t==="love"?"Mate / partner":t==="ally"?"Sibling":(a===id?"Child":"Parent"));
+ function focus(id){famFocus=id;
+  const svg=$("#fstage svg");svg.querySelectorAll(".node").forEach(g=>{const k=g.dataset.id;g.classList.toggle("focus",k===id);g.classList.toggle("near",!!id&&!!adj[id]?.has(k));g.classList.toggle("dim",!!id&&k!==id&&!adj[id]?.has(k))});
+  svg.querySelectorAll(".edge").forEach(e=>e.classList.toggle("dim",!!id&&e.dataset.a!==id&&e.dataset.b!==id));
+  panel.classList.toggle("idle",!id);
+  if(!id){panel.innerHTML=`<p class="eyebrow">No one selected</p><p style="margin:6px 0 0;color:var(--muted)">Pick a name in the tree to see their parents, children, siblings and partners.</p>`;return}
+  const i=famInfo(id),c=C[id];
+  const seen=new Set();
+  const rel=edges.filter(e=>e[0]===id||e[1]===id).map(([a,b,t,x])=>{const o=a===id?b:a;seen.add(o);return`<li><span class="eyebrow" style="display:inline-block;min-width:110px">${esc(label(id,o,t,x,a))}</span>${nodes[o]?`<button class="lnk" data-ff="${o}">${esc(nm(o))}</button>`:C[o]?charLink(o):esc(nm(o))}</li>`});
+  const sibs=[...(adj[id]||[])].filter(o=>!seen.has(o)&&parents[id]&&parents[o]&&parents[id].some(p=>parents[o].includes(p))).map(o=>`<li><span class="eyebrow" style="display:inline-block;min-width:110px">Sibling</span><button class="lnk" data-ff="${o}">${esc(nm(o))}</button></li>`);
+  panel.innerHTML=`<button class="sheet-close" data-close>Close</button><p class="eyebrow">${c?sw(c.w)+esc(WORLDNAME(c.w)):"Focused"}</p><h3>${esc(i.name)}</h3>${c?`<div class="pills" style="justify-content:flex-start;margin-top:6px">${alignPill(c.role)}</div>`:""}<p style="margin:8px 0 0;color:var(--muted);font-size:.93rem">${esc(c?c.conn:i.sub)}</p><ul>${rel.join("")}${sibs.join("")}</ul>${c?`<p style="margin-top:12px"><button class="lnk" data-go="char:${id}">Full profile</button> · <button class="lnk" data-go="map:${id}">Connections</button></p>`:""}`}
+ const centre=id=>$(`#fstage .node[data-id="${id}"]`)?.scrollIntoView({block:"center",inline:"center",behavior:"smooth"});
+ $("#fstage").addEventListener("click",e=>{const g=e.target.closest(".node");focus(g&&g.dataset.id!==famFocus?g.dataset.id:null)});
+ $("#fstage").addEventListener("keydown",e=>{const g=e.target.closest(".node");if(g&&(e.key==="Enter"||e.key===" ")){e.preventDefault();focus(g.dataset.id===famFocus?null:g.dataset.id)}});
+ panel.addEventListener("click",e=>{if(e.target.closest("[data-close]"))return focus(null);const b=e.target.closest("[data-ff]");if(b){focus(b.dataset.ff);centre(b.dataset.ff)}});
+ $("#fpick").addEventListener("change",e=>{if(e.target.value==="")return;const fi=+e.target.value;const first=FAMILIES[fi].gens[0][0];focus(first);$("#fstage").scrollTo({top:famY[fi]-6,behavior:"smooth"});e.target.value=""});
+ const start=famFocus&&nodes[famFocus]?famFocus:(narrow?null:"feyre");
+ focus(start);
+ if(start)requestAnimationFrame(()=>centre(start));
+ coverStage("cover-family","family tree");
+}
+
+/* ============ CONNECTIONS MAP ============ */
+let mapFocus=null;
+const mapState={w:"all",st:"all"};
+const HUB="bryce";
+function layout(nodes,links,W,H,narrow){
+ const REP=narrow?2600:5600,LEN=narrow?80:115,PADX=narrow?44:62;
+ const P2={};nodes.forEach((n,i)=>{const w=C[n]?.w,base={tog:Math.PI*1.15,acotar:Math.PI*1.85,cc:Math.PI*.5}[w]??0;const a=base+(i%9)/9*1.4-.7;P2[n]={x:W/2+Math.cos(a)*W*.32,y:H/2+Math.sin(a)*H*.32,vx:0,vy:0}});
+ for(let it=0;it<420;it++){const t=1-it/420;
+  for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const a=P2[nodes[i]],b=P2[nodes[j]];let dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy+.01,d=Math.sqrt(d2),f=REP/d2;a.vx+=dx/d*f;a.vy+=dy/d*f;b.vx-=dx/d*f;b.vy-=dy/d*f}
+  links.forEach(([s,tg])=>{const a=P2[s],b=P2[tg];if(!a||!b)return;let dx=b.x-a.x,dy=b.y-a.y,d=Math.sqrt(dx*dx+dy*dy)+.01,f=(d-LEN)*.02;a.vx+=dx/d*f;a.vy+=dy/d*f;b.vx-=dx/d*f;b.vy-=dy/d*f});
+  nodes.forEach(n=>{const p=P2[n];p.vx+=(W/2-p.x)*.004;p.vy+=(H/2-p.y)*.004;p.x+=p.vx*t*.5;p.y+=p.vy*t*.5;p.vx*=.6;p.vy*=.6;p.x=Math.max(PADX,Math.min(W-PADX,p.x));p.y=Math.max(30,Math.min(H-30,p.y))})}
+ return P2}
+function renderMap(){
+ const v=$("#view");
+ const xs=XOVER.map((x,i)=>[x,i]).filter(([x])=>(mapState.st==="all"||x.st===mapState.st)&&(mapState.w==="all"||mapState.w==="x"||x.a===mapState.w||x.b===mapState.w));
+ v.innerHTML=`<p class="eyebrow">The multiverse</p><h2>Connections</h2>
+ <p class="lede">Every family tie, romance, friendship and feud, across all three worlds. Tap a person to light up their links. Below the map: every known crossing between worlds, marked by how solid it is.</p>
+ <div class="controls" role="group" aria-label="Filter by world">${wChips(mapState.w,"mw",[["x","Cross-world ties only"]])}</div>
+ <div class="controls"><select id="mpick" aria-label="Focus a character"><option value="">Focus a character…</option>${CHARS.filter(c=>EDGES.some(e=>e[0]===c.id||e[1]===c.id)).sort((a,b)=>nm(a.id).localeCompare(nm(b.id))).map(c=>`<option value="${c.id}">${esc(nm(c.id))}</option>`).join("")}</select></div>
+ <div class="legend"><span><i style="background:var(--fam)"></i>Family</span><span><i style="background:var(--love)"></i>Mates &amp; couples</span><span><i style="background:var(--friend)"></i>Friends</span><span><i style="background:var(--ally)"></i>Allies</span><span><i style="background:var(--foe)"></i>Rivals &amp; enemies</span><span>Thick lines cross worlds</span></div>
+ <div class="split"><div class="stage" id="mstage"></div><aside class="panel" id="mpanel"></aside></div>
+ <h3 class="sec-h" id="xo-h">How the worlds connect</h3>
+ <p class="note"><b>Confirmed</b> happens on the page. <b>Announced</b> comes from the author or publisher. <b>Theory</b> is a popular fan reading, not canon.</p>
+ <div class="controls" role="group" aria-label="Filter crossovers">${[["all","All"],["conf","Confirmed"],["ann","Announced"],["theory","Theories"]].map(([k,l])=>`<button class="chip" data-xs="${k}" aria-pressed="${mapState.st===k}">${l}</button>`).join("")}</div>
+ <div class="xover">${xs.map(([x,i])=>`<div class="era" id="xo-${i}" style="border-left-color:${SERCOL[x.a]}"><div class="when">${sw(x.a)}${esc(WORLDNAME(x.a))} ↔ ${x.b==="x"?"all":sw(x.b)+esc(WORLDNAME(x.b))}</div><div class="pills" style="justify-content:flex-start;margin:4px 0"><span class="pill p-${STLBL[x.st][1]}">${STLBL[x.st][0]}</span>${x.g?`<span class="pill p-dead">Needs ${esc(gateLab(x.g))}</span>`:""}</div>${sp(hideG(x.g),"xo-"+i,`<h3>${esc(x.t)}</h3><p style="margin:2px 0 0;color:var(--muted)">${esc(x.d)}</p>`,"div")}</div>`).join("")||'<p class="empty">Nothing in this filter.</p>'}</div>`;
+ const cw=$("#mstage").clientWidth||980,narrow=cw<700;
+ let links=EDGES.map(e=>[...e]);
+ if(mapState.w==="x")links=links.filter(e=>C[e[0]]?.w!==C[e[1]]?.w);
+ else if(mapState.w!=="all"){const inS=id=>C[id]?.w===mapState.w;links=links.filter(e=>inS(e[0])||inS(e[1]))}
+ const nodes=[...new Set(links.flatMap(e=>[e[0],e[1]]))];
+ const W=narrow?Math.max(cw,560):Math.max(cw,1040),H=narrow?Math.round(nodes.length*22+260):Math.max(600,Math.round(nodes.length*12+240));
+ const P2=layout(nodes,links,W,H,narrow);
+ const adj={};links.forEach(([a,b])=>{(adj[a]??=new Set).add(b);(adj[b]??=new Set).add(a)});
+ const edgeSvg=links.map(([a,b,t])=>`<line class="edge" data-a="${a}" data-b="${b}" x1="${P2[a].x}" y1="${P2[a].y}" x2="${P2[b].x}" y2="${P2[b].y}" stroke="var(--${t})" ${t==="foe"?'stroke-dasharray="6 4"':""} ${C[a]?.w!==C[b]?.w?'style="stroke-width:3.5"':""}/>`).join("");
+ const nodeSvg=nodes.map(id=>{const p=P2[id],c=C[id],label=short(id);const w=Math.max(54,label.length*7.4+26);
+  return`<g class="node" data-id="${id}" tabindex="0" role="button" aria-label="${esc(nm(id))}" transform="translate(${p.x-w/2},${p.y-14})"><rect width="${w}" height="28" rx="14" style="stroke:var(--${c?.role==="bad"?"foe":"line"})"/><circle cx="12" cy="14" r="4.5" style="fill:${SERCOL[c?.w]||SERCOL.x};stroke:none"/><text x="${w/2+6}" y="18.5" text-anchor="middle" style="font-size:13px;font-weight:700">${esc(label)}</text></g>`}).join("");
+ $("#mstage").innerHTML=nodes.length?`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Character connections">${edgeSvg}${nodeSvg}</svg>`:`<p class="empty">No connections in this filter.</p>`;
+ const panel=$("#mpanel");
+ function focus(id){mapFocus=id;$("#mpick").value=C[id]?id:"";
+  const svg=$("#mstage svg");if(svg){svg.querySelectorAll(".node").forEach(g=>{const k=g.dataset.id;g.classList.toggle("focus",k===id);g.classList.toggle("near",!!id&&!!adj[id]?.has(k));g.classList.toggle("dim",!!id&&k!==id&&!adj[id]?.has(k))});
+  svg.querySelectorAll(".edge").forEach(e=>e.classList.toggle("dim",!!id&&e.dataset.a!==id&&e.dataset.b!==id))}
+  panel.classList.toggle("idle",!id);
+  if(!id){panel.innerHTML=`<p class="eyebrow">No one selected</p><p style="margin:6px 0 0;color:var(--muted)">Tap a name on the map, or choose one above.</p>`;return}
+  const rows=links.filter(e=>e[0]===id||e[1]===id).map(([a,b,t,l,g])=>{const o=a===id?b:a;return`<li><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--${t});margin-right:8px"></i><button class="lnk" data-mf="${o}">${esc(nm(o))}</button> <span style="color:var(--muted)">· ${sp(hideG(g),"e-"+a+b,esc(l))}</span></li>`});
+  const c=C[id];
+  panel.innerHTML=`<button class="sheet-close" data-close>Close</button><p class="eyebrow">${c?sw(c.w)+esc(WORLDNAME(c.w)):"Focused"}</p><h3>${esc(nm(id))}</h3>${c?`<div class="pills" style="justify-content:flex-start;margin-top:6px">${alignPill(c.role)}</div>`:""}<ul>${rows.join("")}</ul><p style="margin-top:12px">${c?`<button class="lnk" data-go="char:${id}">Full profile</button>${FAMILIES.some(fm=>fm.gens.flat().includes(id))?` · <button class="lnk" data-go="fam:${id}">Family tree</button>`:""}`:""}</p>`}
+ const center=id=>$(`#mstage .node[data-id="${id}"]`)?.scrollIntoView({block:"center",inline:"center",behavior:"smooth"});
+ $("#mstage").addEventListener("click",e=>{const g=e.target.closest(".node");focus(g&&g.dataset.id!==mapFocus?g.dataset.id:null)});
+ $("#mstage").addEventListener("keydown",e=>{const g=e.target.closest(".node");if(g&&(e.key==="Enter"||e.key===" ")){e.preventDefault();focus(g.dataset.id===mapFocus?null:g.dataset.id)}});
+ panel.addEventListener("click",e=>{if(e.target.closest("[data-close]"))return focus(null);const b=e.target.closest("[data-mf]");if(b){focus(b.dataset.mf);center(b.dataset.mf)}});
+ $("#mpick").addEventListener("change",e=>{const id=e.target.value;if(id&&!P2[id]){mapState.w="all";mapFocus=id;return renderMap()}focus(id||null);if(id)center(id)});
+ v.querySelectorAll("[data-mw]").forEach(b=>b.addEventListener("click",()=>{mapState.w=b.dataset.mw;renderMap()}));
+ v.querySelectorAll("[data-xs]").forEach(b=>b.addEventListener("click",()=>{mapState.st=b.dataset.xs;renderMap();requestAnimationFrame(()=>document.getElementById("xo-h")?.scrollIntoView({block:"start"}))}));
+ const start=mapFocus&&P2[mapFocus]?mapFocus:(narrow?null:(P2[HUB]?HUB:null));
+ focus(start);if(start)requestAnimationFrame(()=>center(start));
+ coverStage("cover-map","map");
+}
+
+/* ============ GLOBAL SEARCH ============ */
+const INDEX=[
+ ...BOOKLIST.map(b=>({f:"",k:"Book",t:b.title,s:`${SERIES[b.s].name} ${b.n} · ${b.year}`,hay:[b.title,b.abbr,b.plot,b.trope,SERIES[b.s].name,SERIES[b.s].world].join(" "),go:"book:"+b.c})),
+ ...UPCOMING.map(u=>({f:"",k:"Coming",t:u.title,s:u.date,hay:[u.title,u.sub,u.note].join(" "),go:"book:"+u.c})),
+ ...BOOKLIST.map(b=>({f:"",hg:b.c,k:"Recap",t:b.title+" recap",s:"Full-spoiler summary",hay:[b.title,b.abbr,"recap summary",RECAPS[b.c].start,RECAPS[b.c].events.join(" "),RECAPS[b.c].end].join(" "),go:"recap:"+b.c})),
+ ...CHARS.map(c=>({f:c.b,k:"Character",t:c.name,s:`${WORLDNAME(c.w)} · ${c.aka}`,hay:[c.name,c.aka,c.job,c.feat,WORLDNAME(c.w)].join(" "),go:"char:"+c.id})),
+ ...WORLDS.map(t=>({f:"",k:"World",t:t.name,s:t.hub,hay:[t.name,t.hub,t.d].join(" "),go:"world:"+t.id})),
+ ...WORLDS.flatMap(t=>t.places.map(([n,d,b])=>({f:b,k:"Place",t:n,s:t.name,hay:[n,d,t.name].join(" "),go:"world:"+t.id}))),
+ ...TIMELINE.map((x,i)=>({f:x[5]&&BK[x[4]]?x[4]:"",hg:x[5]?"":x[4],k:"Timeline",t:x[2],s:x[1],hay:x.slice(1,4).join(" "),go:"world:tl-"+i})),
+ ...XOVER.map((x,i)=>({f:"",hg:x.g,k:"Crossover",t:x.t,s:STLBL[x.st][0],hay:[x.t,x.d,"crossover",WORLDNAME(x.a),WORLDNAME(x.b)].join(" "),go:"xo:xo-"+i}))
+];
+const gq=$("#gq"),gres=$("#gres");let gi=-1;
+function gsearch(){const q=gq.value.trim().toLowerCase();gi=-1;if(q.length<2){gres.hidden=true;return}
+ const terms=q.split(/\s+/);
+ const hits=INDEX.map(x=>{const h=x.hay.toLowerCase(),t=x.t.toLowerCase();if(!terms.every(w=>h.includes(w)))return null;return{...x,score:(t.startsWith(q)?3:0)+(t.includes(q)?2:0)+(x.k==="Character"?.5:0)}}).filter(Boolean).sort((a,b)=>b.score-a.score).slice(0,14);
+ gres.innerHTML=hits.length?hits.map(h=>{const hid=h.f?hideStart(h.f):false,shid=hideG(h.hg);const veil=hid||(shid&&(h.k==="Crossover"||h.k==="Timeline"));return veil?`<button data-gg="${h.go}"><span class="k">Spoiler</span><span><b>Hidden spoiler</b><br><span class="s">From a book you haven't reached</span></span></button>`:`<button data-gg="${h.go}"><span class="k">${h.k}</span><span><b>${esc(h.t)}</b><br><span class="s" style="${shid?"filter:blur(5px)":""}">${esc(h.s)}</span></span></button>`}).join(""):`<div style="padding:12px;color:var(--muted)">Nothing found for “${esc(gq.value)}”.</div>`;
+ gres.hidden=false}
+gq.addEventListener("input",gsearch);gq.addEventListener("focus",gsearch);
+gq.addEventListener("keydown",e=>{const bs=[...gres.querySelectorAll("button")];if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();if(!bs.length)return;gi=(gi+(e.key==="ArrowDown"?1:-1)+bs.length)%bs.length;bs[gi]?.focus()}else if(e.key==="Enter"&&bs[0]){bs[0].click()}else if(e.key==="Escape"){gres.hidden=true}});
+gres.addEventListener("keydown",e=>{const bs=[...gres.querySelectorAll("button")];const i=bs.indexOf(document.activeElement);if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();bs[(i+(e.key==="ArrowDown"?1:-1)+bs.length)%bs.length]?.focus()}else if(e.key==="Escape"){gres.hidden=true;gq.focus()}});
+gres.addEventListener("click",e=>{const b=e.target.closest("[data-gg]");if(b){gres.hidden=true;gq.blur();go(b.dataset.gg)}});
+document.addEventListener("click",e=>{if(!e.target.closest(".gsearch"))gres.hidden=true});
+
+const totop=$("#totop");
+const syncTop=()=>{totop.hidden=scrollY<500};
+addEventListener("scroll",syncTop,{passive:true});syncTop();
+totop.addEventListener("click",()=>{scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});gq.blur()});
+
+spOpts();spStrip();renderTabs();show(current);
+if(firstVisit)openSp();
+</script>
+</body>
+</html>
