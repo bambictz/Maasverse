@@ -144,6 +144,24 @@ a.lnk,button.lnk{color:var(--accent);background:none;border:0;padding:0;font:inh
 .news b{font-family:var(--display);font-size:1.12rem;font-weight:600;line-height:1.2}
 .news .when{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bronze)}
 .news .big{font-family:var(--mono);font-size:1.8rem;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+/* courts */
+.court-h{display:flex;gap:10px;align-items:center}
+.court-dot{width:28px;height:28px;border-radius:50%;flex-shrink:0;border:2px solid var(--line)}
+.pos{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:3px;font-size:.94rem}
+.pos li{display:grid;grid-template-columns:118px 1fr;gap:8px}
+.pos li span:first-child{color:var(--muted);font-size:.87rem}
+.war{margin-top:10px;padding:10px 12px;border-left:3px solid var(--bronze);background:var(--sunk);border-radius:0 var(--r) var(--r) 0;font-size:.93rem}
+.mapsvg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;max-width:720px;margin-bottom:16px}
+.mapsvg svg{display:block;width:100%;height:auto}
+.mapsvg .land{fill:var(--sunk);stroke:var(--line);stroke-width:1.5}
+.mapsvg .sea{fill:var(--bg)}
+.mapsvg .reg{stroke:var(--surface);stroke-width:2;cursor:pointer;transition:opacity .2s}
+.mapsvg .reg:hover,.mapsvg .reg:focus-visible{opacity:1!important;stroke:var(--fg);outline:none}
+.mapsvg text{font-family:var(--display);font-size:14px;font-weight:600;fill:var(--fg);pointer-events:none}
+.mapsvg text.sm{font-family:var(--body);font-size:11px;font-weight:400;fill:var(--muted);font-style:italic}
+.eras{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.subnav{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.92rem;margin:-6px 0 14px}
+@media (max-width:700px){.pos li{grid-template-columns:96px 1fr}}
 /* world */
 .sec-h{margin:34px 0 10px}
 .sec-h:first-child{margin-top:0}
@@ -283,7 +301,7 @@ footer.site h2{font-size:1.5rem}
     <div class="brand"><h1><span class="pre">The</span> Maas<span class="thorn">verse</span></h1><small>Unofficial · 3 worlds · 17 books + 3 coming</small><a class="atlas" href="https://readersatlas.com" aria-label="The Reader's Atlas: more character guides"><svg viewBox="0 0 140 130" aria-hidden="true"><path d="M28 60 A46 46 0 1 0 112 60 A38 38 0 1 1 28 60 Z"/><path class="moon-book" d="M36 74 C48 68 60 69 70 76 C80 69 92 68 104 74 L104 100 C92 94 80 95 70 102 C60 95 48 94 36 100 Z"/><path d="M70 4 L75 15 L86 20 L75 25 L70 36 L65 25 L54 20 L65 15 Z"/></svg><span>The Reader's Atlas</span></a><button class="spbtn" id="sp-open" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/></svg><span>Spoilers</span></button></div>
     <div class="gsearch">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="gq" type="search" placeholder="Search everything: characters, places, events, lore…" autocomplete="off" aria-label="Search everything">
+      <input id="gq" type="search" placeholder="Search everything: characters, courts, places, events…" autocomplete="off" aria-label="Search everything">
       <div class="gres" id="gres" hidden></div>
     </div>
     <nav class="tabs" role="tablist" id="tabs"></nav>
@@ -695,40 +713,190 @@ const WORLDS=[
   kv:[["Magic","Firstlight, the Drop, Starborn light",""],["Doorways","The Northern Rift, the Gates, the Horn","HOEAB"],["Big bad","The Asteri","HOEAB"]]}
 ];
 
-/* Timeline: [world, when, title, detail, gate, isBook] */
-const TIMELINE=[
- ["acotar","About 500 years before","The War, and the wall","Humans and Fae fight a great war. The Treaty splits Prythian from the human lands with a wall.",""],
- ["acotar","About 50 years before","Amarantha takes Prythian","She curses the courts and rules from Under the Mountain.",""],
- ["cc","15,000 years before","The Asteri arrive in Midgard","They come through the Northern Rift with the Fae and others in tow.",""],
- ["tog","10 years before","Terrasen falls and magic vanishes","The Galathynius royals are murdered, and a child is pulled from a river and taken in by Arobynn Hamel.","COM"],
- ["tog","2 years before","Sam dies; Celaena is sent to Endovier","Betrayed by Arobynn.","AB"],
- ["tog","2012","Throne of Glass","The King's Champion contest.","TOG",1],
- ["tog","2013","Crown of Midnight","Nehemia's death and a secret identity.","COM",1],
- ["tog","2014","The Assassin's Blade","Prequel novellas.","AB",1],
- ["tog","2014","Heir of Fire","Wendlyn and the witches.","HOF",1],
- ["acotar","2015","A Court of Thorns and Roses","Feyre crosses the wall.","ACOTAR",1],
- ["tog","2015","Queen of Shadows","Rifthold reckoning.","QOS",1],
- ["tog","Queen of Shadows","Magic returns to Erilea","Aelin destroys the clock tower that suppressed it.","QOS"],
- ["acotar","2016","A Court of Mist and Fury","The Night Court.","ACOMAF",1],
- ["tog","2016","Empire of Storms","War comes to Erilea.","EOS",1],
- ["acotar","2017","A Court of Wings and Ruin","War with Hybern.","ACOWAR",1],
- ["tog","2017","Tower of Dawn","Alongside Empire of Storms.","TOD",1],
- ["acotar","2018","A Court of Frost and Starlight","Solstice after the war.","ACOFAS",1],
- ["tog","2018","Kingdom of Ash","The Throne of Glass finale.","KOA",1],
- ["x","Kingdom of Ash","Aelin crosses between worlds","She glimpses other worlds, including a brief encounter with two Prythian figures. Rhys and Feyre already seem mated, so fans place it after ACOWAR in Prythian's time.","KOA"],
- ["tog","Kingdom of Ash","The Wyrdgates are sealed","Aelin forges the lock.","KOA"],
- ["cc","2 years before House of Earth and Blood","Danika and the Pack of Devils are murdered","The killing that opens the series.",""],
- ["cc","2020","House of Earth and Blood","Bryce hunts a killer.","HOEAB",1],
- ["acotar","2021","A Court of Silver Flames","Nesta and the Valkyries. Nyx is born.","ACOSF",1],
- ["cc","2022","House of Sky and Breath","The rebellion.","HOSAB",1],
- ["x","End of House of Sky and Breath","Bryce leaves Midgard","She lands in Prythian.","HOSAB"],
- ["cc","2024","House of Flame and Shadow","Bryce in Prythian, then home.","HOFAS",1],
- ["x","After A Court of Silver Flames","Bryce in the Night Court","She leaves with Truth-Teller and the Mask.","HOFAS+ACOSF"],
- ["acotar","27 October 2026","A Court of Splintered Harmony","The Valkyrie Cycle begins about a month after House of Flame and Shadow.","ACOSH",1],
- ["acotar","12 January 2027","A Court of Forgotten Melody","Movements II and III.","",1],
- ["acotar","TBA","ACOTAR 8","Movement IV.","",1],
- ["cc","TBA","Crescent City 4","Reportedly crosses over with ACOTAR.","",1]
+/* Courts of Prythian (from the Prythian Codex). Positions: [role, person id, gate] */
+const COURTCOL={adarlan:"#7a2e2e",terrasen:"#2f6b4f",wendlyn:"#3f6f8f",eyllwe:"#b07a2a",south:"#c2643a",witches:"#4a4458",morath:"#2a2a33",lunathion:"#16857a",pangera:"#6b5a8f",avallen:"#5f8a7a",hel:"#7a2440",houses:"#9a7420",night:"#2c2457",spring:"#4f9a5a",summer:"#2b8db0",autumn:"#c4612a",winter:"#8fb7d6",day:"#d9a92e",dawn:"#e08aa0",hybern:"#6e2b2b",human:"#8b7b63",continent:"#5f6c8a",prison:"#3f3f46"};
+/* Office-holders who don't have a full character card */
+const OFF={nyx:["Nyx","ACOSF"],clotho:["Clotho","ACOSF"],keir:["Keir","ACOMAF"],devlon:["Lord Devlon","ACOMAF"],ladyautumn:["Lady of the Autumn Court","ACOWAR"],tarquin:["Tarquin","ACOMAF"],cresseida:["Cresseida","ACOMAF"],varian:["Varian","ACOMAF"],kallias:["Kallias","ACOWAR"],viviane:["Viviane","ACOWAR"],thesan:["Thesan","ACOWAR"],alis:["Alis","ACOTAR"],ianthe:["Ianthe","ACOMAF"],jurian:["Jurian","ACOMAF"],briallyn:["Queen Briallyn","ACOWAR"],vallahanking:["King of Vallahan","ACOSH"],vizier:["The Grand Vizier","ACOSH"],mistress:["Mistress of the Unseen","ACOSH"],bonecarver:["The Bone Carver","ACOMAF"],kingadarlan:["The King of Adarlan","TOG"],perrington:["Duke Perrington","TOG"],nesryn:["Nesryn Faliq","QOS"],khagan:["The Khagan","TOD"],rowanconsort:["Rowan Whitethorn","KOA"],riverqueen:["The River Queen","HOEAB"],cormac:["Prince Cormac","HOSAB"],ophion:["Ophion","HOSAB"]};
+const COURTOF={feyre:"night",rhys:"night",nesta:"night",elain:"night",cassian:"night",azriel:"night",mor:"night",amren:"night",gwyn:"night",emerie:"night",tamlin:"spring",lucien:"autumn",eris:"autumn",beron:"autumn",helion:"day",amarantha:"hybern",hybern:"hybern",vassa:"human",koschei:"continent",
+ celaena:"terrasen",aedion:"terrasen",elide:"terrasen",chaol:"adarlan",dorian:"adarlan",arobynn:"adarlan",sam:"adarlan",lysandra:"adarlan",elena:"adarlan",nehemia:"eyllwe",yrene:"south",rowan:"wendlyn",lorcan:"wendlyn",maeve:"wendlyn",manon:"witches",erawan:"morath",
+ bryce:"lunathion",hunt:"lunathion",danika:"lunathion",ruhn:"lunathion",ithan:"lunathion",tharion:"lunathion",lehabah:"lunathion",jesiba:"lunathion",sabine:"lunathion",micah:"lunathion",autumnking:"lunathion",lidia:"pangera",rigelus:"pangera",aidas:"hel",apollion:"hel",theia:"avallen"};
+/* Kingdoms of Erilea and realms of Midgard, in the same shape as the courts */
+const REALMS_TOG=[
+ {id:"adarlan",name:"Adarlan",kind:"The conquering empire",seat:"Rifthold and its glass castle, built on top of the old stone one",b:"TOG",
+  pos:[["King","kingadarlan","TOG"],["Crown Prince, later King","dorian","TOG"],["Captain of the Guard","chaol","TOG"],["Duke","perrington","TOG"],["King of Assassins","arobynn","TOG"],["Courtesan","lysandra","AB"]],
+  feat:"The kingdom that conquered almost the whole continent in a single decade. Its king outlawed magic, and its capital Rifthold is a city of slums, assassins' guilds and a castle made of glass. Endovier's salt mines lie at its edge.",
+  war:"The glass castle shatters at the end of Queen of Shadows and Dorian takes the throne. In Kingdom of Ash, Adarlan's forces fight beside Terrasen against Morath.",warB:"QOS"},
+ {id:"terrasen",name:"Terrasen",kind:"The fallen northern kingdom",seat:"Orynth, the city of light, below the Staghorn Mountains",b:"TOG",
+  pos:[["Lost heir, later Queen","celaena","COM"],["General of the Bane","aedion","HOF"],["Lady of Perranth","elide","QOS"],["King-consort","rowanconsort","KOA"]],
+  feat:"A wild northern land of forests, mountains and the ancient Oakwald. The Galathynius line ruled here until Adarlan's conquest ten years ago. Its lords remember, and they hold grudges.",
+  war:"Its lords doubt their returning queen in Empire of Storms. In Kingdom of Ash, Orynth is besieged by Erawan's armies, and its fate decides the war.",warB:"EOS"},
+ {id:"wendlyn",name:"Wendlyn & Doranelle",kind:"Across the sea",seat:"Doranelle, the Fae city in Wendlyn's mountains; the fortress of Mistward",b:"HOF",
+  pos:[["Queen of the Fae","maeve","HOF"],["Prince, cadre warrior","rowan","HOF"],["Commander of the cadre","lorcan","HOF"]],
+  feat:"A human kingdom across the sea, with the Fae homeland of Doranelle in its mountains. Maeve's cadre of immortal warriors are bound to her by blood oath.",
+  war:"Maeve's fleet arrives at the end of Empire of Storms and takes Aelin captive. In Kingdom of Ash her true nature is revealed.",warB:"EOS"},
+ {id:"eyllwe",name:"Eyllwe",kind:"Conquered southern kingdom",seat:"Banjali",b:"TOG",
+  pos:[["Princess","nehemia","TOG"]],
+  feat:"A proud southern kingdom under Adarlan's boot. Its people fill the labour camps, and its princess comes to Rifthold to fight for them from inside the court.",
+  war:"Nehemia's death in Crown of Midnight is the spark that sets Celaena against the king.",warB:"COM"},
+ {id:"south",name:"The Southern Continent",kind:"The khaganate",seat:"Antica and the Torre Cesme",b:"AB",
+  pos:[["Ruler","khagan","TOD"],["Healer of the Torre","yrene","AB"],["Captain, then ruk rider","nesryn","QOS"]],
+  feat:"A vast empire across the Narrow Sea, home to the ruk riders of the Tavan mountains and the great healers of the Torre Cesme.",
+  war:"In Tower of Dawn, Chaol is healed in Antica and wins the khaganate's armies, which sail north in Kingdom of Ash.",warB:"TOD"},
+ {id:"witches",name:"The Witch Clans",kind:"Ironteeth & Crochans",seat:"The Wastes, the White Fangs and the Ferian Gap",b:"HOF",
+  pos:[["Blackbeak Heir, later Queen","manon","HOF"]],
+  feat:"Ironteeth witches with iron teeth and nails, and the Crochans they hate, both cursed centuries ago to lose their kingdom in the Wastes. The Ironteeth train wyverns for Morath.",
+  war:"Manon breaks with Morath in Empire of Storms and unites the Ironteeth and Crochans in Kingdom of Ash, at a terrible price.",warB:"EOS"},
+ {id:"morath",name:"Morath",kind:"Fortress of the Valg",seat:"A dark fortress in southern Adarlan",b:"HOF",
+  pos:[["Lord of Morath","erawan","EOS"]],
+  feat:"Duke Perrington's stronghold, where witches, wyverns and Valg-possessed soldiers gather for war.",
+  war:"In Kingdom of Ash, Dorian and Manon break in to steal a Wyrdkey, and Morath's armies march on Terrasen.",warB:"KOA"}
 ];
+const REALMS_CC=[
+ {id:"lunathion",name:"Lunathion",kind:"Crescent City, in Valbara",seat:"The Old Square, Five Roses, the Meat Market, Moonwood, Asphodel Meadows and the Bone Quarter",b:"HOEAB",
+  pos:[["Archangel Governor","micah","HOEAB"],["Fae King of Valbara","autumnking","HOEAB"],["Prime Apparent of the wolves","sabine","HOEAB"],["Ruler of the river","riverqueen","HOEAB"],["Gallery owner","jesiba","HOEAB"]],
+  feat:"A modern city of nightclubs, cars, phones and sunball, where angels, Fae, shifters, mer, witches and humans live side by side under the Archangels. Its districts each belong to a different group, and the dead are ferried to the Bone Quarter.",
+  war:"At the end of House of Earth and Blood, Hel breaks through into the city and Bryce saves it. By House of Flame and Shadow, Lunathion is caught up in the rebellion against the Asteri.",warB:"HOEAB"},
+ {id:"pangera",name:"Pangera & the Eternal City",kind:"Seat of the Asteri",seat:"The Eternal City and its palace",b:"HOEAB",
+  pos:[["Bright Hand of the Asteri","rigelus","HOSAB"],["The Hind, interrogator","lidia","HOEAB"],["The rebellion","ophion","HOSAB"]],
+  feat:"The war-torn continent where the Asteri rule and the human-led rebellion, Ophion, fights a losing war. Its dungeons are the most feared place in Midgard.",
+  war:"Hunt and Ruhn end up in the Asteri's dungeons after House of Sky and Breath. The fight to bring the Asteri down happens here in House of Flame and Shadow.",warB:"HOSAB"},
+ {id:"avallen",name:"Avallen",kind:"The misty isle of the Fae",seat:"The mists of Avallen",b:"HOSAB",
+  pos:[["Crown Prince","cormac","HOSAB"]],
+  feat:"An island of mist and old magic, where the Fae of Midgard trace their oldest roots. Its mists hide ancient caves and secrets.",
+  war:"Prince Cormac is pushed into a fake engagement with Bryce in House of Sky and Breath. Avallen's secrets matter in House of Flame and Shadow.",warB:"HOSAB"},
+ {id:"hel",name:"Hel",kind:"A neighbouring world",seat:"Reached through the Northern Rift",b:"HOEAB",
+  pos:[["Prince of the Chasm","aidas","HOEAB"],["Prince of the Pit","apollion","HOSAB"]],
+  feat:"A dark world ruled by seven princes. Midgard has feared Hel's demons for millennia and guards the Northern Rift against them.",
+  war:"Hel's armies march by House of Flame and Shadow, but not for the reason Midgard thinks.",warB:"HOFAS"},
+ {id:"houses",name:"The Four Houses",kind:"How Midgard sorts its people",seat:"Earth and Blood · Sky and Breath · Many Waters · Flame and Shadow",b:"HOEAB",
+  pos:[],
+  feat:"Every Vanir belongs to a House. Shifters and humans fall under Earth and Blood; angels, Fae and sprites under Sky and Breath; mer and river spirits under Many Waters; and daemonaki, vampyrs and necromancers under Flame and Shadow. Each Crescent City title is named for one.",
+  war:"Three Houses have had a book. Fans guess the fourth Crescent City book will be House of Many Waters, but that title isn't confirmed.",warB:"",warL:"The book titles"}
+];
+const COURTS=[
+ {id:"night",name:"The Night Court",kind:"Solar court",seat:"Velaris, the City of Starlight (hidden), and the Hewn City under the mountain",b:"ACOTAR",seatB:"ACOMAF",featB:"ACOMAF",
+  pos:[["High Lord","rhys","ACOTAR"],["High Lady","feyre","ACOMAF"],["Second","amren","ACOMAF"],["Third","mor","ACOMAF"],["General","cassian","ACOMAF"],["Spymaster","azriel","ACOMAF"],["Steward, Hewn City","keir","ACOMAF"],["Valkyries","nesta","ACOSF"],["Illyrian camp lord","devlon","ACOMAF"],["Library","clotho","ACOSF"]],
+  feat:"The largest and most feared court, covering Prythian's north. It is really three worlds: the hidden, art-loving city of Velaris; the Hewn City and its Court of Nightmares, which the rest of Prythian thinks is the whole court; and the Illyrian war-bands in the mountains. Stars, darkness and dreams are its magic.",
+  war:"Velaris is attacked by Hybern in ACOMAF and the war leaves scars across the city. The Night Court leads the alliance that wins the war in ACOWAR. In ACOSH the Inner Circle is split over Bryce and the Mask, Bryaxis attacks Nyx's naming day, and Elain leaves with Mor for the Continent.",warB:"ACOMAF"},
+ {id:"spring",name:"The Spring Court",kind:"Seasonal court",seat:"Tamlin's manor",b:"ACOTAR",
+  pos:[["High Lord","tamlin","ACOTAR"],["Emissary (former)","lucien","ACOTAR"],["High Priestess (former)","ianthe","ACOMAF"],["Household","alis","ACOTAR"]],
+  feat:"Eternal spring: green hills, roses and lush gardens just north of the old Wall. The masks stuck to everyone's faces in ACOTAR were part of Amarantha's curse. Calanmai, the Great Rite, is celebrated here.",
+  war:"Feyre's sabotage in ACOWAR leaves Tamlin's sentries scattered and his court gutted, and Hybern's alliance costs him everything. Afterwards the court is a ruin and Tamlin mostly lives as a beast. In ACOSH Rhys suggests Lucien step back into court politics as Spring's man to get near Beron.",warB:"ACOWAR"},
+ {id:"autumn",name:"The Autumn Court",kind:"Seasonal court",seat:"The Forest House",b:"ACOTAR",
+  pos:[["High Lord","beron","ACOWAR"],["Lady","ladyautumn","ACOWAR"],["Heir","eris","ACOWAR"],["Youngest son","lucien","ACOTAR"]],
+  feat:"Endless red-and-gold forests. Fire is its magic and red hair runs in the ruling family. A court ruled through fear of Beron.",
+  war:"Beron joins the fight against Hybern late. Afterwards Eris works toward overthrowing his father, with a secret Night Court deal in ACOSF. In ACOSH Eris taunts Cassian that the pendulum is swinging back against the humans.",warB:"ACOWAR"},
+ {id:"summer",name:"The Summer Court",kind:"Seasonal court",seat:"Adriata, an island city in a bay",b:"ACOMAF",
+  pos:[["High Lord","tarquin","ACOMAF"],["Princess","cresseida","ACOMAF"],["Prince, captain of the guard","varian","ACOMAF"]],
+  feat:"Sun, sea and white stone. Water is its magic. Adriata glitters, and Tarquin's treasury held half of the Book of Breathings.",
+  war:"Hybern strikes Adriata in ACOWAR. Tarquin fights with the alliance despite his grudge against Feyre and Rhys. In ACOSH he flatly refuses to join them against Koschei.",warB:"ACOWAR"},
+ {id:"winter",name:"The Winter Court",kind:"Seasonal court",seat:"Snowbound palace",b:"ACOWAR",
+  pos:[["High Lord","kallias","ACOWAR"],["Lady","viviane","ACOWAR"]],
+  feat:"Snow, ice and long nights, ruled by a warm Lady and a reserved High Lord. Ice is its magic.",
+  war:"Winter suffered under Amarantha and fights with the alliance in ACOWAR.",warB:"ACOWAR"},
+ {id:"day",name:"The Day Court",kind:"Solar court",seat:"Helion's sunlit palace",b:"ACOWAR",
+  pos:[["High Lord","helion","ACOWAR"]],
+  feat:"Gold, light and learning. Home to one of Prythian's great libraries. Its High Lord can break almost any spell.",
+  war:"Helion joins the alliance in ACOWAR. His secret, that he is Lucien's father, comes out during the war.",warB:"ACOWAR"},
+ {id:"dawn",name:"The Dawn Court",kind:"Solar court",seat:"Thesan's palace in the eastern mountains",b:"ACOWAR",
+  pos:[["High Lord","thesan","ACOWAR"]],
+  feat:"Pastel light, healers and the winged Peregryns. Its magic is tied to healing.",
+  war:"Thesan hosts the meeting of the High Lords in ACOWAR and the Dawn Court fights with the alliance.",warB:"ACOWAR"},
+ {id:"hybern",name:"Hybern",kind:"Kingdom across the sea",seat:"An island west of Prythian",b:"ACOTAR",
+  pos:[["King","hybern","ACOMAF"],["General","amarantha","ACOTAR"],["Resurrected general","jurian","ACOMAF"]],
+  feat:"An old Fae kingdom that never accepted the Treaty. Keeper of the Cauldron.",
+  war:"Hybern loses the war and its king in ACOWAR. In ACOSH a half-dead messenger tells Azriel that Hybern now wants an alliance.",warB:"ACOWAR"},
+ {id:"human",name:"The human lands",kind:"South of the old Wall",seat:"Ruled by human queens",b:"ACOTAR",
+  pos:[["Queen","vassa","ACOWAR"],["Queen (former)","briallyn","ACOWAR"],["General","jurian","ACOMAF"]],
+  feat:"Where Feyre grew up. Humans fear and resent the Fae after centuries of slavery and the War.",
+  war:"The Wall falls in ACOWAR and the human lands lie open. In ACOSH the Continent's Fae plan to march on them as soon as they have Made objects.",warB:"ACOWAR"},
+ {id:"continent",name:"The Continent",kind:"Lands across the sea",seat:"Vallahan, Rask, Montesere; neutral Storr",b:"ACOWAR",
+  pos:[["Death-lord","koschei","ACOWAR"],["King of Vallahan","vallahanking","ACOSH"],["Grand Vizier","vizier","ACOSH"],["Priestess","mistress","ACOSH"]],
+  feat:"Huge Fae and human kingdoms. Much of the land is infertile. Koschei is bound to a lake deep inside it.",
+  war:"In ACOSH its factions hunt Made objects, including the box holding Koschei's death, and refuse Prythian's treaty at Storr.",warB:"ACOSH"},
+ {id:"prison",name:"The Prison",kind:"Island fortress",seat:"An island in the sea off the Night Court",b:"ACOMAF",
+  pos:[["Prisoner","bonecarver","ACOMAF"]],
+  feat:"A mountain-prison for the oldest and most dangerous beings. In ACOSH Nesta says the Prison is a court unto itself, and that Prythian once had a High King and Queen.",
+  war:"At the end of ACOSH Nesta wills herself inside; Gwydion lights the way, then the Prison takes it.",warB:"ACOSH"}
+];
+const REALMS={tog:REALMS_TOG,acotar:COURTS,cc:REALMS_CC};
+const ALLREALMS=[...REALMS_TOG,...COURTS,...REALMS_CC];
+const REALMHEAD={tog:["Kingdoms of Erilea","The kingdoms, empires and strongholds of the Throne of Glass world.","How the war hits"],acotar:["The Courts of Prythian","Prythian has seven courts: four seasonal (Spring, Summer, Autumn, Winter) and three solar (Dawn, Day, Night), plus the lands around them. Tap a court on the map to jump to it.","How the war hits this court"],cc:["Cities, Realms & Houses of Midgard","Where Crescent City happens, who rules each place, and the four Houses every Vanir belongs to.","In the story"]};
+/* Prythian schematic regions (fan-made, not to scale) */
+const REGIONS=[
+ {id:"night",label:"Night Court",d:"M150 40 L460 30 L520 90 L470 170 L330 185 L190 175 L140 110 Z",lx:320,ly:105},
+ {id:"winter",label:"Winter",d:"M470 170 L520 90 L570 120 L560 215 L470 230 Z",lx:515,ly:170},
+ {id:"day",label:"Day",d:"M190 175 L330 185 L470 170 L470 230 L340 250 L230 240 Z",lx:335,ly:215},
+ {id:"autumn",label:"Autumn",d:"M140 110 L190 175 L230 240 L210 300 L120 280 L100 190 Z",lx:162,ly:225},
+ {id:"dawn",label:"Dawn",d:"M470 230 L560 215 L575 300 L470 310 L430 270 Z",lx:510,ly:268},
+ {id:"summer",label:"Summer",d:"M120 280 L210 300 L250 340 L190 380 L105 350 Z",lx:170,ly:335},
+ {id:"spring",label:"Spring",d:"M210 300 L230 240 L340 250 L430 270 L470 310 L420 360 L250 340 Z",lx:340,ly:305},
+ {id:"human",label:"Human lands",d:"M105 350 L190 380 L250 340 L420 360 L470 310 L560 330 L560 440 L90 440 Z",lx:330,ly:410}
+];
+
+/* Eras: the big chapters of each world's history */
+const ERAS=[
+ {w:"acotar",when:"Before history",t:"The Mother & the Cauldron",d:"The Cauldron made the world and can still Make or unmake people. Ancient beings like the Weaver and the Bone Carver date from these days.",g:"ACOMAF"},
+ {w:"x",when:"Before history",t:"The Daglan",d:"Star-born tyrants rule Prythian until they're overthrown, then move on to Midgard, where they're known as the Asteri.",g:"HOFAS"},
+ {w:"cc",when:"About 15,000 years ago",t:"The Asteri conquer Midgard",d:"They arrive through the Northern Rift with Fae, shifters and others in tow, and rule from the Eternal City ever since.",g:""},
+ {w:"tog",when:"Thousands of years ago",t:"The first war with the Valg",d:"Demon kings invade Erilea through the Wyrdgates. They're driven back, the Wyrdkeys are hidden, and Erilea forgets how close it came.",g:"HOF"},
+ {w:"acotar",when:"Thousands of years",t:"Fae rule over humans",d:"Fae of every land enslave humans. High Kings and Queens may once have ruled Prythian (an ACOSH hint).",g:"ACOSH"},
+ {w:"acotar",when:"About 500 years ago",t:"The War, the Treaty & the Wall",d:"Humans and their Fae allies rise up. A Treaty splits the land: Fae in Prythian to the north, humans to the south, an invisible Wall between.",g:""},
+ {w:"acotar",when:"About 50 years before ACOTAR",t:"Under the Mountain",d:"Amarantha curses the High Lords and rules Prythian from Under the Mountain for nearly fifty years.",g:""},
+ {w:"tog",when:"About 10 years before ToG",t:"Adarlan's conquest",d:"Terrasen falls, magic vanishes across Erilea, and the King of Adarlan rules almost the whole continent.",g:""},
+ {w:"tog",when:"ToG → KoA",t:"The war for Erilea",d:"An assassin becomes a queen, magic returns, and every kingdom unites against the Valg.",g:""},
+ {w:"acotar",when:"ACOTAR → ACOWAR",t:"The Hybern War",d:"Amarantha falls, Hybern rises, the Wall comes down, and the courts unite to win the war.",g:"ACOMAF"},
+ {w:"acotar",when:"ACOFAS → ACOSF",t:"Rebuilding",d:"Velaris heals, Nesta finds the Valkyries, and the Dread Trove and Koschei appear.",g:"ACOFAS"},
+ {w:"cc",when:"HoEaB → HoFaS",t:"The rebellion",d:"A murder investigation in Lunathion grows into a fight against the Asteri themselves.",g:""},
+ {w:"acotar",when:"ACOSH →",t:"The Valkyrie Cycle",d:"A multi-book arc: Koschei stirring, the Continent mobilising, the Inner Circle fractured.",g:"ACOSH"}
+];
+
+/* Timeline, in story order: [world, when, title, detail, gate, bookCode]
+   Each world keeps its own calendar. They're lined up using the crossovers: Kingdom of Ash comes after ACOWAR,
+   Bryce reaches Prythian a few months after ACOSF, and ACOSH starts four weeks after that. */
+const TIMELINE=[
+ ["acotar","Ancient","Amren comes into this world","An ancient being trapped in a High Fae body, she has served Rhys for centuries.","ACOWAR"],
+ ["x","Ancient","The Daglan leave Prythian","Overthrown in Prythian, the Daglan go on to rule Midgard as the Asteri, taking Fae with them, including the Starborn line.","HOFAS"],
+ ["cc","~15,000 years ago","The Asteri arrive in Midgard","They come through the Northern Rift and build an empire.",""],
+ ["tog","Thousands of years ago","The Valg are driven from Erilea","The Wyrdkeys are scattered and the Valg's survivors go into hiding.","HOF"],
+ ["acotar","~500 years ago","The War","Humans and Fae allies fight the Fae who enslaved them. Amarantha takes Jurian's eye as a trophy.","ACOTAR"],
+ ["acotar","~500 years ago","The Treaty & the Wall","Prythian and the human lands are divided.",""],
+ ["acotar","Centuries ago","Rhys's mother and sister are murdered","Killed by Tamlin's father and brothers; Rhys and his father take revenge. The root of the Night-Spring feud.","ACOMAF"],
+ ["acotar","Centuries ago","Mor flees the Court of Nightmares","Eris leaves her on the Autumn border; Rhys and the others take her in.","ACOMAF"],
+ ["acotar","Centuries ago","Jesminda is murdered","Lucien flees Autumn for the Spring Court.","ACOTAR"],
+ ["acotar","~50 years before ACOTAR","Amarantha takes Prythian","Rhys hides Velaris from her by becoming her prisoner and plaything.","ACOMAF"],
+ ["tog","~10 years before ToG","Terrasen falls and magic vanishes","The Galathynius royals are murdered, and a child is pulled from a river and taken in by Arobynn Hamel.","COM"],
+ ["tog","~3 to 2 years before ToG","The Assassin's Blade","The prequel novellas. Ends with Sam's death and Celaena sent to Endovier.","AB","AB"],
+ ["tog","Erilea · year 1","Throne of Glass","The King's Champion contest in Rifthold.","TOG","TOG"],
+ ["tog","That autumn and winter","Crown of Midnight","Nehemia's death and a secret identity.","COM","COM"],
+ ["tog","Spring","Heir of Fire","Wendlyn, Mistward and the witches.","HOF","HOF"],
+ ["tog","Summer","Queen of Shadows","The Rifthold reckoning.","QOS","QOS"],
+ ["tog","End of Queen of Shadows","Magic returns to Erilea","Aelin destroys the clock tower that suppressed it.","QOS"],
+ ["tog","Straight after","Empire of Storms","War comes to Erilea.","EOS","EOS"],
+ ["tog","At the same time","Tower of Dawn","Chaol in Antica, running alongside Empire of Storms.","TOD","TOD"],
+ ["acotar","Prythian · year 0 · winter","A Court of Thorns and Roses","Feyre, 19, kills a wolf and is taken across the Wall.","ACOTAR","ACOTAR"],
+ ["acotar","Year 0 · spring","Under the Mountain","Three trials, a riddle, a death, and a rebirth. Amarantha falls.","ACOTAR"],
+ ["acotar","~3 months later","A Court of Mist and Fury","Feyre is pulled to the Night Court by her bargain with Rhys.","ACOMAF","ACOMAF"],
+ ["acotar","Summer","Hybern's raid","Nesta and Elain are thrown into the Cauldron and Made. Feyre goes back to Spring as a spy.","ACOMAF"],
+ ["acotar","Straight after","A Court of Wings and Ruin","Spring is dismantled, the courts unite, the Wall falls and Hybern is defeated.","ACOWAR","ACOWAR"],
+ ["tog","After ACOWAR (by the cameo)","Kingdom of Ash","The Throne of Glass finale.","KOA","KOA"],
+ ["x","Kingdom of Ash","Aelin crosses between worlds","She glimpses other worlds, including a brief encounter with two Prythian figures who seem to be Rhys and Feyre, already mated.","KOA"],
+ ["tog","End of Kingdom of Ash","The Wyrdgates are sealed","Aelin forges the lock and is crowned Queen of Terrasen.","KOA"],
+ ["acotar","First Winter Solstice","A Court of Frost and Starlight","Velaris rebuilds; Nesta is falling apart.","ACOFAS","ACOFAS"],
+ ["cc","2 years before HoEaB","Danika and the Pack of Devils are murdered","The killing that opens Crescent City.",""],
+ ["cc","Midgard · year 1","House of Earth and Blood","Bryce and Hunt hunt the killer through Lunathion.","HOEAB","HOEAB"],
+ ["acotar","About a year after ACOFAS","A Court of Silver Flames","Nesta trains, the Valkyries rise, the Dread Trove is found and Nyx is born.","ACOSF","ACOSF"],
+ ["cc","Spring, a year after HoEaB","House of Sky and Breath","The rebellion comes for Bryce and Hunt.","HOSAB","HOSAB"],
+ ["x","End of House of Sky and Breath","Bryce leaves Midgard","She opens a way out and falls into another world.","HOSAB"],
+ ["x","A few months after ACOSF","Bryce arrives in Prythian","House of Flame and Shadow. The Night Court questions her; Nesta gives her the Mask; she takes Truth-Teller home.","HOFAS+ACOSF"],
+ ["cc","Straight after","House of Flame and Shadow","Back in Midgard, the fight to bring down the Asteri.","HOFAS","HOFAS"],
+ ["acotar","4 weeks after Bryce","A Court of Splintered Harmony","Nyx is six months old. Azriel's spies find Continent factions hunting Made objects.","ACOSH","ACOSH"],
+ ["acotar","ACOSH","Summit at Storr","The Continent refuses Prythian's treaty and all but admits it plans to march on the humans.","ACOSH"],
+ ["acotar","Autumn equinox","Nyx's naming day","Bryaxis attacks; Nesta drives it off with Ataraxia.","ACOSH"],
+ ["acotar","End of ACOSH","Breaking points","Lucien finds Elain with Azriel; Nesta enters the Prison; Elain leaves with Mor for Vallahan.","ACOSH"]
+];
+/* Release dates still to come (real-world) */
+const COMING=[["acotar","12 January 2027","A Court of Forgotten Melody","ACOTAR 7 · The Valkyrie Cycle, Movements II & III."],["acotar","Date TBA","ACOTAR 8","The Valkyrie Cycle, Movement IV."],["cc","Date TBA","Crescent City 4","Reportedly crosses over with ACOTAR."]];
 
 /* ============ RECAPS (my own summaries) ============ */
 const RECAPS={
@@ -842,6 +1010,8 @@ const gateOK=g=>!g||String(g).split("+").every(fin);
 const hideG=g=>!ALL()&&!gateOK(g);
 const hideStart=c=>!ALL()&&!started(c);
 const gateLab=g=>String(g||"").split("+").filter(Boolean).map(c=>BK[c]?.abbr||c).join(" + ");
+const MENT=[[/A Court of Mist and Fury|\bACOMAF\b/,"ACOMAF"],[/Wings and Ruin|\bACOWAR\b/,"ACOWAR"],[/\bACOFAS\b/,"ACOFAS"],[/Silver Flames|\bACOSF\b/,"ACOSF"],[/Splintered Harmony|\bACOSH\b/,"ACOSH"],[/Bryce|House of Flame and Shadow/,"HOFAS"]];
+const riskG=(text,base)=>[base,...MENT.filter(([re])=>re.test(text||"")).map(x=>x[1])].filter(Boolean).join("+");
 function sp(hide,key,html,tag){if(!hide||SPK.has(key))return html;tag=tag||"span";return `<${tag} class="sp-hidden" data-spk="${key}" title="Spoiler: tap to reveal">${html}</${tag}>`}
 
 const nm=id=>C[id]?.name||FAMX[id]?.name||id;
@@ -911,10 +1081,11 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(!
 function go(ref){const i=ref.indexOf(":"),k=ref.slice(0,i),id=ref.slice(i+1);
  if(k==="char"){Object.assign(charState,{q:"",role:"all",w:"all",bk:"all"});show("characters",()=>flash(document.getElementById("c-"+id)))}
  else if(k==="book"){bookSer="all";show("books",()=>flash(document.getElementById("b-"+id)))}
- else if(k==="world"){worldW="all";show("world",()=>flash(document.getElementById(id)))}
+ else if(k==="world"){const ws=id.replace("world-","");worldW=["tog","acotar","cc"].includes(ws)?ws:(id.startsWith("tl-")?"all":worldW);show("world",()=>flash(document.getElementById(id)))}
  else if(k==="recap"){recapBook=id;recapW="all";show("recaps")}
  else if(k==="fam"){famFocus=id;show("family")}
  else if(k==="map"){mapFocus=id;mapState.w="all";show("map")}
+ else if(k==="court"){worldW=realmWorld(id)||"acotar";courtQ="";show("world",()=>flash(document.getElementById("ct-"+id)))}
  else if(k==="xo"){mapState.w="all";mapState.st="all";show("map",()=>flash(document.getElementById(id)))}}
 
 /* ============ BOOK GUIDE ============ */
@@ -961,6 +1132,7 @@ function charCard(c){
  const inner=`<div class="card-top"><div><h3>${esc(c.name)}</h3><div class="aka">${esc(c.aka)}</div></div><div class="pills">${alignPill(c.role)}${c.dead!==undefined?sp(hideG(c.dead),key+"-dd",'<span class="pill p-dead">Deceased</span>'):""}</div></div>
  <dl class="kv">${PRON[c.id]?`<dt>Say it</dt><dd style="font-style:italic">${esc(PRON[c.id])}</dd>`:""}
  <dt>World</dt><dd>${sw(c.w)}<button class="lnk" data-go="world:world-${c.w}">${esc(WORLDNAME(c.w))}</button> · ${esc(SERIES[c.w].name)}</dd>
+ ${COURTOF[c.id]?`<dt>${c.w==="acotar"?"Court":"From"}</dt><dd><span class="swatch" style="background:${COURTCOL[COURTOF[c.id]]}"></span><button class="lnk" data-go="court:${COURTOF[c.id]}">${esc(ALLREALMS.find(x=>x.id===COURTOF[c.id]).name)}</button></dd>`:""}
  <dt>Role</dt><dd>${esc(c.job)}</dd>
  <dt>About</dt><dd>${esc(c.feat)}</dd>
  ${c.love?`<dt>Love interest</dt><dd>${sp(hideG(c.loveG),key+"-lv",esc(c.love))}</dd>`:""}</dl>
@@ -992,8 +1164,8 @@ function renderChars(){
  v.querySelectorAll("[data-al]").forEach(b=>b.addEventListener("click",()=>{charState.role=b.dataset.al;v.querySelectorAll("[data-al]").forEach(x=>x.setAttribute("aria-pressed",x===b));draw()}));
 }
 
-/* ============ WORLDS & TIMELINE ============ */
-let worldW=store.get("maasWorldW","all");
+/* ============ WORLDS, COURTS & TIMELINE ============ */
+let worldW=store.get("maasWorldW","all"),courtQ="";
 function orbs(){
  const N={tog:{x:130,y:110,l:"ERILEA"},acotar:{x:470,y:110,l:"PRYTHIAN"},cc:{x:300,y:290,l:"MIDGARD"}};
  const pair=(a,b)=>XOVER.filter(x=>(x.a===a&&x.b===b)||(x.a===b&&x.b===a));
@@ -1002,27 +1174,84 @@ function orbs(){
   const line=cf.length?`<line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}" stroke="var(--accent)" stroke-width="${2+Math.min(seen,6)}" stroke-opacity="${seen?.85:.25}" stroke-linecap="round"/>`:`<line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}" stroke="var(--theory)" stroke-width="2" stroke-dasharray="6 7" stroke-opacity="${seenT?.9:.35}"/>`;
   return line+`<text x="${lx}" y="${ly}" text-anchor="middle" style="font-size:13px;fill:var(--muted)">${cf.length?`${seen} of ${cf.length} confirmed`:""}${cf.length&&th.length?" · ":""}${th.length?`${seenT} of ${th.length} theor${th.length>1?"ies":"y"}`:""}</text>`};
  return `<div class="orbs"><svg viewBox="0 0 600 370" role="img" aria-label="How Erilea, Prythian and Midgard connect">${edge("tog","acotar",300,96)}${edge("acotar","cc",452,212)}${edge("tog","cc",148,212)}
-  ${Object.entries(N).map(([k,n])=>`<g role="button" tabindex="0" data-go="world:world-${k}" style="cursor:pointer"><circle cx="${n.x}" cy="${n.y}" r="50" style="fill:var(--surface);stroke:${SERCOL[k]};stroke-width:3"/><text x="${n.x}" y="${n.y-2}" text-anchor="middle" style="font-family:var(--mono);font-size:14px;letter-spacing:2px;fill:${SERCOL[k]}">${n.l}</text><text x="${n.x}" y="${n.y+16}" text-anchor="middle" style="font-size:11px;fill:var(--muted)">${esc(SERIES[k].short)}</text></g>`).join("")}
-  <text x="300" y="360" text-anchor="middle" style="font-size:12px;fill:var(--muted)">Lines thicken as you unlock more confirmed crossovers. Tap a world.</text></svg></div>`}
+  ${Object.entries(N).map(([k,n])=>`<g role="button" tabindex="0" data-open="${k}" style="cursor:pointer"><circle cx="${n.x}" cy="${n.y}" r="50" style="fill:var(--surface);stroke:${SERCOL[k]};stroke-width:3"/><text x="${n.x}" y="${n.y-2}" text-anchor="middle" style="font-family:var(--mono);font-size:14px;letter-spacing:2px;fill:${SERCOL[k]}">${n.l}</text><text x="${n.x}" y="${n.y+16}" text-anchor="middle" style="font-size:11px;fill:var(--muted)">${esc(SERIES[k].short)}</text></g>`).join("")}
+  <text x="300" y="360" text-anchor="middle" style="font-size:12px;fill:var(--muted)">Lines thicken as you unlock more confirmed crossovers. Tap a world to open it.</text></svg></div>`}
+const offName=id=>C[id]?charLink(id):esc(OFF[id]?.[0]||id);
+const realmWorld=id=>Object.keys(REALMS).find(w=>REALMS[w].some(r=>r.id===id));
+function courtCard(ct){
+ const key="ct-"+ct.id,w=realmWorld(ct.id);
+ const pos=ct.pos.map(([role,id,b],i)=>`<li><span>${esc(role)}</span><span>${sp(b!==ct.b&&hideG(b),key+"-p"+i,offName(id))}</span></li>`).join("");
+ const members=Object.keys(COURTOF).filter(id=>COURTOF[id]===ct.id);
+ const inner=`<div class="card-top"><div class="court-h"><span class="court-dot" style="background:${COURTCOL[ct.id]}"></span><div><h3>${esc(ct.name)}</h3><div class="aka">${esc(ct.kind)} · ${sp(!!ct.seatB&&hideG(ct.seatB),key+"-s",esc(ct.seat))}</div></div></div></div>
+ ${pos?`<span class="lbl" style="margin-top:8px">Positions</span><ul class="pos">${pos}</ul>`:""}
+ <span class="lbl" style="margin-top:12px">Features</span><p style="margin:2px 0 0;font-size:.95rem">${sp(hideG(riskG(ct.feat,ct.featB)),key+"-f",esc(ct.feat))}</p>
+ ${members.length?`<span class="lbl" style="margin-top:12px">Who's from here</span><div class="castlist">${members.map(id=>sp(hideStart(C[id].b),key+"-m"+id,charLink(id))).join("")}</div>`:""}
+ <div class="war"><b class="lbl">${esc(ct.warL||REALMHEAD[w][2])}</b>${sp(hideG(riskG(ct.war,ct.warB)),key+"-w",esc(ct.war))}</div>`;
+ return `<article class="card" id="${key}" style="border-top:4px solid ${COURTCOL[ct.id]}">${hideStart(ct.b)?sp(true,key,inner,"div"):inner}</article>`}
+function prythianMap(){
+ const regs=REGIONS.map(r=>`<path class="reg" tabindex="0" role="button" aria-label="${esc(r.label)}" data-court="${r.id}" d="${r.d}" fill="${COURTCOL[r.id]}" style="opacity:.78"/>`).join("")+REGIONS.map(r=>`<text x="${r.lx}" y="${r.ly}" text-anchor="middle" style="fill:#fff;paint-order:stroke;stroke:rgba(0,0,0,.45);stroke-width:3px">${esc(r.label)}</text>`).join("");
+ return `<div class="mapsvg"><svg viewBox="0 0 680 460" role="img" aria-label="Schematic map of Prythian's courts">
+  <rect class="sea" width="680" height="460"/>
+  <text x="40" y="30" class="sm">Sea</text>
+  <path class="land" d="M20 140 L80 110 L95 170 L60 230 L18 210 Z"/><text x="56" y="175" text-anchor="middle">Hybern</text>
+  <path class="land" d="M70 40 L110 34 L118 70 L80 76 Z"/><text x="94" y="92" text-anchor="middle" class="sm">The Prison</text>
+  ${regs}
+  <path class="land" d="M600 250 L670 230 L675 440 L605 440 Z"/><text x="638" y="340" text-anchor="middle" transform="rotate(-90 638 340)">The Continent</text>
+  <path d="M90 352 L560 322" stroke="var(--bronze)" stroke-width="2.5" stroke-dasharray="7 5" fill="none"/><text x="470" y="346" class="sm">the old Wall</text>
+ </svg></div>
+ <p class="note">Fan-made schematic, not to scale and not the official map. It shows roughly where the courts sit relative to one another.</p>`}
+function worldCard(t,open){
+ const lm=t.places.map(([n,d,b],i)=>`<li>${sp(hideStart(b),t.id+"-p"+i,`<b>${esc(n)}</b> <span style="color:var(--muted)">${esc(d)}</span>`)}</li>`).join("");
+ const kv=t.kv.map(([k,val,g],i)=>`<dt>${esc(k)}</dt><dd>${sp(hideG(g),t.id+"-kv"+i,esc(val))}</dd>`).join("");
+ const series=BOOKLIST.filter(b=>b.s===t.s).map(b=>`<button class="lnk" data-go="book:${b.c}">${esc(b.abbr)}</button>`).join(" · ");
+ const n=REALMS[t.s].length;
+ return `<article class="card town" id="${t.id}" style="border-top:4px solid ${SERCOL[t.s]};--wc:${SERCOL[t.s]}"><p class="eyebrow">${esc(t.hub)}</p><h3>${esc(t.name)}</h3>
+  <p style="margin:8px 0 0;font-size:.97rem">${esc(t.d)}</p><dl class="kv">${kv}</dl>
+  ${open?`<span class="lbl" style="margin-top:12px">Places to know</span><ul class="lm">${lm}</ul><div class="books">Books: ${series}</div>`
+   :`<div class="bk-actions"><button class="buybtn" data-open="${t.s}">Open ${esc(t.name)} · ${n} ${esc(REALMHEAD[t.s][0].split(" ")[0].toLowerCase())}</button></div>`}</article>`}
 function renderWorld(){
  const v=$("#view");store.set("maasWorldW",worldW);
- const inW=w=>worldW==="all"||worldW===w;
- const worlds=WORLDS.filter(t=>worldW==="all"||worldW===t.s).map(t=>{
-  const lm=t.places.map(([n,d,b],i)=>`<li>${sp(hideStart(b),t.id+"-p"+i,`<b>${esc(n)}</b> <span style="color:var(--muted)">${esc(d)}</span>`)}</li>`).join("");
-  const kv=t.kv.map(([k,val,g],i)=>`<dt>${esc(k)}</dt><dd>${sp(hideG(g),t.id+"-kv"+i,esc(val))}</dd>`).join("");
-  const series=BOOKLIST.filter(b=>b.s===t.s).map(b=>`<button class="lnk" data-go="book:${b.c}">${esc(b.abbr)}</button>`).join(" · ");
-  return `<article class="card town" id="${t.id}" style="border-top:4px solid ${SERCOL[t.s]};--wc:${SERCOL[t.s]}"><p class="eyebrow">${esc(t.hub)}</p><h3>${esc(t.name)}</h3>
-  <p style="margin:8px 0 0;font-size:.97rem">${esc(t.d)}</p><dl class="kv">${kv}</dl><span class="lbl" style="margin-top:12px">Places to know</span><ul class="lm">${lm}</ul><div class="books">Books: ${series}</div></article>`}).join("");
- const tl=TIMELINE.map((x,i)=>[x,i]).filter(([x])=>inW(x[0])).map(([[w,when,t,d,g,isB],i])=>{const hid=isB?(g&&BK[g]?hideStart(g):false):hideG(g);return`<li id="tl-${i}" class="${isB?"bk":""}" style="--wc:${SERCOL[w]}"><div class="when">${sw(w)}${esc(when)}</div>${sp(hid,"tl-"+i,`<b>${esc(t)}</b><p>${esc(d)}</p>`,"div")}</li>`}).join("");
- v.innerHTML=`<p class="eyebrow">Where and when</p><h2>Worlds &amp; Timeline</h2>
- <p class="lede">The three worlds, what's in each, how they link up, and one timeline that braids all three series together, including the crossover moments.</p>
- <div class="controls" role="group" aria-label="Filter by world">${wChips(worldW,"ww",[["x","Crossovers"]])}</div>
- ${worldW==="all"||worldW==="x"?orbs():""}
- ${worlds?`<h3 class="sec-h">${worldW==="all"?"The three worlds":"The world"}</h3><div class="grid wide">${worlds}</div>`:""}
- <h3 class="sec-h">Timeline</h3>
- <p class="note">Filled dots are books, in reading order. The three worlds run on separate clocks, so cross-world placement is approximate.</p>
- <ol class="tl">${tl}</ol>`;
- v.querySelectorAll("[data-ww]").forEach(b=>b.addEventListener("click",()=>{worldW=b.dataset.ww;renderWorld()}));
+ const one=["tog","acotar","cc"].includes(worldW)?worldW:null;
+ const inW=w=>worldW==="all"||worldW===w||(worldW==="x"&&w==="x");
+ const W1=one&&WORLDS.find(t=>t.s===one);
+ const eras=ERAS.filter(e=>inW(e.w)).map((e,i)=>`<div class="era" style="border-left-color:${SERCOL[e.w]}"><div class="when">${sw(e.w)}${esc(e.when)}</div><h3>${esc(e.t)}</h3>${sp(hideG(e.g),"era-"+i,`<p style="margin:2px 0 0;color:var(--muted)">${esc(e.d)}</p>`,"div")}</div>`).join("");
+ const tl=TIMELINE.map((x,i)=>[x,i]).filter(([x])=>inW(x[0])).map(([[w,when,t,d,g,bk],i])=>{const hid=bk?hideStart(bk):hideG(g);const yr=bk?` <span class="pill p-dead" style="margin-left:4px">Read ${ord(BIDX[bk]+1)} · ${BK[bk].year}</span>`:"";return`<li id="tl-${i}" class="${bk?"bk":""}" style="--wc:${SERCOL[w]}"><div class="when">${sw(w)}${esc(when)}</div>${sp(hid,"tl-"+i,`<b>${bk?`<button class="lnk" data-go="book:${bk}" style="font-weight:700;text-decoration:none">${esc(t)}</button>`:esc(t)}${yr}</b><p>${esc(d)}</p>`,"div")}</li>`}).join("");
+ const coming=COMING.filter(([w])=>inW(w)).map(([w,when,t,d])=>`<li class="bk" style="--wc:${SERCOL[w]};opacity:.8"><div class="when">${sw(w)}${esc(when)}</div><b>${esc(t)}</b><p>${esc(d)}</p></li>`).join("");
+ const jumps=[one&&["realms-h",REALMHEAD[one][0]],["eras-h","Eras"],["tl-h","Timeline"]].filter(Boolean).map(([id,l])=>`<button class="lnk" data-jump="${id}">${esc(l)}</button>`).join(" · ");
+ let top;
+ if(one){
+  top=`<p class="links" style="margin:0 0 10px"><button class="lnk" data-ww="all">← All three worlds</button></p>
+  <div class="grid wide" id="worlds-h">${worldCard(W1,true)}</div>
+  <h3 class="sec-h" id="realms-h">${esc(REALMHEAD[one][0])}</h3>
+  <p class="lede">${esc(REALMHEAD[one][1])}</p>
+  ${one==="acotar"?prythianMap():""}
+  <div class="controls"><input type="search" id="kq" placeholder="Search places, positions, people…" value="${esc(courtQ)}" aria-label="Search ${esc(REALMHEAD[one][0])}"><span class="count" id="kcount"></span></div>
+  <div id="klist"></div>`;
+ } else {
+  top=`${orbs()}<h3 class="sec-h" id="worlds-h">The three worlds</h3><p class="lede">Open a world to see its ${"kingdoms, courts and cities"}, who rules them, and how the war reaches each one.</p><div class="grid wide">${WORLDS.map(t=>worldCard(t,false)).join("")}</div>`;
+ }
+ v.innerHTML=`<p class="eyebrow">Where and when</p><h2>${one?esc(W1.name):"Worlds &amp; Timeline"}</h2>
+ <p class="lede">${one?`The world of ${esc(W1.hub)}: its ${esc(REALMHEAD[one][0].split(" of ")[0].toLowerCase())}, its eras and its timeline.`:"The three worlds, the great eras of each world's history, and one timeline that braids all three series together in story order."}</p>
+ <div class="controls" role="group" aria-label="Choose a world">${wChips(worldW,"ww",[["x","Crossovers"]])}</div>
+ <p class="subnav">Jump to: ${jumps}</p>
+ ${worldW==="x"?orbs():top}
+ <h3 class="sec-h" id="eras-h">The eras</h3><div class="eras">${eras}</div>
+ <h3 class="sec-h" id="tl-h">Timeline</h3>
+ <p class="note">In story order, oldest first. Filled dots are books. Each world keeps its own calendar, so they're lined up using the crossovers: Kingdom of Ash comes after ACOWAR, Bryce reaches Prythian a few months after ACOSF, and ACOSH starts four weeks after that.</p>
+ <ol class="tl">${tl}</ol>
+ ${coming?`<h3 class="sec-h">Still to come</h3><ol class="tl">${coming}</ol>`:""}`;
+ v.querySelectorAll("[data-ww]").forEach(b=>b.addEventListener("click",()=>{worldW=b.dataset.ww;courtQ="";renderWorld();window.scrollTo({top:0})}));
+ v.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{worldW=b.dataset.open;courtQ="";renderWorld();window.scrollTo({top:0})}));
+ v.querySelectorAll("[data-jump]").forEach(b=>b.addEventListener("click",()=>document.getElementById(b.dataset.jump)?.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})));
+ if(one){
+  const draw=()=>{const q=courtQ.trim().toLowerCase();const all=REALMS[one];
+   const list=all.filter(ct=>!q||[ct.name,ct.kind,ct.seat,ct.feat,ct.war,ct.pos.map(p=>p[0]+" "+(C[p[1]]?.name||OFF[p[1]]?.[0]||"")).join(" "),Object.keys(COURTOF).filter(id=>COURTOF[id]===ct.id).map(id=>C[id].name).join(" ")].join(" ").toLowerCase().includes(q));
+   $("#kcount").textContent=`${list.length} of ${all.length}`;
+   $("#klist").innerHTML=list.length?`<div class="grid wide">${list.map(courtCard).join("")}</div>`:`<p class="empty">Nothing matches that.</p>`};
+  draw();
+  $("#kq").addEventListener("input",e=>{courtQ=e.target.value;draw()});
+  v.querySelectorAll(".reg").forEach(r=>{const go2=()=>{courtQ="";$("#kq").value="";draw();flash(document.getElementById("ct-"+r.dataset.court))};r.addEventListener("click",go2);r.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go2()}})});
+ }
 }
 
 /* ============ RECAPS ============ */
@@ -1175,8 +1404,9 @@ const INDEX=[
  ...BOOKLIST.map(b=>({f:"",hg:b.c,k:"Recap",t:b.title+" recap",s:"Full-spoiler summary",hay:[b.title,b.abbr,"recap summary",RECAPS[b.c].start,RECAPS[b.c].events.join(" "),RECAPS[b.c].end].join(" "),go:"recap:"+b.c})),
  ...CHARS.map(c=>({f:c.b,k:"Character",t:c.name,s:`${WORLDNAME(c.w)} · ${c.aka}`,hay:[c.name,c.aka,c.job,c.feat,WORLDNAME(c.w)].join(" "),go:"char:"+c.id})),
  ...WORLDS.map(t=>({f:"",k:"World",t:t.name,s:t.hub,hay:[t.name,t.hub,t.d].join(" "),go:"world:"+t.id})),
+ ...ALLREALMS.map(ct=>({f:ct.b,k:realmWorld(ct.id)==="acotar"?"Court":"Realm",t:ct.name,s:ct.kind+" · "+WORLDNAME(realmWorld(ct.id)),hay:[ct.name,ct.kind,ct.seat,ct.feat,ct.pos.map(p=>p[0]+" "+(C[p[1]]?.name||OFF[p[1]]?.[0]||"")).join(" ")].join(" "),go:"court:"+ct.id})),
  ...WORLDS.flatMap(t=>t.places.map(([n,d,b])=>({f:b,k:"Place",t:n,s:t.name,hay:[n,d,t.name].join(" "),go:"world:"+t.id}))),
- ...TIMELINE.map((x,i)=>({f:x[5]&&BK[x[4]]?x[4]:"",hg:x[5]?"":x[4],k:"Timeline",t:x[2],s:x[1],hay:x.slice(1,4).join(" "),go:"world:tl-"+i})),
+ ...TIMELINE.map((x,i)=>({f:x[5]||"",hg:x[5]?"":x[4],k:"Timeline",t:x[2],s:x[1],hay:x.slice(1,4).join(" "),go:"world:tl-"+i})),
  ...XOVER.map((x,i)=>({f:"",hg:x.g,k:"Crossover",t:x.t,s:STLBL[x.st][0],hay:[x.t,x.d,"crossover",WORLDNAME(x.a),WORLDNAME(x.b)].join(" "),go:"xo:xo-"+i}))
 ];
 const gq=$("#gq"),gres=$("#gres");let gi=-1;
