@@ -139,6 +139,11 @@ a.lnk,button.lnk{color:var(--accent);background:none;border:0;padding:0;font:inh
 .order li .y{flex:none;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .order li.soon .ti{font-style:italic;color:var(--muted)}
 .order button.lnk{text-decoration:none;color:var(--fg);text-align:left}
+.poster{margin:4px 14px 14px;display:grid;gap:6px}
+.poster a{display:block;border-radius:8px;overflow:hidden;border:1px solid var(--line);max-width:560px}
+.poster img{display:block;width:100%;height:auto}
+.poster figcaption{font-size:.85rem;color:var(--muted)}
+.poster[hidden]{display:none!important}
 .order button.lnk:hover{color:var(--accent);text-decoration:underline}
 .bk-head{display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:start}
 .bk-head .eyebrow{margin-top:2px}
@@ -300,6 +305,7 @@ footer.site h2{font-size:1.5rem}
   .spine{font-size:.6rem}
   .order{columns:1;padding:0 12px 10px}
   .orderbox summary .c .long{display:none}
+  .poster{margin:4px 12px 12px}
   .panel{position:fixed;left:0;right:0;bottom:calc(62px + env(safe-area-inset-bottom,0px));z-index:22;max-height:42vh;overflow:auto;
     border-radius:14px 14px 0 0;border-bottom:0;box-shadow:0 -8px 28px rgba(0,0,0,.25);
     padding:14px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
@@ -1118,6 +1124,12 @@ const coverHTML=b=>{const spine=`<div class="spine" style="background:${b.col}">
 const noCover=img=>{if(img.dataset.alt){const a=img.dataset.alt;delete img.dataset.alt;img.src=a;return}img.closest(".cover-wrap")?.classList.add("nocover")};
 document.addEventListener("error",e=>{if(e.target.classList?.contains("cover"))noCover(e.target)},true);
 document.addEventListener("load",e=>{const t=e.target;if(t.classList?.contains("cover")&&t.naturalWidth<10)noCover(t)},true);
+/* Reading-order poster, saved in the repo next to index.html (made with reading-order.html).
+   A single-series filter looks for that series' poster first, then the all-series one; if neither exists it stays hidden. */
+const POSTER="maasverse-reading-order";
+const posterHTML=()=>{const one=bookSer!=="all",main=POSTER+".png",src=one?`${POSTER}-${bookSer}.png`:main;
+ return `<figure class="poster" id="poster"><a href="${src}" target="_blank" rel="noopener" id="poster-a"><img src="${src}" ${one?`data-alt="${main}"`:""} alt="${one?esc(SERIES[bookSer].name):"Maasverse"} reading order poster with book covers" loading="lazy" decoding="async" id="poster-img"></a><figcaption>Tap the poster to open it full size, or save it to share.</figcaption></figure>`};
+document.addEventListener("error",e=>{const t=e.target;if(t.id!=="poster-img")return;if(t.dataset.alt){const a=t.dataset.alt;delete t.dataset.alt;t.src=a;document.getElementById("poster-a").href=a;return}document.getElementById("poster").hidden=true},true);
 let bookSer=store.get("maasBookSer","all");
 function renderBooks(){
  const v=$("#view");store.set("maasBookSer",bookSer);
@@ -1138,7 +1150,7 @@ function renderBooks(){
  ${news}
  <p class="note"><b>Only read ACOTAR?</b> You're fine to keep going, but read all three Crescent City books before A Court of Splintered Harmony, and Throne of Glass before A Court of Forgotten Melody.</p>
  <div class="controls" role="group" aria-label="Filter by series">${serChips}</div>
- <details class="orderbox" id="orderbox"${orderOpen?" open":""}><summary><span class="t">Reading order</span><span class="c"><span class="long">${bookSer==="all"?"All series, interleaved":esc(SERIES[bookSer].name)} · </span>${order.length} books</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><ol class="order">${order.join("")}</ol></details>
+ <details class="orderbox" id="orderbox"${orderOpen?" open":""}><summary><span class="t">Reading order</span><span class="c"><span class="long">${bookSer==="all"?"All series, interleaved":esc(SERIES[bookSer].name)} · </span>${order.length} books</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><ol class="order">${order.join("")}</ol>${posterHTML()}</details>
  ${groups.map(s=>`<div class="group-h"><h3>${sw(s)}${esc(SERIES[s].name)}</h3><span>${esc(SERIES[s].world)}</span></div>
  <div class="grid wide">${BOOKLIST.filter(b=>b.s===s).map(b=>{const key="bk-"+b.c,i=BIDX[b.c];
   const prem=b.plot2?`<p class="bk-plot">${esc(b.plot)}</p>${sp(hideG(b.plotG),key+"-p2",`<p class="bk-plot">${esc(b.plot2)}</p>`,"div")}`:`<p class="bk-plot">${esc(b.plot)}</p>`;
