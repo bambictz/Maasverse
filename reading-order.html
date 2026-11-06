@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Maasverse Reading Order</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: one control bar over a scaled preview of the poster canvas. The poster itself is a fixed dark
+   starlit design (it's an image to share), while the page chrome follows the viewer's theme. */
+:root{--bg:#f1eff6;--surface:#fbfaff;--fg:#1b1830;--muted:#5b5774;--line:#d4d0e2;--accent:#4a3a98;--accent-ink:#fff;
+ --display:"Cormorant Garamond",Georgia,serif;--body:"Alegreya Sans","Gill Sans",system-ui,sans-serif;--mono:"Cinzel",Georgia,serif;color-scheme:light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0e0d1c;--surface:#17162c;--fg:#ece8f7;--muted:#a6a1c2;--line:#302d50;--accent:#c9b8ff;--accent-ink:#0e0d1c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e0d1c;--surface:#17162c;--fg:#ece8f7;--muted:#a6a1c2;--line:#302d50;--accent:#c9b8ff;--accent-ink:#0e0d1c;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--body)}
+.wrap{max-width:900px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font-family:var(--display);font-size:2rem;margin:0;line-height:1.1}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0}
+p.lede{color:var(--muted);margin:6px 0 16px;max-width:65ch}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.chip{font:inherit;font-size:.92rem;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--fg);cursor:pointer;min-height:40px}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn{font:inherit;font-weight:600;padding:10px 16px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer;min-height:44px}
+.btn[disabled]{opacity:.5;cursor:wait}
+.sp{flex:1}
+.status{font-size:.9rem;color:var(--muted);min-height:1.4em;margin:0 0 10px}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px}
+canvas{display:block;width:100%;height:auto;border-radius:6px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">The Reader's Atlas · Maasverse</p>
+  <h1>Reading Order Poster</h1>
+  <p class="lede">The Maasverse reading order with book covers from Open Library. Pick a series, wait for the covers to load, then download the PNG.</p>
+  <div class="controls" role="group" aria-label="Choose series">
+    <button class="chip" data-s="all" aria-pressed="true">All three series</button>
+    <button class="chip" data-s="tog">Throne of Glass</button>
+    <button class="chip" data-s="acotar">ACOTAR</button>
+    <button class="chip" data-s="cc">Crescent City</button>
+    <span class="sp"></span>
+    <button class="btn" id="dl" disabled>Download PNG</button>
+  </div>
+  <p class="status" id="status" role="status">Loading covers…</p>
+  <div class="stage"><canvas id="cv" aria-label="Maasverse reading order poster"></canvas></div>
+</div>
+<script>
+const SER={tog:{name:"Throne of Glass",short:"ToG",col:"#d08a45"},acotar:{name:"A Court of Thorns and Roses",short:"ACOTAR",col:"#a48cf0"},cc:{name:"Crescent City",short:"Crescent City",col:"#3fc1b2"}};
+const BOOKS=[
+ ["tog",1,"Throne of Glass",2012,"9781599906959","#8a5a2b"],
+ ["tog",2,"Crown of Midnight",2013,"9781619630628","#5a3a6e"],
+ ["tog",3,"The Assassin's Blade",2014,"9781619633612","#7a3030","13311915"],
+ ["tog",4,"Heir of Fire",2014,"9781619630659","#b4552a"],
+ ["acotar",1,"A Court of Thorns and Roses",2015,"9781619634442","#9a3b4f"],
+ ["tog",5,"Queen of Shadows",2015,"9781619636040","#2f2a3e"],
+ ["acotar",2,"A Court of Mist and Fury",2016,"9781619634466","#3e3478"],
+ ["tog",6,"Empire of Storms",2016,"9781619636071","#2b5470"],
+ ["acotar",3,"A Court of Wings and Ruin",2017,"9781619634480","#6a2a3a"],
+ ["tog",7,"Tower of Dawn",2017,"9781681195773","#2f7a7a"],
+ ["acotar",4,"A Court of Frost and Starlight",2018,"9781681196312","#4f6a98","13314394"],
+ ["tog",8,"Kingdom of Ash",2018,"9781619636101","#4a4a4a"],
+ ["cc",1,"House of Earth and Blood",2020,"9781635574043","#a13e3e"],
+ ["acotar",5,"A Court of Silver Flames",2021,"9781681196282","#7a7f8f"],
+ ["cc",2,"House of Sky and Breath",2022,"9781635574074","#2f5e8a"],
+ ["cc",3,"House of Flame and Shadow",2024,"9781635574104","#3b2b4f"],
+ ["acotar",6,"A Court of Splintered Harmony",2026,"9781639739134","#5b3f8f"]
+].map(([s,n,t,y,isbn,col,id],i)=>({s,n,t,y,isbn,col,id,order:i+1}));
+const COMING=[["acotar","A Court of Forgotten Melody","Jan 2027"],["acotar","ACOTAR 8","TBA"],["cc","Crescent City 4","TBA"]];
+
+/* Load each cover with CORS so the canvas can be exported. Try ISBN, then cover ID; null means draw a spine. */
+const loadImg=src=>new Promise(res=>{const i=new Image();i.crossOrigin="anonymous";i.onload=()=>res(i.naturalWidth>10?i:null);i.onerror=()=>res(null);i.src=src});
+const covers={};
+async function loadCovers(){
+ let done=0;const st=document.getElementById("status");
+ await Promise.all(BOOKS.map(async b=>{
+  let img=await loadImg(`https://covers.openlibrary.org/b/isbn/${b.isbn}-L.jpg?default=false`);
+  if(!img&&b.id)img=await loadImg(`https://covers.openlibrary.org/b/id/${b.id}-L.jpg?default=false`);
+  covers[b.isbn]=img;done++;st.textContent=`Loading covers… ${done} of ${BOOKS.length}`;draw();
+ }));
+ const miss=BOOKS.filter(b=>!covers[b.isbn]).map(b=>b.t);
+ st.textContent=miss.length?`Ready. ${miss.length} cover${miss.length>1?"s":""} not found, shown as a coloured spine: ${miss.join(", ")}.`:"Ready. All covers loaded.";
+ document.getElementById("dl").disabled=false;
+}
+
+/* ---- drawing ---- */
+const W=1500,M=70,COLS=5,GAP=34,CW=(W-2*M-(COLS-1)*GAP)/COLS,CH=CW*1.5,TXT=104,RGAP=40,HEAD=300,FOOT=130;
+let sel="all";
+const cv=document.getElementById("cv"),ctx=cv.getContext("2d");
+function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function wrap(text,maxW,font){ctx.font=font;const words=text.split(" ");const lines=[];let cur="";for(const w of words){const t=cur?cur+" "+w:w;if(ctx.measureText(t).width>maxW&&cur){lines.push(cur);cur=w}else cur=t}if(cur)lines.push(cur);
+ if(lines.length>2){lines.length=2;let l=lines[1];while(ctx.measureText(l+"…").width>maxW&&l.length)l=l.slice(0,-1);lines[1]=l+"…"}return lines}
+function stars(h){let seed=7;const r=()=>(seed=(seed*16807)%2147483647)/2147483647;for(let i=0;i<260;i++){const x=r()*W,y=r()*h,s=r()*1.6+.3;ctx.globalAlpha=.25+r()*.55;ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(x,y,s,0,7);ctx.fill()}ctx.globalAlpha=1}
+function spine(x,y,w,h,col,label){const g=ctx.createLinearGradient(x,y,x+w,y);g.addColorStop(0,col);g.addColorStop(1,shade(col,-.25));rr(x,y,w,h,8);ctx.fillStyle=g;ctx.fill();
+ ctx.save();ctx.translate(x+w/2,y+h/2);ctx.rotate(-Math.PI/2);ctx.fillStyle="rgba(255,255,255,.92)";ctx.font=`600 26px ${getComputedStyle(document.documentElement).getPropertyValue("--mono")}`;ctx.textAlign="center";ctx.textBaseline="middle";
+ const ws=wrap(label,h-60,ctx.font);ws.forEach((l,i)=>ctx.fillText(l,0,(i-(ws.length-1)/2)*34));ctx.restore()}
+function shade(hex,p){const n=parseInt(hex.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;const f=v=>Math.max(0,Math.min(255,Math.round(v+(p<0?v*p:(255-v)*p))));return"#"+[f(r),f(g),f(b)].map(v=>v.toString(16).padStart(2,"0")).join("")}
+function draw(){
+ const F={mark:'"Cinzel", Georgia, serif',disp:'"Cormorant Garamond", Georgia, serif',body:'"Alegreya Sans", system-ui, sans-serif'};
+ const list=BOOKS.filter(b=>sel==="all"||b.s===sel),up=COMING.filter(c=>sel==="all"||c[0]===sel);
+ const items=[...list.map(b=>({b})),...up.map(c=>({c}))];
+ const rows=Math.ceil(items.length/COLS),H=HEAD+rows*(CH+TXT)+(rows-1)*RGAP+FOOT;
+ cv.width=W;cv.height=H;
+ const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,"#1c1840");bg.addColorStop(.45,"#120f28");bg.addColorStop(1,"#0b0a17");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);stars(H);
+ // header
+ ctx.textAlign="center";ctx.textBaseline="alphabetic";
+ ctx.fillStyle="#bdb4dc";ctx.font=`500 22px ${F.mark}`;ctx.fillText("THE READER'S ATLAS",W/2,86);
+ ctx.fillStyle="#f3eefc";ctx.font=`700 92px ${F.disp}`;ctx.fillText(sel==="all"?"The Maasverse":SER[sel].name,W/2,178);
+ ctx.fillStyle="#e3c27a";ctx.font=`600 italic 40px ${F.disp}`;ctx.fillText(sel==="all"?"Reading order, all three series interleaved":"Reading order",W/2,228);
+ if(sel==="all"){ctx.font=`500 21px ${F.body}`;const keys=Object.values(SER);const parts=keys.map(k=>k.name);const widths=parts.map(p=>ctx.measureText(p).width+40);const total=widths.reduce((a,b)=>a+b,0)+(parts.length-1)*30;let x=W/2-total/2;
+  keys.forEach((k,i)=>{ctx.fillStyle=k.col;ctx.beginPath();ctx.arc(x+10,264,9,0,7);ctx.fill();ctx.fillStyle="#d6d0ea";ctx.textAlign="left";ctx.fillText(parts[i],x+28,271);x+=widths[i]+30});ctx.textAlign="center"}
+ // grid
+ items.forEach((it,i)=>{const r=Math.floor(i/COLS),c=i%COLS;const inRow=Math.min(COLS,items.length-r*COLS);const off=(COLS-inRow)*(CW+GAP)/2;
+  const x=M+off+c*(CW+GAP),y=HEAD+r*(CH+TXT+RGAP);
+  if(it.b){const b=it.b,img=covers[b.isbn],col=SER[b.s].col;
+   ctx.save();ctx.shadowColor="rgba(0,0,0,.55)";ctx.shadowBlur=28;ctx.shadowOffsetY=12;rr(x,y,CW,CH,8);ctx.fillStyle="#000";ctx.fill();ctx.restore();
+   if(img){ctx.save();rr(x,y,CW,CH,8);ctx.clip();const s=Math.max(CW/img.naturalWidth,CH/img.naturalHeight),dw=img.naturalWidth*s,dh=img.naturalHeight*s;ctx.drawImage(img,x+(CW-dw)/2,y+(CH-dh)/2,dw,dh);ctx.restore()}
+   else spine(x,y,CW,CH,b.col,b.t);
+   rr(x,y,CW,CH,8);ctx.strokeStyle="rgba(255,255,255,.12)";ctx.lineWidth=2;ctx.stroke();
+   // number badge
+   ctx.beginPath();ctx.arc(x+8,y+8,30,0,7);ctx.fillStyle=col;ctx.fill();ctx.lineWidth=4;ctx.strokeStyle="#0e0d1c";ctx.stroke();
+   ctx.fillStyle="#0e0d1c";ctx.font=`600 26px ${F.mark}`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(sel==="all"?b.order:b.n),x+8,y+10);ctx.textBaseline="alphabetic";
+   // caption
+   const lines=wrap(b.t,CW,`700 28px ${F.disp}`);ctx.fillStyle="#f3eefc";lines.forEach((l,k)=>ctx.fillText(l,x+CW/2,y+CH+36+k*30));
+   ctx.fillStyle=col;ctx.font=`500 16px ${F.mark}`;ctx.fillText(`${SER[b.s].short.toUpperCase()} ${b.n} · ${b.y}`,x+CW/2,y+CH+36+lines.length*30+4);
+  } else {const [s,t,d]=it.c,col=SER[s].col;
+   rr(x,y,CW,CH,8);ctx.fillStyle="rgba(255,255,255,.04)";ctx.fill();ctx.setLineDash([12,10]);ctx.lineWidth=3;ctx.strokeStyle=col;ctx.stroke();ctx.setLineDash([]);
+   ctx.fillStyle=col;ctx.font=`600 22px ${F.mark}`;ctx.textAlign="center";ctx.fillText("COMING",x+CW/2,y+CH/2-8);ctx.fillStyle="#d6d0ea";ctx.font=`600 italic 34px ${F.disp}`;ctx.fillText(d,x+CW/2,y+CH/2+34);
+   const lines=wrap(t,CW,`700 28px ${F.disp}`);ctx.fillStyle="#cfc8e6";lines.forEach((l,k)=>ctx.fillText(l,x+CW/2,y+CH+36+k*30));
+   ctx.fillStyle=col;ctx.font=`500 16px ${F.mark}`;ctx.fillText(SER[s].short.toUpperCase(),x+CW/2,y+CH+36+lines.length*30+4)}
+ });
+ // footer
+ ctx.textAlign="center";ctx.fillStyle="#bdb4dc";ctx.font=`500 22px ${F.mark}`;ctx.fillText("READERSATLAS.COM/MAASVERSE  ·  @READERS.ATLAS",W/2,H-70);
+ ctx.fillStyle="#8a84a8";ctx.font=`400 18px ${F.body}`;ctx.fillText("Unofficial fan guide. Covers via Open Library. Not affiliated with Sarah J. Maas or Bloomsbury.",W/2,H-38);
+}
+document.querySelectorAll("[data-s]").forEach(b=>b.addEventListener("click",()=>{sel=b.dataset.s;document.querySelectorAll("[data-s]").forEach(x=>x.setAttribute("aria-pressed",x===b));draw()}));
+document.getElementById("dl").addEventListener("click",()=>{const st=document.getElementById("status");
+ try{cv.toBlob(bl=>{if(!bl){st.textContent="Couldn't create the PNG. Right-click (or long-press) the poster and save the image instead.";return}
+  const a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download=`maasverse-reading-order${sel==="all"?"":"-"+sel}.png`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);st.textContent="Downloaded."},"image/png")}
+ catch(e){st.textContent="Couldn't create the PNG because a cover blocked export. Right-click (or long-press) the poster and save the image instead."}});
+(document.fonts?document.fonts.ready:Promise.resolve()).then(()=>{draw();loadCovers()});
+draw();
+</script>
+</body>
+</html>
