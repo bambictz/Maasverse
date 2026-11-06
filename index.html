@@ -374,7 +374,7 @@ const BOOKLIST=[
   trope:"Secret identity · rebellion · slow-burn",
   plot:"Now the King's Champion, Celaena carries out the king's kills, or quietly fakes them. A rebellion, a library full of secrets and a friend with dangerous knowledge pull her toward the truth about why magic vanished.",
   cast:["celaena","chaol","dorian","nehemia","elena"]},
- {c:"AB",isbn:"9781619632113",s:"tog",n:3,title:"The Assassin's Blade",abbr:"AB",year:2014,col:"#7a3030",
+ {c:"AB",isbn:"9781619633612",coverId:"13311915",s:"tog",n:3,title:"The Assassin's Blade",abbr:"AB",year:2014,col:"#7a3030",
   trope:"Prequel novellas · first love · betrayal",
   plot:"Five novellas from the years before Endovier: pirate lords, a desert of silent assassins, a young healer, and the rival assassin Celaena can't stop thinking about.",
   note:"Publication order puts it here. Many readers save it for just before Queen of Shadows, where it hits hardest. Either works.",
@@ -408,7 +408,7 @@ const BOOKLIST=[
   plot:"Chaol Westfall travels to the southern continent to be healed at the Torre Cesme, and to win an empire's army for the war at home.",
   note:"Runs at the same time as Empire of Storms. Some readers read the two side by side.",
   cast:["chaol","yrene"]},
- {c:"ACOFAS",isbn:"9781681196305",s:"acotar",n:4,title:"A Court of Frost and Starlight",abbr:"ACOFAS",year:2018,col:"#4f6a98",
+ {c:"ACOFAS",isbn:"9781681196312",coverId:"13314394",s:"acotar",n:4,title:"A Court of Frost and Starlight",abbr:"ACOFAS",year:2018,col:"#4f6a98",
   trope:"Novella · Solstice · cosy aftermath",
   plot:"A short, wintry bridge book. The Night Court rebuilds after the war and celebrates Winter Solstice, while some wounds stay open.",
   cast:["feyre","rhys","nesta","cassian","azriel","mor","elain"]},
@@ -1098,8 +1098,9 @@ const ord=n=>n+(n%100>=11&&n%100<=13?"th":({1:"st",2:"nd",3:"rd"}[n%10]||"th"));
 /* Covers come from Open Library by ISBN. ?default=false makes a missing cover return an error
    instead of a blank image, so the card falls back to the coloured spine. */
 const coverHTML=b=>{const spine=`<div class="spine" style="background:${b.col}"><span>${esc(b.abbr)}</span></div>`;
- return b.isbn?`<div class="cover-wrap">${spine}<img class="cover" src="https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg?default=false" alt="Cover of ${esc(b.title)}" loading="lazy" decoding="async" width="64" height="96"></div>`:spine};
-const noCover=img=>img.closest(".cover-wrap")?.classList.add("nocover");
+ return b.isbn?`<div class="cover-wrap">${spine}<img class="cover" src="https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg?default=false"${b.coverId?` data-alt="https://covers.openlibrary.org/b/id/${b.coverId}-M.jpg?default=false"`:""} alt="Cover of ${esc(b.title)}" loading="lazy" decoding="async" width="64" height="96"></div>`:spine};
+/* If the ISBN lookup fails, try the Open Library cover ID once before falling back to the spine */
+const noCover=img=>{if(img.dataset.alt){const a=img.dataset.alt;delete img.dataset.alt;img.src=a;return}img.closest(".cover-wrap")?.classList.add("nocover")};
 document.addEventListener("error",e=>{if(e.target.classList?.contains("cover"))noCover(e.target)},true);
 document.addEventListener("load",e=>{const t=e.target;if(t.classList?.contains("cover")&&t.naturalWidth<10)noCover(t)},true);
 let bookSer=store.get("maasBookSer","all");
