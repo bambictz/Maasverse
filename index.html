@@ -132,6 +132,11 @@ a.lnk,button.lnk{color:var(--accent);background:none;border:0;padding:0;font:inh
 .bookcard{display:grid;grid-template-columns:64px 1fr;gap:14px}
 .spine{border-radius:4px;min-height:110px;display:flex;align-items:flex-end;justify-content:center;padding:12px 0;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;color:#fff;line-height:1;box-shadow:inset -6px 0 0 rgba(0,0,0,.2),inset 0 0 0 1px rgba(255,255,255,.08)}
 .spine span{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
+.cover-wrap{position:relative;align-self:start}
+.cover{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:4px;background:var(--sunk);box-shadow:0 4px 12px rgba(0,0,0,.22),inset 0 0 0 1px rgba(255,255,255,.08)}
+.cover-wrap .spine{display:none}
+.cover-wrap.nocover .cover{display:none}
+.cover-wrap.nocover .spine{display:flex}
 .bk-plot{margin:8px 0 0;font-size:.97rem}
 .bk-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-top:12px}
 .buybtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;box-sizing:border-box;font:inherit;font-weight:500;font-size:.92rem;line-height:1.2;cursor:pointer;border:1px solid var(--accent);text-decoration:none;color:var(--accent-ink);background:var(--accent);border-radius:var(--r);padding:8px 14px;min-height:40px}
@@ -361,76 +366,76 @@ const SERCOL=Object.fromEntries(Object.entries(SERIES).map(([k,v])=>[k,v.col]));
 const WORLDNAME=k=>SERIES[k]?.world||"Between worlds";
 
 const BOOKLIST=[
- {c:"TOG",s:"tog",n:1,title:"Throne of Glass",abbr:"ToG",year:2012,col:"#8a5a2b",
+ {c:"TOG",isbn:"9781599906959",s:"tog",n:1,title:"Throne of Glass",abbr:"ToG",year:2012,col:"#8a5a2b",
   trope:"Assassin · deadly tournament · love triangle",
   plot:"Eighteen-year-old Celaena Sardothien, Adarlan's most notorious assassin, has spent a year in the salt mines of Endovier. Crown Prince Dorian offers her freedom if she can win a contest to become the King's Champion. Then the other competitors start turning up dead.",
   cast:["celaena","chaol","dorian","nehemia","elena"]},
- {c:"COM",s:"tog",n:2,title:"Crown of Midnight",abbr:"CoM",year:2013,col:"#5a3a6e",
+ {c:"COM",isbn:"9781619630628",s:"tog",n:2,title:"Crown of Midnight",abbr:"CoM",year:2013,col:"#5a3a6e",
   trope:"Secret identity · rebellion · slow-burn",
   plot:"Now the King's Champion, Celaena carries out the king's kills, or quietly fakes them. A rebellion, a library full of secrets and a friend with dangerous knowledge pull her toward the truth about why magic vanished.",
   cast:["celaena","chaol","dorian","nehemia","elena"]},
- {c:"AB",s:"tog",n:3,title:"The Assassin's Blade",abbr:"AB",year:2014,col:"#7a3030",
+ {c:"AB",isbn:"9781619632113",s:"tog",n:3,title:"The Assassin's Blade",abbr:"AB",year:2014,col:"#7a3030",
   trope:"Prequel novellas · first love · betrayal",
   plot:"Five novellas from the years before Endovier: pirate lords, a desert of silent assassins, a young healer, and the rival assassin Celaena can't stop thinking about.",
   note:"Publication order puts it here. Many readers save it for just before Queen of Shadows, where it hits hardest. Either works.",
   cast:["celaena","sam","arobynn","yrene","lysandra"]},
- {c:"HOF",s:"tog",n:4,title:"Heir of Fire",abbr:"HoF",year:2014,col:"#b4552a",
+ {c:"HOF",isbn:"9781619630659",s:"tog",n:4,title:"Heir of Fire",abbr:"HoF",year:2014,col:"#b4552a",
   trope:"Found family · mentor · witches and wyverns",
   plot:"Sent across the sea to Wendlyn, a broken heroine must face her past and her power under a ruthless Fae warrior. In the north, a witch heir is training to ride wyverns for a war no one has explained to her.",
   cast:["celaena","rowan","manon","chaol","dorian","aedion","maeve"]},
- {c:"ACOTAR",s:"acotar",n:1,title:"A Court of Thorns and Roses",abbr:"ACOTAR",year:2015,col:"#9a3b4f",
+ {c:"ACOTAR",isbn:"9781619634442",s:"acotar",n:1,title:"A Court of Thorns and Roses",abbr:"ACOTAR",year:2015,col:"#9a3b4f",
   trope:"Beauty and the Beast · faerie bargain · curse",
   plot:"Nineteen-year-old huntress Feyre kills a wolf in the snowy woods to feed her family. A beast-like creature arrives to claim payment and drags her across the wall into Prythian, the land of the faeries.",
   cast:["feyre","tamlin","lucien","rhys","amarantha","nesta","elain"]},
- {c:"QOS",s:"tog",n:5,title:"Queen of Shadows",abbr:"QoS",year:2015,col:"#2f2a3e",
+ {c:"QOS",isbn:"9781619636040",s:"tog",n:5,title:"Queen of Shadows",abbr:"QoS",year:2015,col:"#2f2a3e",
   trope:"Revenge · heist energy · queen era",
   plot:"A queen returns to Rifthold to settle old debts and free the people she loves. Old enemies, a dangerous courtesan and a witch with her own agenda all have parts to play.",
   cast:["celaena","rowan","aedion","lysandra","dorian","chaol","manon","elide","arobynn"]},
- {c:"ACOMAF",s:"acotar",n:2,title:"A Court of Mist and Fury",abbr:"ACOMAF",year:2016,col:"#3e3478",
+ {c:"ACOMAF",isbn:"9781619634466",s:"acotar",n:2,title:"A Court of Mist and Fury",abbr:"ACOMAF",year:2016,col:"#3e3478",
   trope:"Found family · mates · the bargain",
   plot:"Feyre survived, but she isn't the same. Haunted and stifled, she's pulled into the Night Court by the bargain she made with its High Lord, and into a much bigger fight than the one she thought she'd won.",
   cast:["feyre","rhys","cassian","azriel","mor","amren","tamlin","nesta","elain"]},
- {c:"EOS",s:"tog",n:6,title:"Empire of Storms",abbr:"EoS",year:2016,col:"#2b5470",
+ {c:"EOS",isbn:"9781619636071",s:"tog",n:6,title:"Empire of Storms",abbr:"EoS",year:2016,col:"#2b5470",
   trope:"War · alliances · huge cast",
   plot:"War comes to Erilea. Kingdoms fracture, allies are tested, and armies must be gathered across the sea before the darkness rising in the south can spread.",
   cast:["celaena","rowan","aedion","lysandra","dorian","manon","elide","lorcan"]},
- {c:"ACOWAR",s:"acotar",n:3,title:"A Court of Wings and Ruin",abbr:"ACOWAR",year:2017,col:"#6a2a3a",
+ {c:"ACOWAR",isbn:"9781619634480",s:"acotar",n:3,title:"A Court of Wings and Ruin",abbr:"ACOWAR",year:2017,col:"#6a2a3a",
   trope:"War · spy behind enemy lines · High Lords unite",
   plot:"With war against Hybern coming, Feyre plays a dangerous game deep inside the Spring Court, while Prythian's High Lords struggle to stand together.",
   cast:["feyre","rhys","tamlin","lucien","nesta","elain","cassian","azriel","amren","mor","hybern"]},
- {c:"TOD",s:"tog",n:7,title:"Tower of Dawn",abbr:"ToD",year:2017,col:"#2f7a7a",
+ {c:"TOD",isbn:"9781681195773",s:"tog",n:7,title:"Tower of Dawn",abbr:"ToD",year:2017,col:"#2f7a7a",
   trope:"Healing · slow-burn · new continent",
   plot:"Chaol Westfall travels to the southern continent to be healed at the Torre Cesme, and to win an empire's army for the war at home.",
   note:"Runs at the same time as Empire of Storms. Some readers read the two side by side.",
   cast:["chaol","yrene"]},
- {c:"ACOFAS",s:"acotar",n:4,title:"A Court of Frost and Starlight",abbr:"ACOFAS",year:2018,col:"#4f6a98",
+ {c:"ACOFAS",isbn:"9781681196305",s:"acotar",n:4,title:"A Court of Frost and Starlight",abbr:"ACOFAS",year:2018,col:"#4f6a98",
   trope:"Novella · Solstice · cosy aftermath",
   plot:"A short, wintry bridge book. The Night Court rebuilds after the war and celebrates Winter Solstice, while some wounds stay open.",
   cast:["feyre","rhys","nesta","cassian","azriel","mor","elain"]},
- {c:"KOA",s:"tog",n:8,title:"Kingdom of Ash",abbr:"KoA",year:2018,col:"#4a4a4a",
+ {c:"KOA",isbn:"9781619636101",s:"tog",n:8,title:"Kingdom of Ash",abbr:"KoA",year:2018,col:"#4a4a4a",
   trope:"Finale · every thread converges · crossover",
   plot:"The Throne of Glass finale. Every army, every kingdom and every character from seven books converge on one last war for Erilea.",
   cast:["celaena","rowan","aedion","lysandra","dorian","manon","chaol","yrene","elide","lorcan","maeve","erawan"]},
- {c:"HOEAB",s:"cc",n:1,title:"House of Earth and Blood",abbr:"HoEaB",year:2020,col:"#a13e3e",
+ {c:"HOEAB",isbn:"9781635574043",s:"cc",n:1,title:"House of Earth and Blood",abbr:"HoEaB",year:2020,col:"#a13e3e",
   trope:"Murder mystery · urban fantasy · grumpy angel",
   plot:"Half-Fae, half-human Bryce Quinlan works at an antiquities gallery in Lunathion, a modern city of magic. When the demon that slaughtered her best friend seems to strike again, she's forced to hunt it with Hunt Athalar, a fallen angel enslaved to the city's Archangel.",
   cast:["bryce","hunt","danika","ruhn","lehabah","jesiba","micah","ithan","autumnking"]},
- {c:"ACOSF",s:"acotar",n:5,title:"A Court of Silver Flames",abbr:"ACOSF",year:2021,col:"#7a7f8f",
+ {c:"ACOSF",isbn:"9781681196282",s:"acotar",n:5,title:"A Court of Silver Flames",abbr:"ACOSF",year:2021,col:"#7a7f8f",
   trope:"Enemies to lovers · training · healing",
   plot:"Nesta Archeron is drowning after the war. Sent to live in the House of Wind and train with Cassian, she has to face what she's become.",
   note:"Older readers. More explicit than the earlier ACOTAR books.",
   cast:["nesta","cassian","gwyn","emerie","feyre","rhys","azriel","elain","eris"]},
- {c:"HOSAB",s:"cc",n:2,title:"House of Sky and Breath",abbr:"HoSaB",year:2022,col:"#2f5e8a",
+ {c:"HOSAB",isbn:"9781635574074",s:"cc",n:2,title:"House of Sky and Breath",abbr:"HoSaB",year:2022,col:"#2f5e8a",
   trope:"Rebellion · fake engagement · found family",
   plot:"Bryce and Hunt want a quiet life. Instead the rebellion against the Asteri, the star-gods who rule Midgard, comes looking for them.",
   cast:["bryce","hunt","ruhn","lidia","tharion","ithan","rigelus","aidas"]},
- {c:"HOFAS",s:"cc",n:3,title:"House of Flame and Shadow",abbr:"HoFaS",year:2024,col:"#3b2b4f",
+ {c:"HOFAS",isbn:"9781635574104",s:"cc",n:3,title:"House of Flame and Shadow",abbr:"HoFaS",year:2024,col:"#3b2b4f",
   trope:"Crossover · rescue · end of an empire",
   plot:"The third Crescent City book, and the one where the Maasverse becomes undeniable.",
   plotG:"HOSAB",plot2:"Bryce is stranded in another world while Hunt and Ruhn face the Asteri's dungeons. Getting home is only the start.",
   note:"Strongly recommended before A Court of Splintered Harmony.",
   cast:["bryce","hunt","ruhn","lidia","ithan","tharion","rigelus","azriel","nesta","rhys"]},
- {c:"ACOSH",s:"acotar",n:6,title:"A Court of Splintered Harmony",abbr:"ACOSH",year:2026,col:"#5b3f8f",fresh:true,
+ {c:"ACOSH",isbn:"9781639739134",s:"acotar",n:6,title:"A Court of Splintered Harmony",abbr:"ACOSH",year:2026,col:"#5b3f8f",fresh:true,
   trope:"The Valkyrie Cycle, Movement I · multi-POV",
   plot:"Koschei the Deathless, long bound to a mountain lake, is stirring on the continent, and powerful allies are gathering to take back the human lands. Still recovering from the Hybern war and split by betrayals, Prythian's courts must find their way back to each other.",
   note:"Out 27 October 2026. Read House of Flame and Shadow first.",
@@ -1090,6 +1095,13 @@ function go(ref){const i=ref.indexOf(":"),k=ref.slice(0,i),id=ref.slice(i+1);
 
 /* ============ BOOK GUIDE ============ */
 const ord=n=>n+(n%100>=11&&n%100<=13?"th":({1:"st",2:"nd",3:"rd"}[n%10]||"th"));
+/* Covers come from Open Library by ISBN. ?default=false makes a missing cover return an error
+   instead of a blank image, so the card falls back to the coloured spine. */
+const coverHTML=b=>{const spine=`<div class="spine" style="background:${b.col}"><span>${esc(b.abbr)}</span></div>`;
+ return b.isbn?`<div class="cover-wrap">${spine}<img class="cover" src="https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg?default=false" alt="Cover of ${esc(b.title)}" loading="lazy" decoding="async" width="64" height="96"></div>`:spine};
+const noCover=img=>img.closest(".cover-wrap")?.classList.add("nocover");
+document.addEventListener("error",e=>{if(e.target.classList?.contains("cover"))noCover(e.target)},true);
+document.addEventListener("load",e=>{const t=e.target;if(t.classList?.contains("cover")&&t.naturalWidth<10)noCover(t)},true);
 let bookSer=store.get("maasBookSer","all");
 function renderBooks(){
  const v=$("#view");store.set("maasBookSer",bookSer);
@@ -1114,10 +1126,11 @@ function renderBooks(){
  <div class="grid wide">${BOOKLIST.filter(b=>b.s===s).map(b=>{const key="bk-"+b.c,i=BIDX[b.c];
   const prem=b.plot2?`<p class="bk-plot">${esc(b.plot)}</p>${sp(hideG(b.plotG),key+"-p2",`<p class="bk-plot">${esc(b.plot2)}</p>`,"div")}`:`<p class="bk-plot">${esc(b.plot)}</p>`;
   const body=`<p class="eyebrow">Read ${ord(i+1)} · ${esc(SERIES[b.s].short)} ${b.n} · ${b.year}${b.fresh?' · <span class="pill p-good">New</span>':""}</p><h3>${esc(b.title)}</h3><p class="trope">${esc(b.trope)}</p>${prem}${b.note?`<p class="bk-plot" style="color:var(--muted);font-style:italic">${esc(b.note)}</p>`:""}<span class="lbl" style="margin-top:10px">Main characters</span><div class="castlist">${b.cast.map(id=>sp(hideStart(C[id]?.b),key+"-c-"+id,charLink(id))).join("")}</div>`;
-  return `<article class="card" id="b-${b.c}"><div class="bookcard"><div class="spine" style="background:${b.col}"><span>${esc(b.abbr)}</span></div><div>${body}
+  return `<article class="card" id="b-${b.c}"><div class="bookcard">${coverHTML(b)}<div>${body}
   <div class="bk-actions"><a class="buybtn" href="${affUrl(b.title)}" target="_blank" rel="${affRel}">${CART}Buy the book</a><button class="buybtn ghost" data-go="recap:${b.c}">Recap</button></div></div></div></article>`}).join("")}
   ${UPCOMING.filter(u=>u.s===s).map(u=>`<article class="card" id="b-${u.c}" style="border-style:dashed"><div class="bookcard"><div class="spine" style="background:#7a7890"><span>${esc(u.c==="ACOFM"?"ACOFM":u.title)}</span></div><div><p class="eyebrow">Coming · ${esc(u.date)}</p><h3>${esc(u.title)}</h3><p class="trope">${esc(u.sub)}</p>${sp(hideG(u.g),"bk-"+u.c,`<p class="bk-plot">${esc(u.note)}</p>`,"div")}${u.buy?`<div class="bk-actions"><a class="buybtn" href="${affUrl(u.title)}" target="_blank" rel="${affRel}">${CART}Pre-order</a></div>`:""}</div></div></article>`).join("")}</div>`).join("")}`;
  v.querySelectorAll("[data-bs]").forEach(b=>b.addEventListener("click",()=>{bookSer=b.dataset.bs;renderBooks()}));
+ v.querySelectorAll("img.cover").forEach(i=>{if(i.complete&&i.naturalWidth<10&&i.currentSrc)noCover(i)});
 }
 
 /* ============ CHARACTERS ============ */
