@@ -123,17 +123,30 @@ a.lnk,button.lnk{color:var(--accent);background:none;border:0;padding:0;font:inh
 .note{font-size:.93rem;color:var(--muted);border:1px dashed var(--line);border-radius:var(--r);padding:10px 12px;margin:0 0 18px;max-width:80ch}
 .note b{color:var(--fg)}
 /* book guide */
-.order{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:0 0 22px;padding:0;list-style:none}
-.order li{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;font-size:.9rem;position:relative}
-.order li b{display:block;font-family:var(--display);font-weight:600;font-size:1.05rem;line-height:1.2}
-.order li .n{font-family:var(--mono);font-size:.6rem;color:var(--bronze);letter-spacing:.08em;text-transform:uppercase}
-.order li.soon{border-style:dashed;opacity:.85}
-.order li.dim{opacity:.35}
-.bookcard{display:grid;grid-template-columns:64px 1fr;gap:14px}
-.spine{border-radius:4px;min-height:110px;display:flex;align-items:flex-end;justify-content:center;padding:12px 0;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;color:#fff;line-height:1;box-shadow:inset -6px 0 0 rgba(0,0,0,.2),inset 0 0 0 1px rgba(255,255,255,.08)}
+.orderbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);margin:0 0 22px}
+.orderbox summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 14px;font-weight:500}
+.orderbox summary::-webkit-details-marker{display:none}
+.orderbox summary .t{font-family:var(--display);font-size:1.2rem;font-weight:600;white-space:nowrap}
+.orderbox summary .c{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.orderbox summary .chev{margin-left:auto;width:18px;height:18px;transition:transform .2s;color:var(--muted)}
+.orderbox[open] summary .chev{transform:rotate(180deg)}
+.orderbox summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:var(--r)}
+.order{list-style:none;margin:0;padding:0 14px 12px;columns:3 220px;column-gap:24px}
+.order li{display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid var(--line);break-inside:avoid;font-size:.94rem}
+.order li .n{flex:none;width:22px;text-align:right;font-family:var(--mono);font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.order li .d{flex:none;width:8px;height:8px;border-radius:50%;align-self:center}
+.order li .ti{flex:1;min-width:0}
+.order li .y{flex:none;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.order li.soon .ti{font-style:italic;color:var(--muted)}
+.order button.lnk{text-decoration:none;color:var(--fg);text-align:left}
+.order button.lnk:hover{color:var(--accent);text-decoration:underline}
+.bk-head{display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:start}
+.bk-head .eyebrow{margin-top:2px}
+.bk-head h3{margin-top:2px}
+.spine{border-radius:4px;aspect-ratio:2/3;width:100%;display:flex;align-items:flex-end;justify-content:center;padding:10px 0;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:#fff;line-height:1;box-shadow:0 4px 12px rgba(0,0,0,.22),inset -6px 0 0 rgba(0,0,0,.2),inset 0 0 0 1px rgba(255,255,255,.08);overflow:hidden}
 .spine span{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
-.cover-wrap{position:relative;align-self:start}
-.cover{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:4px;background:var(--sunk);box-shadow:0 4px 12px rgba(0,0,0,.22),inset 0 0 0 1px rgba(255,255,255,.08)}
+.cover-wrap{position:relative;width:100%}
+.cover{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:4px;background:var(--sunk);box-shadow:0 4px 12px rgba(0,0,0,.22)}
 .cover-wrap .spine{display:none}
 .cover-wrap.nocover .cover{display:none}
 .cover-wrap.nocover .spine{display:flex}
@@ -283,8 +296,10 @@ footer.site h2{font-size:1.5rem}
   .chip{min-height:40px}
   .controls select{flex:1 1 auto;min-height:40px}
   .count{width:100%;margin-left:0}
-  .bookcard{grid-template-columns:44px 1fr;gap:12px}
-  .spine{min-height:90px;font-size:.66rem}
+  .bk-head{grid-template-columns:72px 1fr;gap:12px}
+  .spine{font-size:.6rem}
+  .order{columns:1;padding:0 12px 10px}
+  .orderbox summary .c .long{display:none}
   .panel{position:fixed;left:0;right:0;bottom:calc(62px + env(safe-area-inset-bottom,0px));z-index:22;max-height:42vh;overflow:auto;
     border-radius:14px 14px 0 0;border-bottom:0;box-shadow:0 -8px 28px rgba(0,0,0,.25);
     padding:14px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
@@ -1098,7 +1113,7 @@ const ord=n=>n+(n%100>=11&&n%100<=13?"th":({1:"st",2:"nd",3:"rd"}[n%10]||"th"));
 /* Covers come from Open Library by ISBN. ?default=false makes a missing cover return an error
    instead of a blank image, so the card falls back to the coloured spine. */
 const coverHTML=b=>{const spine=`<div class="spine" style="background:${b.col}"><span>${esc(b.abbr)}</span></div>`;
- return b.isbn?`<div class="cover-wrap">${spine}<img class="cover" src="https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg?default=false"${b.coverId?` data-alt="https://covers.openlibrary.org/b/id/${b.coverId}-M.jpg?default=false"`:""} alt="Cover of ${esc(b.title)}" loading="lazy" decoding="async" width="64" height="96"></div>`:spine};
+ return b.isbn?`<div class="cover-wrap">${spine}<img class="cover" src="https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg?default=false"${b.coverId?` data-alt="https://covers.openlibrary.org/b/id/${b.coverId}-M.jpg?default=false"`:""} alt="Cover of ${esc(b.title)}" loading="lazy" decoding="async" width="84" height="126"></div>`:spine};
 /* If the ISBN lookup fails, try the Open Library cover ID once before falling back to the spine */
 const noCover=img=>{if(img.dataset.alt){const a=img.dataset.alt;delete img.dataset.alt;img.src=a;return}img.closest(".cover-wrap")?.classList.add("nocover")};
 document.addEventListener("error",e=>{if(e.target.classList?.contains("cover"))noCover(e.target)},true);
@@ -1107,8 +1122,9 @@ let bookSer=store.get("maasBookSer","all");
 function renderBooks(){
  const v=$("#view");store.set("maasBookSer",bookSer);
  const inSer=s=>bookSer==="all"||bookSer===s;
- const order=BOOKLIST.map((b,i)=>`<li class="${inSer(b.s)?"":"dim"}" style="border-top:3px solid ${SERCOL[b.s]}"><span class="n">Read ${ord(i+1)} · ${esc(SERIES[b.s].short)} ${b.n}</span><b>${esc(b.title)}</b>${b.year}</li>`)
-  .concat(UPCOMING.map(u=>`<li class="soon ${inSer(u.s)?"":"dim"}" style="border-top:3px solid ${SERCOL[u.s]}"><span class="n">Coming · ${esc(SERIES[u.s].short)}</span><b>${esc(u.title)}</b>${esc(u.date)}</li>`));
+ const order=BOOKLIST.map((b,i)=>[b,i]).filter(([b])=>inSer(b.s)).map(([b,i])=>`<li><span class="n">${i+1}</span><span class="d" style="background:${SERCOL[b.s]}"></span><span class="ti"><button class="lnk" data-go="book:${b.c}">${esc(b.title)}</button></span><span class="y">${b.year}</span></li>`)
+  .concat(UPCOMING.filter(u=>inSer(u.s)).map(u=>`<li class="soon"><span class="n">·</span><span class="d" style="background:${SERCOL[u.s]}"></span><span class="ti">${esc(u.title)}</span><span class="y">${u.iso?u.iso.slice(0,4):"TBA"}</span></li>`));
+ const orderOpen=store.get("maasOrderOpen",false);
  const days=Math.ceil((new Date(UPCOMING[0].iso+"T00:00:00")-new Date())/864e5);
  const news=`<div class="newsgrid">
   <div class="news"><span class="when">Out now · 27 Oct 2026</span><b>A Court of Splintered Harmony</b><span>ACOTAR 6 opens the Valkyrie Cycle, Movement I.</span></div>
@@ -1122,15 +1138,17 @@ function renderBooks(){
  ${news}
  <p class="note"><b>Only read ACOTAR?</b> You're fine to keep going, but read all three Crescent City books before A Court of Splintered Harmony, and Throne of Glass before A Court of Forgotten Melody.</p>
  <div class="controls" role="group" aria-label="Filter by series">${serChips}</div>
- <ol class="order">${order.join("")}</ol>
+ <details class="orderbox" id="orderbox"${orderOpen?" open":""}><summary><span class="t">Reading order</span><span class="c"><span class="long">${bookSer==="all"?"All series, interleaved":esc(SERIES[bookSer].name)} · </span>${order.length} books</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><ol class="order">${order.join("")}</ol></details>
  ${groups.map(s=>`<div class="group-h"><h3>${sw(s)}${esc(SERIES[s].name)}</h3><span>${esc(SERIES[s].world)}</span></div>
  <div class="grid wide">${BOOKLIST.filter(b=>b.s===s).map(b=>{const key="bk-"+b.c,i=BIDX[b.c];
   const prem=b.plot2?`<p class="bk-plot">${esc(b.plot)}</p>${sp(hideG(b.plotG),key+"-p2",`<p class="bk-plot">${esc(b.plot2)}</p>`,"div")}`:`<p class="bk-plot">${esc(b.plot)}</p>`;
-  const body=`<p class="eyebrow">Read ${ord(i+1)} · ${esc(SERIES[b.s].short)} ${b.n} · ${b.year}${b.fresh?' · <span class="pill p-good">New</span>':""}</p><h3>${esc(b.title)}</h3><p class="trope">${esc(b.trope)}</p>${prem}${b.note?`<p class="bk-plot" style="color:var(--muted);font-style:italic">${esc(b.note)}</p>`:""}<span class="lbl" style="margin-top:10px">Main characters</span><div class="castlist">${b.cast.map(id=>sp(hideStart(C[id]?.b),key+"-c-"+id,charLink(id))).join("")}</div>`;
-  return `<article class="card" id="b-${b.c}"><div class="bookcard">${coverHTML(b)}<div>${body}
-  <div class="bk-actions"><a class="buybtn" href="${affUrl(b.title)}" target="_blank" rel="${affRel}">${CART}Buy the book</a><button class="buybtn ghost" data-go="recap:${b.c}">Recap</button></div></div></div></article>`}).join("")}
-  ${UPCOMING.filter(u=>u.s===s).map(u=>`<article class="card" id="b-${u.c}" style="border-style:dashed"><div class="bookcard"><div class="spine" style="background:#7a7890"><span>${esc(u.c==="ACOFM"?"ACOFM":u.title)}</span></div><div><p class="eyebrow">Coming · ${esc(u.date)}</p><h3>${esc(u.title)}</h3><p class="trope">${esc(u.sub)}</p>${sp(hideG(u.g),"bk-"+u.c,`<p class="bk-plot">${esc(u.note)}</p>`,"div")}${u.buy?`<div class="bk-actions"><a class="buybtn" href="${affUrl(u.title)}" target="_blank" rel="${affRel}">${CART}Pre-order</a></div>`:""}</div></div></article>`).join("")}</div>`).join("")}`;
+  const head=`<div class="bk-head">${coverHTML(b)}<div><p class="eyebrow">Read ${ord(i+1)} · ${esc(SERIES[b.s].short)} ${b.n} · ${b.year}${b.fresh?' · <span class="pill p-good">New</span>':""}</p><h3>${esc(b.title)}</h3><p class="trope">${esc(b.trope)}</p></div></div>`;
+  const body=`${prem}${b.note?`<p class="bk-plot" style="color:var(--muted);font-style:italic">${esc(b.note)}</p>`:""}<span class="lbl" style="margin-top:10px">Main characters</span><div class="castlist">${b.cast.map(id=>sp(hideStart(C[id]?.b),key+"-c-"+id,charLink(id))).join("")}</div>`;
+  return `<article class="card" id="b-${b.c}">${head}${body}
+  <div class="bk-actions"><a class="buybtn" href="${affUrl(b.title)}" target="_blank" rel="${affRel}">${CART}Buy the book</a><button class="buybtn ghost" data-go="recap:${b.c}">Recap</button></div></article>`}).join("")}
+  ${UPCOMING.filter(u=>u.s===s).map(u=>`<article class="card" id="b-${u.c}" style="border-style:dashed"><div class="bk-head"><div class="spine" style="background:#7a7890"><span>${esc(u.c==="ACOFM"?"ACOFM":u.c==="ACO8"?"ACOTAR 8":"CC 4")}</span></div><div><p class="eyebrow">Coming · ${esc(u.date)}</p><h3>${esc(u.title)}</h3><p class="trope">${esc(u.sub)}</p></div></div>${sp(hideG(u.g),"bk-"+u.c,`<p class="bk-plot">${esc(u.note)}</p>`,"div")}${u.buy?`<div class="bk-actions"><a class="buybtn" href="${affUrl(u.title)}" target="_blank" rel="${affRel}">${CART}Pre-order</a></div>`:""}</article>`).join("")}</div>`).join("")}`;
  v.querySelectorAll("[data-bs]").forEach(b=>b.addEventListener("click",()=>{bookSer=b.dataset.bs;renderBooks()}));
+ $("#orderbox").addEventListener("toggle",e=>store.set("maasOrderOpen",e.target.open));
  v.querySelectorAll("img.cover").forEach(i=>{if(i.complete&&i.naturalWidth<10&&i.currentSrc)noCover(i)});
 }
 
