@@ -140,8 +140,8 @@ a.lnk,button.lnk{color:var(--accent);background:none;border:0;padding:0;font:inh
 .order li.soon .ti{font-style:italic;color:var(--muted)}
 .order button.lnk{text-decoration:none;color:var(--fg);text-align:left}
 .poster{margin:4px 14px 14px;display:grid;gap:6px}
-.poster a{display:block;border-radius:8px;overflow:hidden;border:1px solid var(--line);max-width:560px}
-.poster img{display:block;width:100%;height:auto}
+.poster a{display:block;border-radius:8px;overflow:hidden;border:1px solid var(--line);max-width:560px;background:#120f28}
+.poster canvas{display:block;width:100%;height:auto}
 .poster figcaption{font-size:.85rem;color:var(--muted)}
 .poster[hidden]{display:none!important}
 .order button.lnk:hover{color:var(--accent);text-decoration:underline}
@@ -1124,12 +1124,53 @@ const coverHTML=b=>{const spine=`<div class="spine" style="background:${b.col}">
 const noCover=img=>{if(img.dataset.alt){const a=img.dataset.alt;delete img.dataset.alt;img.src=a;return}img.closest(".cover-wrap")?.classList.add("nocover")};
 document.addEventListener("error",e=>{if(e.target.classList?.contains("cover"))noCover(e.target)},true);
 document.addEventListener("load",e=>{const t=e.target;if(t.classList?.contains("cover")&&t.naturalWidth<10)noCover(t)},true);
-/* Reading-order poster, saved in the repo next to index.html (made with reading-order.html).
-   A single-series filter looks for that series' poster first, then the all-series one; if neither exists it stays hidden. */
-const POSTER="maasverse-reading-order";
-const posterHTML=()=>{const one=bookSer!=="all",main=POSTER+".png",src=one?`${POSTER}-${bookSer}.png`:main;
- return `<figure class="poster" id="poster"><a href="${src}" target="_blank" rel="noopener" id="poster-a"><img src="${src}" ${one?`data-alt="${main}"`:""} alt="${one?esc(SERIES[bookSer].name):"Maasverse"} reading order poster with book covers" loading="lazy" decoding="async" id="poster-img"></a><figcaption>Tap the poster to open it full size, or save it to share.</figcaption></figure>`};
-document.addEventListener("error",e=>{const t=e.target;if(t.id!=="poster-img")return;if(t.dataset.alt){const a=t.dataset.alt;delete t.dataset.alt;t.src=a;document.getElementById("poster-a").href=a;return}document.getElementById("poster").hidden=true},true);
+/* Reading-order poster, drawn live on a canvas with Open Library covers (same design as reading-order.html).
+   Covers that don't load are drawn as coloured spines. Built only when the dropdown is open. */
+const posterHTML=()=>`<figure class="poster" id="poster"><a href="reading-order.html" target="_blank" rel="noopener" aria-label="Open the reading order poster page"><canvas id="poster-cv" aria-label="${bookSer==="all"?"Maasverse":esc(SERIES[bookSer].name)} reading order poster with book covers"></canvas></a><figcaption>Tap the poster to open it full size, where you can download it as an image.</figcaption></figure>`;
+const PCOL={tog:"#d08a45",acotar:"#a48cf0",cc:"#3fc1b2"};
+const PIMG={};
+function posterImg(b){if(b.c in PIMG)return PIMG[b.c];
+ PIMG[b.c]=new Promise(res=>{const tryLoad=(src,next)=>{const i=new Image();i.onload=()=>res(i.naturalWidth>10?i:null);i.onerror=()=>next?tryLoad(next):res(null);i.src=src};
+  tryLoad(`https://covers.openlibrary.org/b/isbn/${b.isbn}-L.jpg?default=false`,b.coverId?`https://covers.openlibrary.org/b/id/${b.coverId}-L.jpg?default=false`:null)});
+ return PIMG[b.c]}
+function drawPoster(cv,sel,imgs){
+ const ctx=cv.getContext("2d");const F={mark:'"Cinzel", Georgia, serif',disp:'"Cormorant Garamond", Georgia, serif',body:'"Alegreya Sans", system-ui, sans-serif'};
+ const W=1500,M=70,COLS=5,GAP=34,CW=(W-2*M-(COLS-1)*GAP)/COLS,CH=CW*1.5,TXT=104,RGAP=40,HEAD=300,FOOT=130;
+ const list=BOOKLIST.filter(b=>sel==="all"||b.s===sel),up=UPCOMING.filter(u=>sel==="all"||u.s===sel);
+ const items=[...list.map(b=>({b})),...up.map(u=>({u}))];
+ const rows=Math.ceil(items.length/COLS),H=HEAD+rows*(CH+TXT)+(rows-1)*RGAP+FOOT;cv.width=W;cv.height=H;
+ const rr=(x,y,w,h,r)=>{ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()};
+ const wrap=(t,mw,font)=>{ctx.font=font;const ws=t.split(" "),L=[];let c="";for(const w of ws){const x=c?c+" "+w:w;if(ctx.measureText(x).width>mw&&c){L.push(c);c=w}else c=x}if(c)L.push(c);if(L.length>2){L.length=2;let l=L[1];while(ctx.measureText(l+"…").width>mw&&l.length)l=l.slice(0,-1);L[1]=l+"…"}return L};
+ const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,"#1c1840");bg.addColorStop(.45,"#120f28");bg.addColorStop(1,"#0b0a17");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;for(let i=0;i<260;i++){const x=rnd()*W,y=rnd()*H,r=rnd()*1.6+.3;ctx.globalAlpha=.25+rnd()*.55;ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill()}ctx.globalAlpha=1;
+ ctx.textAlign="center";ctx.textBaseline="alphabetic";
+ ctx.fillStyle="#bdb4dc";ctx.font=`500 22px ${F.mark}`;ctx.fillText("THE READER'S ATLAS",W/2,86);
+ ctx.fillStyle="#f3eefc";ctx.font=`700 92px ${F.disp}`;ctx.fillText(sel==="all"?"The Maasverse":SERIES[sel].name,W/2,178);
+ ctx.fillStyle="#e3c27a";ctx.font=`600 italic 40px ${F.disp}`;ctx.fillText(sel==="all"?"Reading order, all three series interleaved":"Reading order",W/2,228);
+ if(sel==="all"){ctx.font=`500 21px ${F.body}`;const ks=["tog","acotar","cc"],ws=ks.map(k=>ctx.measureText(SERIES[k].name).width+40),tot=ws.reduce((a,b)=>a+b,0)+60;let x=W/2-tot/2;ctx.textAlign="left";
+  ks.forEach((k,i)=>{ctx.fillStyle=PCOL[k];ctx.beginPath();ctx.arc(x+10,264,9,0,7);ctx.fill();ctx.fillStyle="#d6d0ea";ctx.fillText(SERIES[k].name,x+28,271);x+=ws[i]+30});ctx.textAlign="center"}
+ items.forEach((it,i)=>{const r=Math.floor(i/COLS),c=i%COLS,inRow=Math.min(COLS,items.length-r*COLS),x=M+(COLS-inRow)*(CW+GAP)/2+c*(CW+GAP),y=HEAD+r*(CH+TXT+RGAP);
+  if(it.b){const b=it.b,img=imgs[b.c],col=PCOL[b.s];
+   ctx.save();ctx.shadowColor="rgba(0,0,0,.55)";ctx.shadowBlur=28;ctx.shadowOffsetY=12;rr(x,y,CW,CH,8);ctx.fillStyle="#000";ctx.fill();ctx.restore();
+   if(img){ctx.save();rr(x,y,CW,CH,8);ctx.clip();const k=Math.max(CW/img.naturalWidth,CH/img.naturalHeight),dw=img.naturalWidth*k,dh=img.naturalHeight*k;ctx.drawImage(img,x+(CW-dw)/2,y+(CH-dh)/2,dw,dh);ctx.restore()}
+   else{rr(x,y,CW,CH,8);ctx.fillStyle=b.col;ctx.fill();ctx.save();ctx.translate(x+CW/2,y+CH/2);ctx.rotate(-Math.PI/2);ctx.fillStyle="rgba(255,255,255,.92)";const f=`600 26px ${F.mark}`;const L=wrap(b.title,CH-60,f);ctx.font=f;ctx.textBaseline="middle";L.forEach((l,k)=>ctx.fillText(l,0,(k-(L.length-1)/2)*34));ctx.restore();ctx.textBaseline="alphabetic"}
+   rr(x,y,CW,CH,8);ctx.strokeStyle="rgba(255,255,255,.12)";ctx.lineWidth=2;ctx.stroke();
+   ctx.beginPath();ctx.arc(x+8,y+8,30,0,7);ctx.fillStyle=col;ctx.fill();ctx.lineWidth=4;ctx.strokeStyle="#0e0d1c";ctx.stroke();
+   ctx.fillStyle="#0e0d1c";ctx.font=`600 26px ${F.mark}`;ctx.textBaseline="middle";ctx.fillText(String(sel==="all"?BIDX[b.c]+1:b.n),x+8,y+10);ctx.textBaseline="alphabetic";
+   const L=wrap(b.title,CW,`700 28px ${F.disp}`);ctx.fillStyle="#f3eefc";L.forEach((l,k)=>ctx.fillText(l,x+CW/2,y+CH+36+k*30));
+   ctx.fillStyle=col;ctx.font=`500 16px ${F.mark}`;ctx.fillText(`${SERIES[b.s].short.toUpperCase()} ${b.n} · ${b.year}`,x+CW/2,y+CH+36+L.length*30+4);
+  } else {const u=it.u,col=PCOL[u.s],d=u.iso?new Date(u.iso+"T00:00:00").toLocaleDateString("en-AU",{month:"short",year:"numeric"}):"TBA";
+   rr(x,y,CW,CH,8);ctx.fillStyle="rgba(255,255,255,.04)";ctx.fill();ctx.setLineDash([12,10]);ctx.lineWidth=3;ctx.strokeStyle=col;ctx.stroke();ctx.setLineDash([]);
+   ctx.fillStyle=col;ctx.font=`600 22px ${F.mark}`;ctx.fillText("COMING",x+CW/2,y+CH/2-8);ctx.fillStyle="#d6d0ea";ctx.font=`600 italic 34px ${F.disp}`;ctx.fillText(d,x+CW/2,y+CH/2+34);
+   const L=wrap(u.title,CW,`700 28px ${F.disp}`);ctx.fillStyle="#cfc8e6";L.forEach((l,k)=>ctx.fillText(l,x+CW/2,y+CH+36+k*30));
+   ctx.fillStyle=col;ctx.font=`500 16px ${F.mark}`;ctx.fillText(SERIES[u.s].short.toUpperCase(),x+CW/2,y+CH+36+L.length*30+4)}});
+ ctx.fillStyle="#bdb4dc";ctx.font=`500 22px ${F.mark}`;ctx.fillText("READERSATLAS.COM/MAASVERSE  ·  @READERS.ATLAS",W/2,H-70);
+ ctx.fillStyle="#8a84a8";ctx.font=`400 18px ${F.body}`;ctx.fillText("Unofficial fan guide. Covers via Open Library. Not affiliated with Sarah J. Maas or Bloomsbury.",W/2,H-38);
+}
+function buildPoster(){const cv=document.getElementById("poster-cv");if(!cv||cv.dataset.built)return;cv.dataset.built="1";const sel=bookSer,imgs={};
+ drawPoster(cv,sel,imgs);
+ BOOKLIST.filter(b=>sel==="all"||b.s===sel).forEach(b=>posterImg(b).then(img=>{if(img){imgs[b.c]=img;if(document.getElementById("poster-cv")===cv)drawPoster(cv,sel,imgs)}}));
+ if(document.fonts)document.fonts.ready.then(()=>{if(document.getElementById("poster-cv")===cv)drawPoster(cv,sel,imgs)})}
 let bookSer=store.get("maasBookSer","all");
 function renderBooks(){
  const v=$("#view");store.set("maasBookSer",bookSer);
@@ -1160,7 +1201,8 @@ function renderBooks(){
   <div class="bk-actions"><a class="buybtn" href="${affUrl(b.title)}" target="_blank" rel="${affRel}">${CART}Buy the book</a><button class="buybtn ghost" data-go="recap:${b.c}">Recap</button></div></article>`}).join("")}
   ${UPCOMING.filter(u=>u.s===s).map(u=>`<article class="card" id="b-${u.c}" style="border-style:dashed"><div class="bk-head"><div class="spine" style="background:#7a7890"><span>${esc(u.c==="ACOFM"?"ACOFM":u.c==="ACO8"?"ACOTAR 8":"CC 4")}</span></div><div><p class="eyebrow">Coming · ${esc(u.date)}</p><h3>${esc(u.title)}</h3><p class="trope">${esc(u.sub)}</p></div></div>${sp(hideG(u.g),"bk-"+u.c,`<p class="bk-plot">${esc(u.note)}</p>`,"div")}${u.buy?`<div class="bk-actions"><a class="buybtn" href="${affUrl(u.title)}" target="_blank" rel="${affRel}">${CART}Pre-order</a></div>`:""}</article>`).join("")}</div>`).join("")}`;
  v.querySelectorAll("[data-bs]").forEach(b=>b.addEventListener("click",()=>{bookSer=b.dataset.bs;renderBooks()}));
- $("#orderbox").addEventListener("toggle",e=>store.set("maasOrderOpen",e.target.open));
+ $("#orderbox").addEventListener("toggle",e=>{store.set("maasOrderOpen",e.target.open);if(e.target.open)buildPoster()});
+ if(orderOpen)buildPoster();
  v.querySelectorAll("img.cover").forEach(i=>{if(i.complete&&i.naturalWidth<10&&i.currentSrc)noCover(i)});
 }
 
